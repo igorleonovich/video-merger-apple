@@ -6,6 +6,7 @@
 //
 
 import PhotosUI
+import ProgressHUD
 import UIKit
 
 final class PickerViewController: BaseViewController {
@@ -71,7 +72,6 @@ final class PickerViewController: BaseViewController {
     fileprivate func saveVideoLocally(_ result: PHPickerResult) {
         let movie = UTType.movie.identifier // "com.apple.quicktime-movie"
         let itemProvider = result.itemProvider
-        // TODO: ProgressHUD
 
         group.enter()
 
@@ -129,6 +129,8 @@ extension PickerViewController: PHPickerViewControllerDelegate {
         
         picker.dismiss(animated: true) {
             
+            ProgressHUD.show()
+            
             DispatchQueue.global().sync { [weak self] in
                 do {
                     try self?.core.localFileManager.removeAllFiles()
@@ -158,6 +160,8 @@ extension PickerViewController: PHPickerViewControllerDelegate {
                     
                     print("[PICKER] Picker has closed\n")
                     self.picker = nil
+                    
+                    ProgressHUD.dismiss()
                 }
             }
         }
