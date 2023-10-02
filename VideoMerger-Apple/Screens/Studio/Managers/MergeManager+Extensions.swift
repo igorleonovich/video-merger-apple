@@ -7,7 +7,7 @@
 //
 
 //
-//  VideoManager+Extensions.swift
+//  MergeManager+Extensions.swift
 //  VideoMerger-Apple
 //
 //  Created by Igor Leonovich on 02/10/2023.

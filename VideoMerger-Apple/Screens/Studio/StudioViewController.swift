@@ -11,7 +11,8 @@ import UIKit
 
 final class StudioViewController: BaseViewController {
 
-    private weak var core: Core!
+    private weak var localFileManager: LocalFileManager!
+    private var mergeManager: MergeManager!
     
     private var player: AVQueuePlayer!
     private var videoLooper: AVPlayerLooper!
@@ -21,15 +22,16 @@ final class StudioViewController: BaseViewController {
     private var selectedVideoIndex = 0
     private var selectedFilter: ImageFilter = .inversion
     
-    private var asset: AVAsset!
     private var inputVideoURLs = [URL]()
     private var outputVideoURLs = [URL]()
     
     private var filteringGroup: DispatchGroup!
     
-    init(videoURLs: [URL], core: Core) {
+    private var fixedPanelsHeight: CGFloat = 100
+    
+    init(videoURLs: [URL], localFileManager: LocalFileManager) {
         self.inputVideoURLs = videoURLs
-        self.core = core
+        self.localFileManager = localFileManager
         super.init()
     }
     
@@ -40,39 +42,96 @@ final class StudioViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupPlayerView()
+        mergeManager = MergeManager(localFileManager: localFileManager)
         
-        /* INFO: Applying filter before merge for displaying it in preview and for avoiding filtering of added black space in case of different aspect ratio */
-        Log.standard("\n[STUDIO] Filtering started...")
+        setupSelectedVideo()
+        setupPreview()
+        setupFilters()
         
-        filteringGroup = DispatchGroup()
-        
-        inputVideoURLs.forEach { videoURL in
-            applyFilterAndExport(url: videoURL)
-        }
-        
-        filteringGroup.notify(queue: .main) { [weak self] in
-            guard let self = self else { return }
-            Log.standard("\n[STUDIO] Merging started...")
-            mergeAndExport()
-        }
+//        setupPlayerView()
+//
+//        /* INFO: Applying filter before merge for displaying it in preview and for avoiding filtering of added black space in case of different aspect ratio */
+//        Log.standard("[STUDIO] Filtering started...")
+//
+//        filteringGroup = DispatchGroup()
+//
+//        inputVideoURLs.forEach { videoURL in
+//            applyFilterAndExport(url: videoURL)
+//        }
+//
+//        filteringGroup.notify(queue: .main) { [weak self] in
+//            guard let self = self else { return }
+//            Log.standard("[STUDIO] Merge started...")
+//            mergeAndExport()
+//        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        guard isPlayerSetup == false else {
-            return
-        }
-        // INFO: Prevent wrong player frame size
-        if let url = inputVideoURLs.first {
-            setupPlayer(with: url)
-        } else {
-            Log.error("\n[STUDIO] Can't load initial video into player")
-        }
+//        guard isPlayerSetup == false else {
+//            return
+//        }
+//        // INFO: Prevent wrong player frame size
+//        if let url = inputVideoURLs.first {
+//            setupPlayer(with: url)
+//        } else {
+//            Log.error("[STUDIO] Can't load initial video into player")
+//        }
     }
     
     // MARK: - Setup
+    
+    private func setupSelectedVideo() {
+        
+        let selectedVideoView = UIView()
+        view.addSubview(selectedVideoView)
+        selectedVideoView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.height.equalTo(fixedPanelsHeight)
+        }
+        
+        let selectedVideoViewController = SelectedVideoViewController()
+        add(child: selectedVideoViewController, containerView: selectedVideoView)
+        
+        selectedVideoView.backgroundColor = .orange
+    }
+    
+    private func setupPreview() {
+        
+        let previewView = UIView()
+        view.addSubview(previewView)
+        previewView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(fixedPanelsHeight)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-fixedPanelsHeight)
+        }
+        
+        let previewViewController = PreviewViewController()
+        add(child: previewViewController, containerView: previewView)
+        
+        previewViewController.view.backgroundColor = .green
+    }
+    
+    private func setupFilters() {
+        
+        let filtersView = UIView()
+        view.addSubview(filtersView)
+        filtersView.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.height.equalTo(fixedPanelsHeight)
+        }
+        
+        let filtersViewController = FiltersViewController()
+        add(child: filtersViewController, containerView: filtersView)
+        
+        filtersViewController.view.backgroundColor = .purple
+    }
     
     private func setupPlayerView() {
         
@@ -86,7 +145,7 @@ final class StudioViewController: BaseViewController {
     
     private func setupPlayer(with url: URL) {
         
-        asset = AVAsset(url: url)
+        let asset = AVAsset(url: url)
         let item = AVPlayerItem(asset: asset)
         player = AVQueuePlayer(playerItem: item)
         // TODO: Remove hardcode
@@ -104,10 +163,6 @@ final class StudioViewController: BaseViewController {
         
         isPlayerSetup = true
     }
-    
-    func removePlayer() {
-         playerLayer?.removeFromSuperlayer()
-     }
     
     // MARK: - Actions
     
@@ -136,29 +191,21 @@ final class StudioViewController: BaseViewController {
         exporter?.videoComposition = videoComposition
         exporter?.outputFileType = .mp4
         
-        let outputURL = core.localFileManager.fileURL(fileName: "\(url.fileName).\(self.selectedFilter.rawValue)", fileFormat: url.pathExtension)
+        let outputURL = localFileManager.fileURL(fileName: "\(url.fileName).\(self.selectedFilter.rawValue)", fileFormat: url.pathExtension)
         exporter?.outputURL = outputURL
+        
         exporter?.exportAsynchronously(completionHandler: { [weak self] in
             guard let self = self, exporter?.status == .completed else {
-                Log.error("\n[STUDIO] Export failed: \(exporter?.error)")
+                Log.error("[STUDIO] Export failed: \(exporter?.error)")
                 return
             }
             outputVideoURLs.append(outputURL)
-            
-            Log.standard("\n[STUDIO] Export filtered video done:\n\(outputURL)")
+            Log.standard("[STUDIO] Export filtered video done:\n\(outputURL)")
             
             DispatchQueue.main.async { [weak self] in
-                
-                self?.removePlayer()
                 // TODO: Pass item instead of url?
+                // TODO: Avoid blink from player switching
                 self?.setupPlayer(with: outputURL)
-                
-//                self?.player.removeAllItems()
-//                [item].forEach{
-//                    self?.player.insert($0, after: nil)
-//                }
-//                self?.player.seek(to: .zero)
-//                self?.player.play()
             }
             
             self.filteringGroup.leave()
@@ -168,13 +215,13 @@ final class StudioViewController: BaseViewController {
     private func mergeAndExport() {
         
         let assets = outputVideoURLs.map({ AVAsset(url: $0) })
-        core.videoManager.merge(arrayVideos: assets) { [weak self] mergedVideoURL, error in
+        mergeManager.merge(arrayVideos: assets) { [weak self] mergedVideoURL, error in
             if let error = error {
-                Log.error("\n[STUDIO] Merge failed:\n\(error)")
+                Log.error("[STUDIO] Merge failed:\n\(error)")
             } else if let mergedVideoURL = mergedVideoURL {
-                Log.standard("\n[STUDIO] Merge done:\n\(mergedVideoURL)")
+                Log.standard("[STUDIO] Merge done:\n\(mergedVideoURL)")
             } else {
-                Log.error("\n[STUDIO] Merged video url creating failed")
+                Log.error("[STUDIO] Merged video url creating failed")
             }
         }
     }

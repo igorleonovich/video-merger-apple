@@ -7,7 +7,7 @@
 //
 
 //
-//  VideoManager.swift
+//  MergeManager.swift
 //  VideoMerger-Apple
 //
 //  Created by Igor Leonovich on 02/10/2023.
@@ -16,27 +16,21 @@
 import AVFoundation
 import UIKit
 
-final class VideoManager {
+final class MergeManager {
     
-    static let shared = VideoManager()
-    
-    weak var core: Core?
-    
-    lazy var outputURL: URL? = {
-        return core?.localFileManager.fileURL(fileName: "output", fileFormat: "mp4")
-    }()
-
-    let defaultSize = CGSize(width: 720, height: 1280) // Default video size
-    var videoDuration = 30.0 // Duration of output video when merging videos & images
-
+    private weak var localFileManager: LocalFileManager!
     
     typealias Completion = (URL?, Error?) -> Void
     
-    //
-    // Merge array videos
-    //
+    // MARK: - Life Cycle
     
-    func merge(arrayVideos:[AVAsset], completion:@escaping Completion) -> Void {
+    init(localFileManager: LocalFileManager) {
+        self.localFileManager = localFileManager
+    }
+    
+    // MARK: - Actions
+    
+    func merge(arrayVideos: [AVAsset], completion: @escaping Completion) -> Void {
         var insertTime = CMTime.zero
         var arrayLayerInstructions:[AVMutableVideoCompositionLayerInstruction] = []
 
@@ -47,7 +41,7 @@ final class VideoManager {
             return
         }
         
-        let silenceAsset = AVAsset(url:silenceURL)
+        let silenceAsset = AVAsset(url: silenceURL)
         let silenceSoundTrack = silenceAsset.tracks(withMediaType: AVMediaType.audio).first
         
         // Init composition
@@ -91,7 +85,7 @@ final class VideoManager {
                 
                 // Add instruction for video track
                 if let videoCompositionTrack = videoCompositionTrack {
-                    let layerInstruction = videoCompositionInstructionForTrack(track: videoCompositionTrack, asset: videoAsset, targetSize: defaultSize)
+                    let layerInstruction = videoCompositionInstructionForTrack(track: videoCompositionTrack, asset: videoAsset, targetSize: Constants.defaultVideoSize)
                     
                     // Hide video track before changing to new track
                     let endTime = CMTimeAdd(insertTime, duration)
@@ -117,17 +111,14 @@ final class VideoManager {
         // Main video composition
         let mainComposition = AVMutableVideoComposition()
         mainComposition.instructions = [mainInstruction]
-        mainComposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
-        mainComposition.renderSize = defaultSize
+        mainComposition.frameDuration = CMTimeMake(value: 1, timescale: Constants.frameDuration)
+        mainComposition.renderSize = Constants.defaultVideoSize
         
         // Export to file
-        guard let exportURL = core?.localFileManager.fileURL(fileName: "merged", fileFormat: "mp4") else {
-            Log.error("\n[STUDIO] Failed to create url for merged file")
-            return
-        }
+        let exportURL = localFileManager.fileURL(fileName: "merged", fileFormat: "mp4")
         
         // Remove file if existed
-        core?.localFileManager.removeFileIfExisted(exportURL)
+        localFileManager.removeFileIfExisted(exportURL)
         
         // Init exporter
         let exporter = AVAssetExportSession.init(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality)
@@ -148,9 +139,12 @@ final class VideoManager {
 
 // MARK: Private methods
 
-extension VideoManager {
+extension MergeManager {
     
-    private func videoCompositionInstructionForTrack(track: AVCompositionTrack?, asset: AVAsset, targetSize: CGSize) -> AVMutableVideoCompositionLayerInstruction {
+    private func videoCompositionInstructionForTrack(track: AVCompositionTrack?,
+                                                     asset: AVAsset,
+                                                     targetSize: CGSize) -> AVMutableVideoCompositionLayerInstruction {
+        
         guard let track = track else {
             return AVMutableVideoCompositionLayerInstruction()
         }
@@ -191,6 +185,7 @@ extension VideoManager {
     }
     
     private func orientationFromTransform(_ transform: CGAffineTransform) -> (orientation: UIImage.Orientation, isPortrait: Bool) {
+        
         var assetOrientation = UIImage.Orientation.up
         var isPortrait = false
         
@@ -217,6 +212,7 @@ extension VideoManager {
     }
     
     private func setOrientation(image:UIImage?, onLayer:CALayer, outputSize:CGSize) -> Void {
+        
         guard let image = image else { return }
 
         if image.imageOrientation == UIImage.Orientation.up {
@@ -237,6 +233,7 @@ extension VideoManager {
     }
     
     private func exportDidFinish(exporter: AVAssetExportSession?, videoURL:URL, completion: @escaping Completion) -> Void {
+        
         if exporter?.status == AVAssetExportSession.Status.completed {
             completion(videoURL,nil)
         }
@@ -244,12 +241,4 @@ extension VideoManager {
             completion(videoURL,exporter?.error)
         }
     }
-}
-
-
-struct VideoData {
-    var index: Int?
-    var image: UIImage?
-    var asset: AVAsset?
-    var isVideo = false
 }

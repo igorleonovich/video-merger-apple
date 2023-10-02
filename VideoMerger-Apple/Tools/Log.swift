@@ -10,10 +10,10 @@ import Foundation
 struct Log {
     
     static func standard(_ string: String) {
-        print("\n\(string)")
+        print("\n🟢 \(string)")
     }
     
     static func error(_ string: String) {
-        print("\n⭕️\n\(string)")
+        print("\n⭕️ \(string)")
     }
 }

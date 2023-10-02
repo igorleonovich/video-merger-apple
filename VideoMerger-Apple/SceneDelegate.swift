@@ -7,11 +7,11 @@
 
 import UIKit
 
-
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    private var core: Core!
+    
+    private var localFileManager: LocalFileManager!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -20,8 +20,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         self.window = window
-        core = Core()
-        window.rootViewController = UINavigationController(rootViewController: PickerViewController(core: core)) // Your initial view controller.
+        
+        // TODO: Use LoadingViewController?
+        localFileManager = LocalFileManager()
+        window.rootViewController = RootNavigationController(localFileManager: localFileManager)
         window.makeKeyAndVisible()
     }
 

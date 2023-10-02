@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 extension String {
     
     internal var localize: String {

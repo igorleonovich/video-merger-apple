@@ -22,7 +22,7 @@ final class LocalFileManager {
         do {
             try FileManager.default.removeItem(at: fileURL)
         } catch {
-            throw NSErrorDomain.init(string: "\n[LOCAL FILE MANAGER] Unable to remove data") as! Error
+            throw NSErrorDomain.init(string: "[LOCAL FILE MANAGER] Unable to remove data") as! Error
         }
     }
     
@@ -32,7 +32,7 @@ final class LocalFileManager {
                 try FileManager.default.removeItem(atPath: url.path)
             }
             catch {
-                Log.error("\n[LOCAL FILE MANAGER] Failed to delete file")
+                Log.error("[LOCAL FILE MANAGER] Failed to delete file")
             }
         }
     }
@@ -48,7 +48,7 @@ final class LocalFileManager {
                 try FileManager.default.removeItem(at: fileURL)
             }
         } catch  {
-            throw NSErrorDomain.init(string: "\n[LOCAL FILE MANAGER] Unable to remove all data") as! Error
+            throw NSErrorDomain.init(string: "[LOCAL FILE MANAGER] Unable to remove all data") as! Error
         }
     }
 

@@ -11,7 +11,7 @@ import UIKit
 
 final class PickerViewController: BaseViewController {
     
-    private weak var core: Core!
+    private weak var localFileManager: LocalFileManager!
     
     private var savingLocallyGroup: DispatchGroup!
     private var videoURLs = [URL]()
@@ -21,9 +21,9 @@ final class PickerViewController: BaseViewController {
     
     // MARK: Life Cycle
     
-    init(core: Core) {
+    init(localFileManager: LocalFileManager) {
         super.init()
-        self.core = core
+        self.localFileManager = localFileManager
     }
     
     required init?(coder: NSCoder) {
@@ -61,7 +61,7 @@ final class PickerViewController: BaseViewController {
             picker.delegate = self
             
             present(picker, animated: true) {
-                Log.standard("\n[PICKER] Picker opened")
+                Log.standard("[PICKER] Picker opened")
             }
         }
     }
@@ -90,13 +90,13 @@ final class PickerViewController: BaseViewController {
     private func saveFile(externalURL: URL) -> URL? {
         
         do {
-            var localURL = core.localFileManager.fileURL(fileName: externalURL.fileName, fileFormat: externalURL.pathExtension)
-            if core.localFileManager.isFileExist(fileName: localURL.fileName, fileFormat: localURL.pathExtension) {
+            var localURL = localFileManager.fileURL(fileName: externalURL.fileName, fileFormat: externalURL.pathExtension)
+            if localFileManager.isFileExist(fileName: localURL.fileName, fileFormat: localURL.pathExtension) {
                 localURL = urlWithChangedName(url: externalURL)
             }
             
             try FileManager.default.copyItem(at: externalURL, to: localURL)
-            Log.standard("\n[PICKER] Saved locally at:\n\(localURL)")
+            Log.standard("[PICKER] Saved locally at:\n\(localURL)")
             
             return localURL
         } catch {
@@ -117,7 +117,7 @@ final class PickerViewController: BaseViewController {
         filenameDuplicationsCounter += 1
         let newFileName = "\(url.fileName)-\(filenameDuplicationsCounter)"
         
-        return core.localFileManager.fileURL(fileName: newFileName, fileFormat: url.pathExtension)
+        return localFileManager.fileURL(fileName: newFileName, fileFormat: url.pathExtension)
     }
 }
 
@@ -132,9 +132,9 @@ extension PickerViewController: PHPickerViewControllerDelegate {
             
             DispatchQueue.global().sync { [weak self] in
                 do {
-                    try self?.core.localFileManager.removeAllFiles()
+                    try self?.localFileManager.removeAllFiles()
                 } catch {
-                    Log.error("\n[PICKER] Error:\n\(error)")
+                    Log.error("[PICKER] Error:\n\(error)")
                 }
             }
             
@@ -153,11 +153,12 @@ extension PickerViewController: PHPickerViewControllerDelegate {
                 self.savingLocallyGroup.notify(queue: .main) { [weak self] in
                     
                     guard let self = self else { return }
-                    let studioViewController = StudioViewController(videoURLs: self.videoURLs, core: core)
+                    let studioViewController = StudioViewController(videoURLs: self.videoURLs,
+                                                                    localFileManager: localFileManager)
                     // COMMENT: Ideally it should be handled by router
                     self.navigationController?.pushViewController(studioViewController, animated: true)
                     
-                    Log.standard("\n[PICKER] Picker has closed")
+                    Log.standard("[PICKER] Picker has closed")
                     self.picker = nil
                     
                     ProgressHUD.dismiss()

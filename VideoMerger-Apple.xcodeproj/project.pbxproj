@@ -19,13 +19,17 @@
 		697B5C7E2ACAB85800E01711 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C7D2ACAB85800E01711 /* LocalFileManager.swift */; };
 		697B5C812ACABA1C00E01711 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C802ACABA1C00E01711 /* String+Extensions.swift */; };
 		697B5C832ACAC6CA00E01711 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C822ACAC6CA00E01711 /* URL+Extensions.swift */; };
-		697B5C862ACAD45600E01711 /* VideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C852ACAD45600E01711 /* VideoManager.swift */; };
+		697B5C862ACAD45600E01711 /* MergeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C852ACAD45600E01711 /* MergeManager.swift */; };
 		697B5C882ACAD78900E01711 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C872ACAD78900E01711 /* Constants.swift */; };
-		697B5C8A2ACAD94800E01711 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C892ACAD94800E01711 /* Core.swift */; };
-		697B5C8C2ACB144A00E01711 /* VideoManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C8B2ACB144A00E01711 /* VideoManager+Extensions.swift */; };
+		697B5C8C2ACB144A00E01711 /* MergeManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C8B2ACB144A00E01711 /* MergeManager+Extensions.swift */; };
 		697B5C8E2ACB15FE00E01711 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 697B5C8D2ACB15FE00E01711 /* silence.mp3 */; };
 		697B5C902ACB322300E01711 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C8F2ACB322300E01711 /* ImageFilter.swift */; };
 		697B5C932ACB3EB000E01711 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C922ACB3EB000E01711 /* Log.swift */; };
+		697B5C962ACB4B3C00E01711 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C952ACB4B3C00E01711 /* PreviewViewController.swift */; };
+		697B5C982ACB4C0F00E01711 /* SelectedVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C972ACB4C0F00E01711 /* SelectedVideoViewController.swift */; };
+		697B5C9A2ACB4C3100E01711 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C992ACB4C3100E01711 /* FiltersViewController.swift */; };
+		697B5C9C2ACB4D2F00E01711 /* UIVIewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C9B2ACB4D2F00E01711 /* UIVIewController+Extensions.swift */; };
+		697B5C9E2ACB568800E01711 /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C9D2ACB568800E01711 /* RootNavigationController.swift */; };
 		B790AA37C3BE7BDEFB5451AF /* Pods_VideoMerger_Apple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FEB61ACF58B3CBD29D3207 /* Pods_VideoMerger_Apple.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,13 +51,17 @@
 		697B5C7D2ACAB85800E01711 /* LocalFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
 		697B5C802ACABA1C00E01711 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		697B5C822ACAC6CA00E01711 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
-		697B5C852ACAD45600E01711 /* VideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
+		697B5C852ACAD45600E01711 /* MergeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeManager.swift; sourceTree = "<group>"; };
 		697B5C872ACAD78900E01711 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		697B5C892ACAD94800E01711 /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
-		697B5C8B2ACB144A00E01711 /* VideoManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoManager+Extensions.swift"; sourceTree = "<group>"; };
+		697B5C8B2ACB144A00E01711 /* MergeManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MergeManager+Extensions.swift"; sourceTree = "<group>"; };
 		697B5C8D2ACB15FE00E01711 /* silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = silence.mp3; sourceTree = "<group>"; };
 		697B5C8F2ACB322300E01711 /* ImageFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilter.swift; sourceTree = "<group>"; };
 		697B5C922ACB3EB000E01711 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		697B5C952ACB4B3C00E01711 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		697B5C972ACB4C0F00E01711 /* SelectedVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedVideoViewController.swift; sourceTree = "<group>"; };
+		697B5C992ACB4C3100E01711 /* FiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
+		697B5C9B2ACB4D2F00E01711 /* UIVIewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Extensions.swift"; sourceTree = "<group>"; };
+		697B5C9D2ACB568800E01711 /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,10 +119,9 @@
 				697B5C842ACAD44400E01711 /* Managers */,
 				697B5C912ACB3EA300E01711 /* Tools */,
 				697B5C7F2ACABA0D00E01711 /* Extensions */,
-				697B5C892ACAD94800E01711 /* Core.swift */,
 				697B5C872ACAD78900E01711 /* Constants.swift */,
-				69696B1B2ACA31FC007DD91F /* AppDelegate.swift */,
 				69696B1D2ACA31FC007DD91F /* SceneDelegate.swift */,
+				69696B1B2ACA31FC007DD91F /* AppDelegate.swift */,
 				69696B242ACA3200007DD91F /* Assets.xcassets */,
 				69696B262ACA3200007DD91F /* LaunchScreen.storyboard */,
 				69696B292ACA3200007DD91F /* Info.plist */,
@@ -136,6 +143,7 @@
 		69696B322ACA65B0007DD91F /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				697B5C9D2ACB568800E01711 /* RootNavigationController.swift */,
 				69696B3A2ACA66D0007DD91F /* BaseViewController.swift */,
 			);
 			path = Base;
@@ -161,8 +169,12 @@
 		69696B392ACA665A007DD91F /* Studio */ = {
 			isa = PBXGroup;
 			children = (
+				697B5C9F2ACB5DB600E01711 /* Managers */,
 				69696B1F2ACA31FC007DD91F /* StudioViewController.swift */,
 				697B5C8F2ACB322300E01711 /* ImageFilter.swift */,
+				697B5C952ACB4B3C00E01711 /* PreviewViewController.swift */,
+				697B5C972ACB4C0F00E01711 /* SelectedVideoViewController.swift */,
+				697B5C992ACB4C3100E01711 /* FiltersViewController.swift */,
 			);
 			path = Studio;
 			sourceTree = "<group>";
@@ -172,6 +184,7 @@
 			children = (
 				697B5C802ACABA1C00E01711 /* String+Extensions.swift */,
 				697B5C822ACAC6CA00E01711 /* URL+Extensions.swift */,
+				697B5C9B2ACB4D2F00E01711 /* UIVIewController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -180,8 +193,6 @@
 			isa = PBXGroup;
 			children = (
 				697B5C7D2ACAB85800E01711 /* LocalFileManager.swift */,
-				697B5C852ACAD45600E01711 /* VideoManager.swift */,
-				697B5C8B2ACB144A00E01711 /* VideoManager+Extensions.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -192,6 +203,15 @@
 				697B5C922ACB3EB000E01711 /* Log.swift */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		697B5C9F2ACB5DB600E01711 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				697B5C852ACAD45600E01711 /* MergeManager.swift */,
+				697B5C8B2ACB144A00E01711 /* MergeManager+Extensions.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -312,19 +332,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				69696B362ACA65DA007DD91F /* PickerViewController.swift in Sources */,
+				697B5C982ACB4C0F00E01711 /* SelectedVideoViewController.swift in Sources */,
 				697B5C902ACB322300E01711 /* ImageFilter.swift in Sources */,
 				697B5C882ACAD78900E01711 /* Constants.swift in Sources */,
 				697B5C832ACAC6CA00E01711 /* URL+Extensions.swift in Sources */,
-				697B5C8A2ACAD94800E01711 /* Core.swift in Sources */,
 				69696B202ACA31FC007DD91F /* StudioViewController.swift in Sources */,
-				697B5C8C2ACB144A00E01711 /* VideoManager+Extensions.swift in Sources */,
+				697B5C9C2ACB4D2F00E01711 /* UIVIewController+Extensions.swift in Sources */,
+				697B5C8C2ACB144A00E01711 /* MergeManager+Extensions.swift in Sources */,
 				69696B1C2ACA31FC007DD91F /* AppDelegate.swift in Sources */,
+				697B5C962ACB4B3C00E01711 /* PreviewViewController.swift in Sources */,
 				697B5C932ACB3EB000E01711 /* Log.swift in Sources */,
+				697B5C9E2ACB568800E01711 /* RootNavigationController.swift in Sources */,
 				697B5C812ACABA1C00E01711 /* String+Extensions.swift in Sources */,
 				69696B1E2ACA31FC007DD91F /* SceneDelegate.swift in Sources */,
-				697B5C862ACAD45600E01711 /* VideoManager.swift in Sources */,
+				697B5C862ACAD45600E01711 /* MergeManager.swift in Sources */,
 				69696B3B2ACA66D0007DD91F /* BaseViewController.swift in Sources */,
 				697B5C7E2ACAB85800E01711 /* LocalFileManager.swift in Sources */,
+				697B5C9A2ACB4C3100E01711 /* FiltersViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
