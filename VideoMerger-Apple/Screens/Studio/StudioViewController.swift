@@ -10,27 +10,37 @@ import CoreImage
 import SnapKit
 import UIKit
 
-class ViewController: UIViewController {
+final class StudioViewController: BaseViewController {
 
+    private weak var core: Core!
+    
     private var player: AVQueuePlayer!
     private var videoLooper: AVPlayerLooper!
     private var playerView: UIView!
     private var playerLayer: AVPlayerLayer!
     private var asset: AVAsset!
-    private var inputURL: URL? {
-        return Bundle.main.url(forResource: "c-17", withExtension: "mp4")
+    private var videoURLs = [URL]()
+    
+    init(videoURLs: [URL], core: Core) {
+        self.videoURLs = videoURLs
+        self.core = core
+        super.init()
     }
-    private var outputURL: URL? {
-        let filename = "export.mp4"
-        let documentsDirectory = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).last!
-        return documentsDirectory.appendingPathComponent(filename)
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupPlayerView()
-        setupPlayer()
         applyFilterAndExport()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Prevent wrong player frame size
+        setupPlayer()
     }
     
     private func setupPlayerView() {
@@ -43,10 +53,13 @@ class ViewController: UIViewController {
     }
     
     private func setupPlayer() {
-        guard let inputURL = inputURL else { return }
+        guard let inputURL = videoURLs.first else { return }
         asset = AVAsset(url: inputURL)
         let item = AVPlayerItem(asset: asset)
         player = AVQueuePlayer(playerItem: item)
+        // TODO: Remove hardcode
+//        player.isMuted = true
+        player.volume = 0
         videoLooper = AVPlayerLooper(player: player, templateItem: item)
         
         playerLayer = AVPlayerLayer()
@@ -66,7 +79,7 @@ class ViewController: UIViewController {
             filter.setValue(source, forKey: kCIInputImageKey)
 
             let output = filter.outputImage!.cropped(to: request.sourceImage.extent)
-
+            
             // Provide the filter output to the composition
             request.finish(with: output, context: nil)
         }
@@ -74,26 +87,26 @@ class ViewController: UIViewController {
         player.replaceCurrentItem(with: item)
         player.play()
         
-        removeExistedFile()
+        removeExistedOutputFile()
 
         let exporter = AVAssetExportSession(asset: item.asset, presetName: AVAssetExportPresetHighestQuality)
         exporter?.videoComposition = videoComposition
         exporter?.outputFileType = .mp4
         
-        guard let outputURL = outputURL else { return }
+        guard let outputURL = core.videoManager.outputURL else { return }
         exporter?.outputURL = outputURL
         exporter?.exportAsynchronously(completionHandler: {
             guard exporter?.status == .completed else {
-                print("export failed: \(exporter?.error)")
+                print("[STUDIO] Export failed: \(exporter?.error)")
                 return
             }
             print("done: ", outputURL)
         })
     }
     
-    private func removeExistedFile() {
-        // TODO: Keep exported files list instead of re-writing existed
-        guard let outputURL = outputURL else { return }
+    private func removeExistedOutputFile() {
+        // OPTIONAL TODO: Keep exported files list instead of re-writing existed
+        guard let outputURL = core.videoManager.outputURL else { return }
         do {
             try FileManager.default.removeItem(at: outputURL)
             print("Existed file removed")
@@ -102,4 +115,3 @@ class ViewController: UIViewController {
         }
     }
 }
-
