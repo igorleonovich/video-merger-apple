@@ -30,6 +30,7 @@
 		697B5C9A2ACB4C3100E01711 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C992ACB4C3100E01711 /* FiltersViewController.swift */; };
 		697B5C9C2ACB4D2F00E01711 /* UIVIewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C9B2ACB4D2F00E01711 /* UIVIewController+Extensions.swift */; };
 		697B5C9E2ACB568800E01711 /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C9D2ACB568800E01711 /* RootNavigationController.swift */; };
+		697B5CA12ACB641F00E01711 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CA02ACB641F00E01711 /* StatusViewController.swift */; };
 		B790AA37C3BE7BDEFB5451AF /* Pods_VideoMerger_Apple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FEB61ACF58B3CBD29D3207 /* Pods_VideoMerger_Apple.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +63,7 @@
 		697B5C992ACB4C3100E01711 /* FiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		697B5C9B2ACB4D2F00E01711 /* UIVIewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Extensions.swift"; sourceTree = "<group>"; };
 		697B5C9D2ACB568800E01711 /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
+		697B5CA02ACB641F00E01711 /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +177,7 @@
 				697B5C952ACB4B3C00E01711 /* PreviewViewController.swift */,
 				697B5C972ACB4C0F00E01711 /* SelectedVideoViewController.swift */,
 				697B5C992ACB4C3100E01711 /* FiltersViewController.swift */,
+				697B5CA02ACB641F00E01711 /* StatusViewController.swift */,
 			);
 			path = Studio;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69696B362ACA65DA007DD91F /* PickerViewController.swift in Sources */,
+				697B5CA12ACB641F00E01711 /* StatusViewController.swift in Sources */,
 				697B5C982ACB4C0F00E01711 /* SelectedVideoViewController.swift in Sources */,
 				697B5C902ACB322300E01711 /* ImageFilter.swift in Sources */,
 				697B5C882ACAD78900E01711 /* Constants.swift in Sources */,

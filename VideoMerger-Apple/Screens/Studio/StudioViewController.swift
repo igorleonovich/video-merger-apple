@@ -29,6 +29,9 @@ final class StudioViewController: BaseViewController {
     
     private var fixedPanelsHeight: CGFloat = 100
     
+    private var stackView: UIStackView!
+    private var previewView: UIView!
+    
     init(videoURLs: [URL], localFileManager: LocalFileManager) {
         self.inputVideoURLs = videoURLs
         self.localFileManager = localFileManager
@@ -44,40 +47,55 @@ final class StudioViewController: BaseViewController {
         
         mergeManager = MergeManager(localFileManager: localFileManager)
         
+        stackView = UIStackView()
+        stackView.axis = .vertical
+        view.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        
         setupSelectedVideo()
         setupPreview()
         setupFilters()
+        setupStatus()
         
-//        setupPlayerView()
-//
-//        /* INFO: Applying filter before merge for displaying it in preview and for avoiding filtering of added black space in case of different aspect ratio */
-//        Log.standard("[STUDIO] Filtering started...")
-//
-//        filteringGroup = DispatchGroup()
-//
-//        inputVideoURLs.forEach { videoURL in
-//            applyFilterAndExport(url: videoURL)
-//        }
-//
-//        filteringGroup.notify(queue: .main) { [weak self] in
-//            guard let self = self else { return }
-//            Log.standard("[STUDIO] Merge started...")
-//            mergeAndExport()
-//        }
+        
+        
+        
+        setupPlayerView()
+
+        /* INFO: Applying filter before merge for displaying it in preview and for avoiding filtering of added black space in case of different aspect ratio */
+        Log.standard("[STUDIO] Filtering started...")
+
+        filteringGroup = DispatchGroup()
+
+        inputVideoURLs.forEach { videoURL in
+            applyFilterAndExport(url: videoURL)
+        }
+
+        filteringGroup.notify(queue: .main) { [weak self] in
+            guard let self = self else { return }
+            Log.standard("[STUDIO] Merge started...")
+            mergeAndExport()
+        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-//        guard isPlayerSetup == false else {
-//            return
-//        }
-//        // INFO: Prevent wrong player frame size
-//        if let url = inputVideoURLs.first {
-//            setupPlayer(with: url)
-//        } else {
-//            Log.error("[STUDIO] Can't load initial video into player")
-//        }
+        guard isPlayerSetup == false else {
+            return
+        }
+        // INFO: Prevent wrong player frame size
+        if let url = inputVideoURLs.first {
+            setupPlayer(with: url)
+        } else {
+            Log.error("[STUDIO] Can't load initial video into player")
+        }
     }
     
     // MARK: - Setup
@@ -85,11 +103,8 @@ final class StudioViewController: BaseViewController {
     private func setupSelectedVideo() {
         
         let selectedVideoView = UIView()
-        view.addSubview(selectedVideoView)
+        stackView.addArrangedSubview(selectedVideoView)
         selectedVideoView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
             make.height.equalTo(fixedPanelsHeight)
         }
         
@@ -101,29 +116,20 @@ final class StudioViewController: BaseViewController {
     
     private func setupPreview() {
         
-        let previewView = UIView()
-        view.addSubview(previewView)
-        previewView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(fixedPanelsHeight)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-fixedPanelsHeight)
-        }
+        previewView = UIView()
+        stackView.addArrangedSubview(previewView)
         
         let previewViewController = PreviewViewController()
         add(child: previewViewController, containerView: previewView)
         
-        previewViewController.view.backgroundColor = .green
+//        previewViewController.view.backgroundColor = .green
     }
     
     private func setupFilters() {
         
         let filtersView = UIView()
-        view.addSubview(filtersView)
+        stackView.addArrangedSubview(filtersView)
         filtersView.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
             make.height.equalTo(fixedPanelsHeight)
         }
         
@@ -133,14 +139,29 @@ final class StudioViewController: BaseViewController {
         filtersViewController.view.backgroundColor = .purple
     }
     
+    private func setupStatus() {
+        
+        let statusView = UIView()
+        stackView.addArrangedSubview(statusView)
+        statusView.snp.makeConstraints { make in
+            make.height.equalTo(50)
+        }
+        
+        let statusViewController = StatusViewController()
+        add(child: statusViewController, containerView: statusView)
+        
+        statusViewController.view.backgroundColor = .green
+    }
+    
     private func setupPlayerView() {
         
         playerView = UIView()
-        view.addSubview(playerView)
+        previewView.addSubview(playerView)
         playerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         view.layoutIfNeeded()
+//        previewView.layoutIfNeeded()
     }
     
     private func setupPlayer(with url: URL) {
@@ -189,7 +210,7 @@ final class StudioViewController: BaseViewController {
 
         let exporter = AVAssetExportSession(asset: item.asset, presetName: AVAssetExportPresetHighestQuality)
         exporter?.videoComposition = videoComposition
-        exporter?.outputFileType = .mp4
+        exporter?.outputFileType = AVFileType(rawValue: Constants.outputFileType)
         
         let outputURL = localFileManager.fileURL(fileName: "\(url.fileName).\(self.selectedFilter.rawValue)", fileFormat: url.pathExtension)
         exporter?.outputURL = outputURL

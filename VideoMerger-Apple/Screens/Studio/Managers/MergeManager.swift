@@ -115,7 +115,7 @@ final class MergeManager {
         mainComposition.renderSize = Constants.defaultVideoSize
         
         // Export to file
-        let exportURL = localFileManager.fileURL(fileName: "merged", fileFormat: "mp4")
+        let exportURL = localFileManager.fileURL(fileName: "merged", fileFormat: Constants.outputExtension)
         
         // Remove file if existed
         localFileManager.removeFileIfExisted(exportURL)
@@ -123,7 +123,7 @@ final class MergeManager {
         // Init exporter
         let exporter = AVAssetExportSession.init(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality)
         exporter?.outputURL = exportURL
-        exporter?.outputFileType = AVFileType.mp4
+        exporter?.outputFileType = AVFileType(rawValue: Constants.outputFileType)
         // TODO: Pass as a parameter?
         exporter?.shouldOptimizeForNetworkUse = true
         exporter?.videoComposition = mainComposition

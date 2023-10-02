@@ -5,7 +5,7 @@
 //  Created by Igor Leonovich on 02/10/2023.
 //
 
-import Foundation
+import UIKit
 
 final class FiltersViewController: BaseViewController {
     
