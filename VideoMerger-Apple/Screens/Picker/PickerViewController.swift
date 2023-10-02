@@ -43,7 +43,6 @@ final class PickerViewController: BaseViewController {
     private func showPickerIfNeeded() {
         
         guard picker == nil else {
-            print("[PICKER] Picker is already presented\n")
             return
         }
         
@@ -62,7 +61,7 @@ final class PickerViewController: BaseViewController {
             picker.delegate = self
             
             present(picker, animated: true) {
-                print("[PICKER] Picker opened\n")
+                print("\n[PICKER] Picker opened")
             }
         }
     }
@@ -98,7 +97,7 @@ final class PickerViewController: BaseViewController {
             }
             
             try FileManager.default.copyItem(at: selectedURL, to: localURL)
-            print("[PICKER] Saved at:\n\(localURL)\n")
+            print("\n[PICKER] Saved at:\n\(localURL)")
             
             return localURL
         } catch {
@@ -135,7 +134,7 @@ extension PickerViewController: PHPickerViewControllerDelegate {
                 do {
                     try self?.core.localFileManager.removeAllFiles()
                 } catch {
-                    print("[PICKER] Error:\n\(error)\n")
+                    print("\n[PICKER] Error:\n\(error)")
                 }
             }
             
@@ -158,7 +157,7 @@ extension PickerViewController: PHPickerViewControllerDelegate {
                     // COMMENT: Ideally it should be handled by router
                     self.navigationController?.pushViewController(studioViewController, animated: true)
                     
-                    print("[PICKER] Picker has closed\n")
+                    print("\n[PICKER] Picker has closed")
                     self.picker = nil
                     
                     ProgressHUD.dismiss()

@@ -86,8 +86,6 @@ final class StudioViewController: BaseViewController {
         item.videoComposition = videoComposition
         player.replaceCurrentItem(with: item)
         player.play()
-        
-        removeExistedOutputFile()
 
         let exporter = AVAssetExportSession(asset: item.asset, presetName: AVAssetExportPresetHighestQuality)
         exporter?.videoComposition = videoComposition
@@ -97,21 +95,10 @@ final class StudioViewController: BaseViewController {
         exporter?.outputURL = outputURL
         exporter?.exportAsynchronously(completionHandler: {
             guard exporter?.status == .completed else {
-                print("[STUDIO] Export failed: \(exporter?.error)")
+                print("\n[STUDIO] Export failed: \(exporter?.error)")
                 return
             }
-            print("done: ", outputURL)
+            print("\n[STUDIO] Export done:", outputURL)
         })
-    }
-    
-    private func removeExistedOutputFile() {
-        // OPTIONAL TODO: Keep exported files list instead of re-writing existed
-        guard let outputURL = core.videoManager.outputURL else { return }
-        do {
-            try FileManager.default.removeItem(at: outputURL)
-            print("Existed file removed")
-        } catch {
-            print(error.localizedDescription)
-        }
     }
 }
