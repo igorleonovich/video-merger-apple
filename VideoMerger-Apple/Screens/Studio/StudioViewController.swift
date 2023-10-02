@@ -13,21 +13,31 @@ final class StudioViewController: BaseViewController {
 
     private weak var localFileManager: LocalFileManager!
     private var mergeManager: MergeManager!
+    private var filtersManager: FiltersManager!
     
     private var player: AVQueuePlayer!
     private var videoLooper: AVPlayerLooper!
     private var playerView: UIView!
     private var playerLayer: AVPlayerLayer!
     private var isPlayerSetup = false
-    private var selectedVideoIndex = 0
-    private var selectedFilter: ImageFilter = .inversion
+    private var selectedVideoIndex = 0 {
+        didSet {
+            print(selectedVideoIndex)
+        }
+    }
+    private var selectedFilterIndex = 0 {
+        didSet {
+            print(selectedFilterIndex)
+        }
+    }
     
     private var inputVideoURLs = [URL]()
     private var outputVideoURLs = [URL]()
     
     private var filteringGroup: DispatchGroup!
     
-    private var fixedPanelsHeight: CGFloat = 100
+    static let fixedPanelsHeight: CGFloat = 100
+    private let statusPanelHeight: CGFloat = 50
     
     private var stackView: UIStackView!
     private var previewView: UIView!
@@ -46,25 +56,16 @@ final class StudioViewController: BaseViewController {
         super.viewDidLoad()
         
         mergeManager = MergeManager(localFileManager: localFileManager)
+        filtersManager = FiltersManager()
         
-        stackView = UIStackView()
-        stackView.axis = .vertical
-        view.addSubview(stackView)
-        stackView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
+        setupExport()
         
+        setupStackView()
         
         setupSelectedVideo()
         setupPreview()
         setupFilters()
         setupStatus()
-        
-        
-        
         
         setupPlayerView()
 
@@ -100,12 +101,30 @@ final class StudioViewController: BaseViewController {
     
     // MARK: - Setup
     
+    private func setupExport() {
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Export", style: .plain, target: self, action: #selector(onExport))
+    }
+    
+    private func setupStackView() {
+        
+        stackView = UIStackView()
+        stackView.axis = .vertical
+        view.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+    
     private func setupSelectedVideo() {
         
         let selectedVideoView = UIView()
         stackView.addArrangedSubview(selectedVideoView)
         selectedVideoView.snp.makeConstraints { make in
-            make.height.equalTo(fixedPanelsHeight)
+            make.height.equalTo(StudioViewController.fixedPanelsHeight)
         }
         
         let selectedVideoViewController = SelectedVideoViewController()
@@ -121,8 +140,6 @@ final class StudioViewController: BaseViewController {
         
         let previewViewController = PreviewViewController()
         add(child: previewViewController, containerView: previewView)
-        
-//        previewViewController.view.backgroundColor = .green
     }
     
     private func setupFilters() {
@@ -130,13 +147,11 @@ final class StudioViewController: BaseViewController {
         let filtersView = UIView()
         stackView.addArrangedSubview(filtersView)
         filtersView.snp.makeConstraints { make in
-            make.height.equalTo(fixedPanelsHeight)
+            make.height.equalTo(StudioViewController.fixedPanelsHeight)
         }
         
-        let filtersViewController = FiltersViewController()
+        let filtersViewController = FiltersViewController(delegate: self, filtersManager: filtersManager)
         add(child: filtersViewController, containerView: filtersView)
-        
-        filtersViewController.view.backgroundColor = .purple
     }
     
     private func setupStatus() {
@@ -144,7 +159,7 @@ final class StudioViewController: BaseViewController {
         let statusView = UIView()
         stackView.addArrangedSubview(statusView)
         statusView.snp.makeConstraints { make in
-            make.height.equalTo(50)
+            make.height.equalTo(statusPanelHeight)
         }
         
         let statusViewController = StatusViewController()
@@ -189,13 +204,30 @@ final class StudioViewController: BaseViewController {
     
     private func applyFilterAndExport(url: URL) {
         
+        guard selectedFilterIndex != 0  else {
+            outputVideoURLs.append(url)
+            Log.standard("[STUDIO] Use original video at:\n\(url)")
+            DispatchQueue.main.async { [weak self] in
+                self?.setupPlayer(with: url)
+            }
+            return
+        }
+        
+        // TODO: Move to FilterManager (currently it's toughly bounded to StudioViewController)
+        
         filteringGroup.enter()
+        
+        let selectedImageFilter = self.filtersManager.filters[selectedFilterIndex]
+        
+        guard let filter = selectedImageFilter.filter else {
+            Log.error("[STUDIO] Cannot retrieve filter")
+            return
+        }
         
         let asset = AVAsset(url: url)
         let item = AVPlayerItem(asset: asset)
         let videoComposition = AVMutableVideoComposition(asset: asset) { [weak self] request in
             guard let self = self else { return }
-            let filter = self.selectedFilter.filter
             let source = request.sourceImage.clampedToExtent()
             filter.setValue(source, forKey: kCIInputImageKey)
 
@@ -212,7 +244,7 @@ final class StudioViewController: BaseViewController {
         exporter?.videoComposition = videoComposition
         exporter?.outputFileType = AVFileType(rawValue: Constants.outputFileType)
         
-        let outputURL = localFileManager.fileURL(fileName: "\(url.fileName).\(self.selectedFilter.rawValue)", fileFormat: url.pathExtension)
+        let outputURL = localFileManager.fileURL(fileName: "\(url.fileName).\(selectedImageFilter.rawValue)", fileFormat: url.pathExtension)
         exporter?.outputURL = outputURL
         
         exporter?.exportAsynchronously(completionHandler: { [weak self] in
@@ -245,5 +277,21 @@ final class StudioViewController: BaseViewController {
                 Log.error("[STUDIO] Merged video url creating failed")
             }
         }
+    }
+    
+    @objc private func onExport(_ sender: Any) {
+        
+    }
+    
+    deinit {
+        // TODO: Remove added child view controllers?
+    }
+}
+
+
+extension StudioViewController: FiltersViewControllerDelegate {
+    
+    func didSelectFilter(newIndex: Int) {
+        selectedFilterIndex = newIndex
     }
 }

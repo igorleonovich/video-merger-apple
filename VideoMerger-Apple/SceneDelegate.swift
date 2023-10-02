@@ -21,6 +21,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
+        let font = UIFont.systemFont(ofSize: 16, weight: .thin)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: font,
+                                                             NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+        UIBarButtonItem.appearance().tintColor = .white
+        
         // TODO: Use LoadingViewController?
         localFileManager = LocalFileManager()
         window.rootViewController = RootNavigationController(localFileManager: localFileManager)

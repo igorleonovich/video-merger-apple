@@ -31,6 +31,10 @@
 		697B5C9C2ACB4D2F00E01711 /* UIVIewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C9B2ACB4D2F00E01711 /* UIVIewController+Extensions.swift */; };
 		697B5C9E2ACB568800E01711 /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C9D2ACB568800E01711 /* RootNavigationController.swift */; };
 		697B5CA12ACB641F00E01711 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CA02ACB641F00E01711 /* StatusViewController.swift */; };
+		697B5CA52ACB6E4400E01711 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CA42ACB6E4400E01711 /* FilterCell.swift */; };
+		697B5CA82ACB761200E01711 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CA72ACB761200E01711 /* Label.swift */; };
+		697B5CAA2ACB7E7E00E01711 /* FiltersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CA92ACB7E7E00E01711 /* FiltersManager.swift */; };
+		697B5CAC2ACB898700E01711 /* StudioState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CAB2ACB898700E01711 /* StudioState.swift */; };
 		B790AA37C3BE7BDEFB5451AF /* Pods_VideoMerger_Apple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FEB61ACF58B3CBD29D3207 /* Pods_VideoMerger_Apple.framework */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +68,10 @@
 		697B5C9B2ACB4D2F00E01711 /* UIVIewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Extensions.swift"; sourceTree = "<group>"; };
 		697B5C9D2ACB568800E01711 /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
 		697B5CA02ACB641F00E01711 /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
+		697B5CA42ACB6E4400E01711 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
+		697B5CA72ACB761200E01711 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
+		697B5CA92ACB7E7E00E01711 /* FiltersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersManager.swift; sourceTree = "<group>"; };
+		697B5CAB2ACB898700E01711 /* StudioState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +127,7 @@
 				69696B322ACA65B0007DD91F /* Base */,
 				69696B372ACA664C007DD91F /* Screens */,
 				697B5C842ACAD44400E01711 /* Managers */,
+				697B5CA62ACB760400E01711 /* Views */,
 				697B5C912ACB3EA300E01711 /* Tools */,
 				697B5C7F2ACABA0D00E01711 /* Extensions */,
 				697B5C872ACAD78900E01711 /* Constants.swift */,
@@ -177,7 +186,9 @@
 				697B5C952ACB4B3C00E01711 /* PreviewViewController.swift */,
 				697B5C972ACB4C0F00E01711 /* SelectedVideoViewController.swift */,
 				697B5C992ACB4C3100E01711 /* FiltersViewController.swift */,
+				697B5CA42ACB6E4400E01711 /* FilterCell.swift */,
 				697B5CA02ACB641F00E01711 /* StatusViewController.swift */,
+				697B5CAB2ACB898700E01711 /* StudioState.swift */,
 			);
 			path = Studio;
 			sourceTree = "<group>";
@@ -213,8 +224,17 @@
 			children = (
 				697B5C852ACAD45600E01711 /* MergeManager.swift */,
 				697B5C8B2ACB144A00E01711 /* MergeManager+Extensions.swift */,
+				697B5CA92ACB7E7E00E01711 /* FiltersManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		697B5CA62ACB760400E01711 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				697B5CA72ACB761200E01711 /* Label.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -339,10 +359,13 @@
 				697B5C982ACB4C0F00E01711 /* SelectedVideoViewController.swift in Sources */,
 				697B5C902ACB322300E01711 /* ImageFilter.swift in Sources */,
 				697B5C882ACAD78900E01711 /* Constants.swift in Sources */,
+				697B5CA82ACB761200E01711 /* Label.swift in Sources */,
 				697B5C832ACAC6CA00E01711 /* URL+Extensions.swift in Sources */,
 				69696B202ACA31FC007DD91F /* StudioViewController.swift in Sources */,
 				697B5C9C2ACB4D2F00E01711 /* UIVIewController+Extensions.swift in Sources */,
 				697B5C8C2ACB144A00E01711 /* MergeManager+Extensions.swift in Sources */,
+				697B5CA52ACB6E4400E01711 /* FilterCell.swift in Sources */,
+				697B5CAA2ACB7E7E00E01711 /* FiltersManager.swift in Sources */,
 				69696B1C2ACA31FC007DD91F /* AppDelegate.swift in Sources */,
 				697B5C962ACB4B3C00E01711 /* PreviewViewController.swift in Sources */,
 				697B5C932ACB3EB000E01711 /* Log.swift in Sources */,
@@ -350,6 +373,7 @@
 				697B5C812ACABA1C00E01711 /* String+Extensions.swift in Sources */,
 				69696B1E2ACA31FC007DD91F /* SceneDelegate.swift in Sources */,
 				697B5C862ACAD45600E01711 /* MergeManager.swift in Sources */,
+				697B5CAC2ACB898700E01711 /* StudioState.swift in Sources */,
 				69696B3B2ACA66D0007DD91F /* BaseViewController.swift in Sources */,
 				697B5C7E2ACAB85800E01711 /* LocalFileManager.swift in Sources */,
 				697B5C9A2ACB4C3100E01711 /* FiltersViewController.swift in Sources */,

@@ -9,6 +9,13 @@ import Foundation
 
 struct Constants {
     
+    // MARK: General
+    
+    static let fontMinimumScaleFactor: CGFloat = 0.5
+    
+    
+    // MARK: Video
+    
     static let maxVideoFilesCount = 100
     static let defaultVideoSize = CGSize(width: 720, height: 1280) // Default video size
     static let frameDuration: Int32 = 30
