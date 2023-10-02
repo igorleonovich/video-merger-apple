@@ -4,4 +4,5 @@ target 'VideoMerger-Apple' do
   use_frameworks!
 
   pod 'SnapKit'
+  pod 'ProgressHUD'
 end
