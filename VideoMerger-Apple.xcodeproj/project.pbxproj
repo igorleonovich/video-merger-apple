@@ -22,6 +22,10 @@
 		697B5C862ACAD45600E01711 /* VideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C852ACAD45600E01711 /* VideoManager.swift */; };
 		697B5C882ACAD78900E01711 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C872ACAD78900E01711 /* Constants.swift */; };
 		697B5C8A2ACAD94800E01711 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C892ACAD94800E01711 /* Core.swift */; };
+		697B5C8C2ACB144A00E01711 /* VideoManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C8B2ACB144A00E01711 /* VideoManager+Extensions.swift */; };
+		697B5C8E2ACB15FE00E01711 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 697B5C8D2ACB15FE00E01711 /* silence.mp3 */; };
+		697B5C902ACB322300E01711 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C8F2ACB322300E01711 /* ImageFilter.swift */; };
+		697B5C932ACB3EB000E01711 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C922ACB3EB000E01711 /* Log.swift */; };
 		B790AA37C3BE7BDEFB5451AF /* Pods_VideoMerger_Apple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FEB61ACF58B3CBD29D3207 /* Pods_VideoMerger_Apple.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +50,10 @@
 		697B5C852ACAD45600E01711 /* VideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
 		697B5C872ACAD78900E01711 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		697B5C892ACAD94800E01711 /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
+		697B5C8B2ACB144A00E01711 /* VideoManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoManager+Extensions.swift"; sourceTree = "<group>"; };
+		697B5C8D2ACB15FE00E01711 /* silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = silence.mp3; sourceTree = "<group>"; };
+		697B5C8F2ACB322300E01711 /* ImageFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilter.swift; sourceTree = "<group>"; };
+		697B5C922ACB3EB000E01711 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +109,7 @@
 				69696B322ACA65B0007DD91F /* Base */,
 				69696B372ACA664C007DD91F /* Screens */,
 				697B5C842ACAD44400E01711 /* Managers */,
-				697B5C7C2ACAB84700E01711 /* Utils */,
+				697B5C912ACB3EA300E01711 /* Tools */,
 				697B5C7F2ACABA0D00E01711 /* Extensions */,
 				697B5C892ACAD94800E01711 /* Core.swift */,
 				697B5C872ACAD78900E01711 /* Constants.swift */,
@@ -120,6 +128,7 @@
 			children = (
 				69696B2F2ACA354D007DD91F /* boeing-c-17.mp4 */,
 				697B5C7A2ACA75A500E01711 /* boeing-777.mp4 */,
+				697B5C8D2ACB15FE00E01711 /* silence.mp3 */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -153,16 +162,9 @@
 			isa = PBXGroup;
 			children = (
 				69696B1F2ACA31FC007DD91F /* StudioViewController.swift */,
+				697B5C8F2ACB322300E01711 /* ImageFilter.swift */,
 			);
 			path = Studio;
-			sourceTree = "<group>";
-		};
-		697B5C7C2ACAB84700E01711 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				697B5C7D2ACAB85800E01711 /* LocalFileManager.swift */,
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 		697B5C7F2ACABA0D00E01711 /* Extensions */ = {
@@ -177,9 +179,19 @@
 		697B5C842ACAD44400E01711 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				697B5C7D2ACAB85800E01711 /* LocalFileManager.swift */,
 				697B5C852ACAD45600E01711 /* VideoManager.swift */,
+				697B5C8B2ACB144A00E01711 /* VideoManager+Extensions.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		697B5C912ACB3EA300E01711 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				697B5C922ACB3EB000E01711 /* Log.swift */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,6 +257,7 @@
 				69696B302ACA354D007DD91F /* boeing-c-17.mp4 in Resources */,
 				69696B282ACA3200007DD91F /* LaunchScreen.storyboard in Resources */,
 				69696B252ACA3200007DD91F /* Assets.xcassets in Resources */,
+				697B5C8E2ACB15FE00E01711 /* silence.mp3 in Resources */,
 				697B5C7B2ACA75A500E01711 /* boeing-777.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,11 +312,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				69696B362ACA65DA007DD91F /* PickerViewController.swift in Sources */,
+				697B5C902ACB322300E01711 /* ImageFilter.swift in Sources */,
 				697B5C882ACAD78900E01711 /* Constants.swift in Sources */,
 				697B5C832ACAC6CA00E01711 /* URL+Extensions.swift in Sources */,
 				697B5C8A2ACAD94800E01711 /* Core.swift in Sources */,
 				69696B202ACA31FC007DD91F /* StudioViewController.swift in Sources */,
+				697B5C8C2ACB144A00E01711 /* VideoManager+Extensions.swift in Sources */,
 				69696B1C2ACA31FC007DD91F /* AppDelegate.swift in Sources */,
+				697B5C932ACB3EB000E01711 /* Log.swift in Sources */,
 				697B5C812ACABA1C00E01711 /* String+Extensions.swift in Sources */,
 				69696B1E2ACA31FC007DD91F /* SceneDelegate.swift in Sources */,
 				697B5C862ACAD45600E01711 /* VideoManager.swift in Sources */,

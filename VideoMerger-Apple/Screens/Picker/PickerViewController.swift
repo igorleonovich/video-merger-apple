@@ -13,7 +13,7 @@ final class PickerViewController: BaseViewController {
     
     private weak var core: Core!
     
-    private var group: DispatchGroup!
+    private var savingLocallyGroup: DispatchGroup!
     private var videoURLs = [URL]()
     private var filenameDuplicationsCounter = 0
     
@@ -61,7 +61,7 @@ final class PickerViewController: BaseViewController {
             picker.delegate = self
             
             present(picker, animated: true) {
-                print("\n[PICKER] Picker opened")
+                Log.standard("\n[PICKER] Picker opened")
             }
         }
     }
@@ -69,35 +69,34 @@ final class PickerViewController: BaseViewController {
     // MARK: Actions
     
     fileprivate func saveVideoLocally(_ result: PHPickerResult) {
+        
+        savingLocallyGroup.enter()
+        
         let movie = UTType.movie.identifier // "com.apple.quicktime-movie"
         let itemProvider = result.itemProvider
 
-        group.enter()
-
-        itemProvider.loadFileRepresentation(forTypeIdentifier: movie) { url, err in
-            if let url = url {
-                DispatchQueue.global().sync { [weak self] in
-                    
-                    guard let self = self else { return }
-                    guard let localURL = self.saveFile(selectedURL: url) else { return }
+        itemProvider.loadFileRepresentation(forTypeIdentifier: movie) { [weak self] externalURL, err in
+            guard let self = self else { return }
+            if let externalURL = externalURL {
+                DispatchQueue.global().sync {
+                    guard let localURL = self.saveFile(externalURL: externalURL) else { return }
                     self.videoURLs.append(localURL)
-                    
-                    self.group.leave()
                 }
             }
+            self.savingLocallyGroup.leave()
         }
     }
     
-    private func saveFile(selectedURL: URL) -> URL? {
+    private func saveFile(externalURL: URL) -> URL? {
+        
         do {
-            var localURL = core.localFileManager.fileURL(fileName: selectedURL.fileName, fileFormat: selectedURL.pathExtension)
-            
+            var localURL = core.localFileManager.fileURL(fileName: externalURL.fileName, fileFormat: externalURL.pathExtension)
             if core.localFileManager.isFileExist(fileName: localURL.fileName, fileFormat: localURL.pathExtension) {
-                localURL = urlWithChangedName(url: selectedURL)
+                localURL = urlWithChangedName(url: externalURL)
             }
             
-            try FileManager.default.copyItem(at: selectedURL, to: localURL)
-            print("\n[PICKER] Saved at:\n\(localURL)")
+            try FileManager.default.copyItem(at: externalURL, to: localURL)
+            Log.standard("\n[PICKER] Saved locally at:\n\(localURL)")
             
             return localURL
         } catch {
@@ -114,6 +113,7 @@ final class PickerViewController: BaseViewController {
     // MARK: Helpers
     
     func urlWithChangedName(url: URL) -> URL {
+        
         filenameDuplicationsCounter += 1
         let newFileName = "\(url.fileName)-\(filenameDuplicationsCounter)"
         
@@ -134,14 +134,14 @@ extension PickerViewController: PHPickerViewControllerDelegate {
                 do {
                     try self?.core.localFileManager.removeAllFiles()
                 } catch {
-                    print("\n[PICKER] Error:\n\(error)")
+                    Log.error("\n[PICKER] Error:\n\(error)")
                 }
             }
             
             DispatchQueue.main.async { [weak self] in
                 
                 guard let self = self else { return }
-                self.group = DispatchGroup()
+                self.savingLocallyGroup = DispatchGroup()
                 
                 results.forEach { result in
                     let itemProvider = result.itemProvider
@@ -150,14 +150,14 @@ extension PickerViewController: PHPickerViewControllerDelegate {
                     }
                 }
                 
-                self.group.notify(queue: .main) { [weak self] in
+                self.savingLocallyGroup.notify(queue: .main) { [weak self] in
                     
                     guard let self = self else { return }
                     let studioViewController = StudioViewController(videoURLs: self.videoURLs, core: core)
                     // COMMENT: Ideally it should be handled by router
                     self.navigationController?.pushViewController(studioViewController, animated: true)
                     
-                    print("\n[PICKER] Picker has closed")
+                    Log.standard("\n[PICKER] Picker has closed")
                     self.picker = nil
                     
                     ProgressHUD.dismiss()
