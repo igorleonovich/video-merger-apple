@@ -64,7 +64,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 extension SceneDelegate {
     
     fileprivate func setupAppearance() {
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: Font.medium.uifont,
+        
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: Font.mediumBold.uifont,
                                                              NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
         UIBarButtonItem.appearance().tintColor = .white
     }

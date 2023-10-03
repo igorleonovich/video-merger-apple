@@ -26,7 +26,7 @@
 		697B5C902ACB322300E01711 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C8F2ACB322300E01711 /* ImageFilter.swift */; };
 		697B5C932ACB3EB000E01711 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C922ACB3EB000E01711 /* Log.swift */; };
 		697B5C962ACB4B3C00E01711 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C952ACB4B3C00E01711 /* PreviewViewController.swift */; };
-		697B5C982ACB4C0F00E01711 /* SelectedVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C972ACB4C0F00E01711 /* SelectedVideoViewController.swift */; };
+		697B5C982ACB4C0F00E01711 /* ClipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C972ACB4C0F00E01711 /* ClipsViewController.swift */; };
 		697B5C9A2ACB4C3100E01711 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C992ACB4C3100E01711 /* FiltersViewController.swift */; };
 		697B5C9C2ACB4D2F00E01711 /* UIVIewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C9B2ACB4D2F00E01711 /* UIVIewController+Extensions.swift */; };
 		697B5C9E2ACB568800E01711 /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C9D2ACB568800E01711 /* RootNavigationController.swift */; };
@@ -36,6 +36,8 @@
 		697B5CAA2ACB7E7E00E01711 /* FiltersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CA92ACB7E7E00E01711 /* FiltersManager.swift */; };
 		697B5CAC2ACB898700E01711 /* StudioState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CAB2ACB898700E01711 /* StudioState.swift */; };
 		697B5CAE2ACB8FF200E01711 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CAD2ACB8FF200E01711 /* Font.swift */; };
+		697B5CB02ACBB54200E01711 /* ClipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CAF2ACBB54200E01711 /* ClipCell.swift */; };
+		697B5CB22ACBB76B00E01711 /* ClipsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CB12ACBB76B00E01711 /* ClipsManager.swift */; };
 		B790AA37C3BE7BDEFB5451AF /* Pods_VideoMerger_Apple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FEB61ACF58B3CBD29D3207 /* Pods_VideoMerger_Apple.framework */; };
 /* End PBXBuildFile section */
 
@@ -64,7 +66,7 @@
 		697B5C8F2ACB322300E01711 /* ImageFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilter.swift; sourceTree = "<group>"; };
 		697B5C922ACB3EB000E01711 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		697B5C952ACB4B3C00E01711 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
-		697B5C972ACB4C0F00E01711 /* SelectedVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedVideoViewController.swift; sourceTree = "<group>"; };
+		697B5C972ACB4C0F00E01711 /* ClipsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipsViewController.swift; sourceTree = "<group>"; };
 		697B5C992ACB4C3100E01711 /* FiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		697B5C9B2ACB4D2F00E01711 /* UIVIewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Extensions.swift"; sourceTree = "<group>"; };
 		697B5C9D2ACB568800E01711 /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
@@ -74,6 +76,8 @@
 		697B5CA92ACB7E7E00E01711 /* FiltersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersManager.swift; sourceTree = "<group>"; };
 		697B5CAB2ACB898700E01711 /* StudioState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioState.swift; sourceTree = "<group>"; };
 		697B5CAD2ACB8FF200E01711 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		697B5CAF2ACBB54200E01711 /* ClipCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipCell.swift; sourceTree = "<group>"; };
+		697B5CB12ACBB76B00E01711 /* ClipsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,14 +186,12 @@
 		69696B392ACA665A007DD91F /* Studio */ = {
 			isa = PBXGroup;
 			children = (
+				697B5CB42ACBBC0700E01711 /* Clips */,
+				697B5CB32ACBBBF700E01711 /* Preview */,
+				697B5CB52ACBBC1000E01711 /* Filters */,
+				697B5CB62ACBBC3000E01711 /* Status */,
 				697B5C9F2ACB5DB600E01711 /* Managers */,
 				69696B1F2ACA31FC007DD91F /* StudioViewController.swift */,
-				697B5C8F2ACB322300E01711 /* ImageFilter.swift */,
-				697B5C952ACB4B3C00E01711 /* PreviewViewController.swift */,
-				697B5C972ACB4C0F00E01711 /* SelectedVideoViewController.swift */,
-				697B5C992ACB4C3100E01711 /* FiltersViewController.swift */,
-				697B5CA42ACB6E4400E01711 /* FilterCell.swift */,
-				697B5CA02ACB641F00E01711 /* StatusViewController.swift */,
 				697B5CAB2ACB898700E01711 /* StudioState.swift */,
 			);
 			path = Studio;
@@ -228,6 +230,7 @@
 				697B5C852ACAD45600E01711 /* MergeManager.swift */,
 				697B5C8B2ACB144A00E01711 /* MergeManager+Extensions.swift */,
 				697B5CA92ACB7E7E00E01711 /* FiltersManager.swift */,
+				697B5CB12ACBB76B00E01711 /* ClipsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -238,6 +241,41 @@
 				697B5CA72ACB761200E01711 /* Label.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		697B5CB32ACBBBF700E01711 /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				697B5C952ACB4B3C00E01711 /* PreviewViewController.swift */,
+			);
+			path = Preview;
+			sourceTree = "<group>";
+		};
+		697B5CB42ACBBC0700E01711 /* Clips */ = {
+			isa = PBXGroup;
+			children = (
+				697B5C972ACB4C0F00E01711 /* ClipsViewController.swift */,
+				697B5CAF2ACBB54200E01711 /* ClipCell.swift */,
+			);
+			path = Clips;
+			sourceTree = "<group>";
+		};
+		697B5CB52ACBBC1000E01711 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				697B5C992ACB4C3100E01711 /* FiltersViewController.swift */,
+				697B5CA42ACB6E4400E01711 /* FilterCell.swift */,
+				697B5C8F2ACB322300E01711 /* ImageFilter.swift */,
+			);
+			path = Filters;
+			sourceTree = "<group>";
+		};
+		697B5CB62ACBBC3000E01711 /* Status */ = {
+			isa = PBXGroup;
+			children = (
+				697B5CA02ACB641F00E01711 /* StatusViewController.swift */,
+			);
+			path = Status;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -359,9 +397,10 @@
 			files = (
 				69696B362ACA65DA007DD91F /* PickerViewController.swift in Sources */,
 				697B5CA12ACB641F00E01711 /* StatusViewController.swift in Sources */,
-				697B5C982ACB4C0F00E01711 /* SelectedVideoViewController.swift in Sources */,
+				697B5C982ACB4C0F00E01711 /* ClipsViewController.swift in Sources */,
 				697B5C902ACB322300E01711 /* ImageFilter.swift in Sources */,
 				697B5C882ACAD78900E01711 /* Constants.swift in Sources */,
+				697B5CB22ACBB76B00E01711 /* ClipsManager.swift in Sources */,
 				697B5CA82ACB761200E01711 /* Label.swift in Sources */,
 				697B5C832ACAC6CA00E01711 /* URL+Extensions.swift in Sources */,
 				69696B202ACA31FC007DD91F /* StudioViewController.swift in Sources */,
@@ -369,6 +408,7 @@
 				697B5C8C2ACB144A00E01711 /* MergeManager+Extensions.swift in Sources */,
 				697B5CA52ACB6E4400E01711 /* FilterCell.swift in Sources */,
 				697B5CAA2ACB7E7E00E01711 /* FiltersManager.swift in Sources */,
+				697B5CB02ACBB54200E01711 /* ClipCell.swift in Sources */,
 				69696B1C2ACA31FC007DD91F /* AppDelegate.swift in Sources */,
 				697B5C962ACB4B3C00E01711 /* PreviewViewController.swift in Sources */,
 				697B5C932ACB3EB000E01711 /* Log.swift in Sources */,

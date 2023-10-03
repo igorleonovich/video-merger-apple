@@ -14,12 +14,19 @@ final class StudioViewController: BaseViewController {
     private weak var localFileManager: LocalFileManager!
     private var mergeManager: MergeManager!
     private var filtersManager: FiltersManager!
+    private var clipsManager: ClipsManager!
+    
+    private var stackView: UIStackView!
+    private var previewView: UIView!
+    static let fixedPanelsHeight: CGFloat = 100
+    private let statusPanelHeight: CGFloat = 50
     
     private var player: AVQueuePlayer!
     private var videoLooper: AVPlayerLooper!
     private var playerView: UIView!
     private var playerLayer: AVPlayerLayer!
     private var isPlayerSetup = false
+    
     private var selectedVideoIndex = 0 {
         didSet {
             print(selectedVideoIndex)
@@ -31,19 +38,11 @@ final class StudioViewController: BaseViewController {
         }
     }
     
-    private var inputVideoURLs = [URL]()
-    private var outputVideoURLs = [URL]()
-    
     private var filteringGroup: DispatchGroup!
     
-    static let fixedPanelsHeight: CGFloat = 100
-    private let statusPanelHeight: CGFloat = 50
-    
-    private var stackView: UIStackView!
-    private var previewView: UIView!
-    
     init(videoURLs: [URL], localFileManager: LocalFileManager) {
-        self.inputVideoURLs = videoURLs
+        clipsManager = ClipsManager()
+        clipsManager.inputVideoURLs = videoURLs
         self.localFileManager = localFileManager
         super.init()
     }
@@ -62,7 +61,7 @@ final class StudioViewController: BaseViewController {
         
         setupStackView()
         
-        setupSelectedVideo()
+        setupClips()
         setupPreview()
         setupFilters()
         setupStatus()
@@ -74,7 +73,7 @@ final class StudioViewController: BaseViewController {
 
         filteringGroup = DispatchGroup()
 
-        inputVideoURLs.forEach { videoURL in
+        clipsManager.inputVideoURLs.forEach { videoURL in
             applyFilterAndExport(url: videoURL)
         }
 
@@ -92,7 +91,7 @@ final class StudioViewController: BaseViewController {
             return
         }
         // INFO: Prevent wrong player frame size
-        if let url = inputVideoURLs.first {
+        if let url = clipsManager.inputVideoURLs.first {
             setupPlayer(with: url)
         } else {
             Log.error("[STUDIO] Can't load initial video into player")
@@ -115,11 +114,11 @@ final class StudioViewController: BaseViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin).offset(-5)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin)
         }
     }
     
-    private func setupSelectedVideo() {
+    private func setupClips() {
         
         let selectedVideoView = UIView()
         stackView.addArrangedSubview(selectedVideoView)
@@ -127,10 +126,8 @@ final class StudioViewController: BaseViewController {
             make.height.equalTo(StudioViewController.fixedPanelsHeight)
         }
         
-        let selectedVideoViewController = SelectedVideoViewController()
-        add(child: selectedVideoViewController, containerView: selectedVideoView)
-        
-        selectedVideoView.backgroundColor = .orange
+        let clipsViewController = ClipsViewController(delegate: self, clipsManager: clipsManager)
+        add(child: clipsViewController, containerView: selectedVideoView)
     }
     
     private func setupPreview() {
@@ -176,7 +173,6 @@ final class StudioViewController: BaseViewController {
             make.edges.equalToSuperview()
         }
         view.layoutIfNeeded()
-//        previewView.layoutIfNeeded()
     }
     
     private func setupPlayer(with url: URL) {
@@ -205,7 +201,7 @@ final class StudioViewController: BaseViewController {
     private func applyFilterAndExport(url: URL) {
         
         guard selectedFilterIndex != 0  else {
-            outputVideoURLs.append(url)
+            clipsManager.outputVideoURLs.append(url)
             Log.standard("[STUDIO] Use original video at:\n\(url)")
             DispatchQueue.main.async { [weak self] in
                 self?.setupPlayer(with: url)
@@ -252,7 +248,7 @@ final class StudioViewController: BaseViewController {
                 Log.error("[STUDIO] Export failed: \(exporter?.error)")
                 return
             }
-            outputVideoURLs.append(outputURL)
+            clipsManager.outputVideoURLs.append(outputURL)
             Log.standard("[STUDIO] Export filtered video done:\n\(outputURL)")
             
             DispatchQueue.main.async { [weak self] in
@@ -267,7 +263,7 @@ final class StudioViewController: BaseViewController {
     
     private func mergeAndExport() {
         
-        let assets = outputVideoURLs.map({ AVAsset(url: $0) })
+        let assets = clipsManager.outputVideoURLs.map({ AVAsset(url: $0) })
         mergeManager.merge(arrayVideos: assets) { [weak self] mergedVideoURL, error in
             if let error = error {
                 Log.error("[STUDIO] Merge failed:\n\(error)")
@@ -289,9 +285,21 @@ final class StudioViewController: BaseViewController {
 }
 
 
+// MARK: FiltersViewControllerDelegate
+
 extension StudioViewController: FiltersViewControllerDelegate {
     
     func didSelectFilter(newIndex: Int) {
         selectedFilterIndex = newIndex
+    }
+}
+
+
+// MARK: SelectedVideoViewControllerDelegate
+
+extension StudioViewController: ClipsViewControllerDelegate {
+    
+    func didSelectVideo(newIndex: Int) {
+        selectedVideoIndex = newIndex
     }
 }

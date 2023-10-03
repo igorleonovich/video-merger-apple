@@ -41,7 +41,7 @@ final class StatusViewController: BaseViewController {
         }
         textLabel.textAlignment = .center
         textLabel.font = Font.large.uifont
-        textLabel.textColor = .white
+        textLabel.textColor = .black
         
         textLabel.text = "Status".uppercased()
     }

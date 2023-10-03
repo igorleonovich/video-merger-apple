@@ -11,13 +11,14 @@ enum Font {
     
     case small
     case medium
+    case mediumBold
     case large
     
     var size: CGFloat {
         switch self {
         case .small:
             return 12
-        case .medium:
+        case .medium, .mediumBold:
             return 16
         case .large:
             return 18
@@ -26,8 +27,8 @@ enum Font {
     
     var uifont: UIFont {
         switch self {
-        case .large:
-            return Font.appFont(size: size, weight: .heavy)
+        case .mediumBold:
+            return Font.appFont(size: size, weight: .bold)
         default:
             return Font.appFont(size: size)
         }

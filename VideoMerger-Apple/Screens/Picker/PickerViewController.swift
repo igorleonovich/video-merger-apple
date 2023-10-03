@@ -40,6 +40,11 @@ final class PickerViewController: BaseViewController {
         showPickerIfNeeded()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+    
     private func showPickerIfNeeded() {
         
         guard picker == nil else {
