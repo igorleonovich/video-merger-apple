@@ -21,12 +21,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
-        let font = UIFont.systemFont(ofSize: 16, weight: .thin)
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: font,
-                                                             NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
-        UIBarButtonItem.appearance().tintColor = .white
+        setupAppearance()
         
-        // TODO: Use LoadingViewController?
+        // OPTIONAL TODO: Using LoadingViewController instead is preferable
         localFileManager = LocalFileManager()
         window.rootViewController = RootNavigationController(localFileManager: localFileManager)
         window.makeKeyAndVisible()
@@ -58,6 +55,18 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+    }
+}
+
+
+// MARK: - Setup
+
+extension SceneDelegate {
+    
+    fileprivate func setupAppearance() {
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: Font.medium.uifont,
+                                                             NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+        UIBarButtonItem.appearance().tintColor = .white
     }
 }
 

@@ -115,7 +115,7 @@ final class StudioViewController: BaseViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin).offset(-5)
         }
     }
     

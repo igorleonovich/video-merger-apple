@@ -35,6 +35,7 @@
 		697B5CA82ACB761200E01711 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CA72ACB761200E01711 /* Label.swift */; };
 		697B5CAA2ACB7E7E00E01711 /* FiltersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CA92ACB7E7E00E01711 /* FiltersManager.swift */; };
 		697B5CAC2ACB898700E01711 /* StudioState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CAB2ACB898700E01711 /* StudioState.swift */; };
+		697B5CAE2ACB8FF200E01711 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CAD2ACB8FF200E01711 /* Font.swift */; };
 		B790AA37C3BE7BDEFB5451AF /* Pods_VideoMerger_Apple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FEB61ACF58B3CBD29D3207 /* Pods_VideoMerger_Apple.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 		697B5CA72ACB761200E01711 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		697B5CA92ACB7E7E00E01711 /* FiltersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersManager.swift; sourceTree = "<group>"; };
 		697B5CAB2ACB898700E01711 /* StudioState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioState.swift; sourceTree = "<group>"; };
+		697B5CAD2ACB8FF200E01711 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				697B5C922ACB3EB000E01711 /* Log.swift */,
+				697B5CAD2ACB8FF200E01711 /* Font.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 				69696B1E2ACA31FC007DD91F /* SceneDelegate.swift in Sources */,
 				697B5C862ACAD45600E01711 /* MergeManager.swift in Sources */,
 				697B5CAC2ACB898700E01711 /* StudioState.swift in Sources */,
+				697B5CAE2ACB8FF200E01711 /* Font.swift in Sources */,
 				69696B3B2ACA66D0007DD91F /* BaseViewController.swift in Sources */,
 				697B5C7E2ACAB85800E01711 /* LocalFileManager.swift in Sources */,
 				697B5C9A2ACB4C3100E01711 /* FiltersViewController.swift in Sources */,

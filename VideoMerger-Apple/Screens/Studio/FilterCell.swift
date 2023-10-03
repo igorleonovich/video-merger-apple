@@ -60,7 +60,7 @@ final class FilterCell: UICollectionViewCell {
         }
         
         titleLabel.textAlignment = .center
-        titleLabel.font = .systemFont(ofSize: 12, weight: .thin)
+        titleLabel.font = Font.small.uifont
     }
     
     private func setupImageView() {
