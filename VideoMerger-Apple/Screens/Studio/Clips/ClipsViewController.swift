@@ -7,14 +7,10 @@
 
 import UIKit
 
-final class ClipsViewController: BaseViewController {
+final class ClipsViewController: CollectionViewController {
     
-    weak var delegate: ClipsViewControllerDelegate?
+    weak var delegate: ClipsViewControllerDelegate!
     weak private var clipsManager: ClipsManager!
-    
-    private var collectionView: UICollectionView?
-    private let cellSize = CGSize(width: StudioViewController.fixedPanelsHeight, height: StudioViewController.fixedPanelsHeight)
-    private let cellGap: CGFloat = 1
     
     private var selectedIndex = 0 {
         didSet {
@@ -26,7 +22,7 @@ final class ClipsViewController: BaseViewController {
     
     // MARK: Life Cycle
     
-    init(delegate: ClipsViewControllerDelegate? = nil, clipsManager: ClipsManager) {
+    init(delegate: ClipsViewControllerDelegate, clipsManager: ClipsManager) {
         super.init()
         self.delegate = delegate
         self.clipsManager = clipsManager
@@ -90,27 +86,12 @@ extension ClipsViewController: UICollectionViewDataSource {
 }
 
 
-// MARK: - Collection View Flow Layout Delegate
+// MARK: - UICollectionViewDelegate
 
-extension ClipsViewController: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return cellSize
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .zero
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return cellGap
-    }
-}
-
-
-extension ClipsViewController: UICollectionViewDelegate {
+extension ClipsViewController {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath)?.isSelected = true
         selectedIndex = indexPath.row
     }
     
@@ -124,4 +105,3 @@ protocol ClipsViewControllerDelegate: AnyObject {
     
     func didSelectVideo(newIndex: Int)
 }
-

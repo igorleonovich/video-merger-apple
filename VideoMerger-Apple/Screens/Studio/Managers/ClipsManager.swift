@@ -11,13 +11,4 @@ final class ClipsManager {
     
     var inputVideoURLs = [URL]()
     var outputVideoURLs = [URL]()
-    
-    init() {
-//        setupFilters()
-    }
-    
-//    private func setupFilters() {
-//        filters = ImageFilter.allCases
-//        filters.append(contentsOf: [ImageFilter.remote, ImageFilter.remote, ImageFilter.remote, ImageFilter.remote])
-//    }
 }

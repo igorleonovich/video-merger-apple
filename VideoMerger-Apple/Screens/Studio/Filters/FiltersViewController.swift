@@ -7,14 +7,10 @@
 
 import UIKit
 
-final class FiltersViewController: BaseViewController {
+final class FiltersViewController: CollectionViewController {
     
     weak var delegate: FiltersViewControllerDelegate?
     weak private var filtersManager: FiltersManager!
-    
-    private var collectionView: UICollectionView?
-    private let cellSize = CGSize(width: StudioViewController.fixedPanelsHeight, height: StudioViewController.fixedPanelsHeight)
-    private let cellGap: CGFloat = 1
     
     private var selectedIndex = 0 {
         didSet {
@@ -90,27 +86,12 @@ extension FiltersViewController: UICollectionViewDataSource {
 }
 
 
-// MARK: - Collection View Flow Layout Delegate
+// MARK: - UICollectionViewDelegate
 
-extension FiltersViewController: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return cellSize
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .zero
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return cellGap
-    }
-}
-
-
-extension FiltersViewController: UICollectionViewDelegate {
+extension FiltersViewController {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath)?.isSelected = true
         selectedIndex = indexPath.row
     }
     

@@ -10,9 +10,7 @@ import UIKit
 
 final class ClipCell: UICollectionViewCell {
     
-    private var stackView: UIStackView!
     private var imageView: UIImageView!
-    private var titleLabel: Label!
     private var overlayView: UIView!
     
     override var isSelected: Bool {
@@ -37,6 +35,7 @@ final class ClipCell: UICollectionViewCell {
     // MARK: Setup
     
     private func setupUI() {
+        
         setupImageView()
         setupOverlay()
     }
@@ -52,6 +51,7 @@ final class ClipCell: UICollectionViewCell {
     }
     
     private func setupOverlay() {
+        
         overlayView = UIView()
         addSubview(overlayView)
         overlayView.snp.makeConstraints { make in
@@ -65,11 +65,12 @@ final class ClipCell: UICollectionViewCell {
     
     func configure(with url: URL) {
         
-//        titleLabel.text = url.absoluteString
         imageView.image = imagePreview(from: url, in: 0)
     }
     
     func imagePreview(from moviePath: URL, in seconds: Double) -> UIImage? {
+        
+        // INFO: There is no urgency to pass it on global queue for only 1 thumbnail
         let timestamp = CMTime(seconds: seconds, preferredTimescale: 60)
         let asset = AVURLAsset(url: moviePath)
         let generator = AVAssetImageGenerator(asset: asset)

@@ -16,8 +16,12 @@ final class StudioViewController: BaseViewController {
     private var filtersManager: FiltersManager!
     private var clipsManager: ClipsManager!
     
+    private var statusViewController: StatusViewController!
+    
     private var stackView: UIStackView!
     private var previewView: UIView!
+    private var filtersView: UIView!
+    private var overlayView: UIView!
     static let fixedPanelsHeight: CGFloat = 100
     private let statusPanelHeight: CGFloat = 50
     
@@ -40,6 +44,28 @@ final class StudioViewController: BaseViewController {
     
     private var filteringGroup: DispatchGroup!
     
+    private var studioState: StudioState = .loading {
+        didSet {
+            statusViewController.update(with: studioState.rawValue)
+            switch studioState {
+            case .loading:
+                break
+            case .ready:
+                overlayView.alpha = 0
+                setupExportButton()
+            case .filtering:
+                overlayView.alpha = 0.75
+                setupCancelButton()
+            case .merging:
+                break
+            case .exported:
+                overlayView.alpha = 0
+                clipsManager.outputVideoURLs.removeAll()
+                setupExportButton()
+            }
+        }
+    }
+    
     init(videoURLs: [URL], localFileManager: LocalFileManager) {
         clipsManager = ClipsManager()
         clipsManager.inputVideoURLs = videoURLs
@@ -57,8 +83,6 @@ final class StudioViewController: BaseViewController {
         mergeManager = MergeManager(localFileManager: localFileManager)
         filtersManager = FiltersManager()
         
-        setupExport()
-        
         setupStackView()
         
         setupClips()
@@ -67,21 +91,8 @@ final class StudioViewController: BaseViewController {
         setupStatus()
         
         setupPlayerView()
-
-        /* INFO: Applying filter before merge for displaying it in preview and for avoiding filtering of added black space in case of different aspect ratio */
-        Log.standard("[STUDIO] Filtering started...")
-
-        filteringGroup = DispatchGroup()
-
-        clipsManager.inputVideoURLs.forEach { videoURL in
-            applyFilterAndExport(url: videoURL)
-        }
-
-        filteringGroup.notify(queue: .main) { [weak self] in
-            guard let self = self else { return }
-            Log.standard("[STUDIO] Merge started...")
-            mergeAndExport()
-        }
+        
+        setupOverlay()
     }
     
     override func viewDidLayoutSubviews() {
@@ -98,11 +109,29 @@ final class StudioViewController: BaseViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if studioState == .loading {
+            studioState = .ready
+        }
+    }
+    
     // MARK: - Setup
     
-    private func setupExport() {
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Export", style: .plain, target: self, action: #selector(onExport))
+    private var exportButton: UIBarButtonItem {
+        return UIBarButtonItem(title: "Export".uppercased(), style: .plain, target: self, action: #selector(onExport(_:)))
+    }
+    
+    private var cancelButton: UIBarButtonItem {
+        return UIBarButtonItem(title: "Cancel".uppercased(), style: .plain, target: self, action: #selector(onCancel))
+    }
+    
+    private func setupExportButton() {
+        navigationItem.rightBarButtonItem = exportButton
+    }
+    
+    private func setupCancelButton() {
+        navigationItem.rightBarButtonItem = cancelButton
     }
     
     private func setupStackView() {
@@ -111,7 +140,7 @@ final class StudioViewController: BaseViewController {
         stackView.axis = .vertical
         view.addSubview(stackView)
         stackView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin)
@@ -141,7 +170,7 @@ final class StudioViewController: BaseViewController {
     
     private func setupFilters() {
         
-        let filtersView = UIView()
+        filtersView = UIView()
         stackView.addArrangedSubview(filtersView)
         filtersView.snp.makeConstraints { make in
             make.height.equalTo(StudioViewController.fixedPanelsHeight)
@@ -159,7 +188,7 @@ final class StudioViewController: BaseViewController {
             make.height.equalTo(statusPanelHeight)
         }
         
-        let statusViewController = StatusViewController()
+        statusViewController = StatusViewController(delegate: self)
         add(child: statusViewController, containerView: statusView)
         
         statusViewController.view.backgroundColor = .green
@@ -180,9 +209,11 @@ final class StudioViewController: BaseViewController {
         let asset = AVAsset(url: url)
         let item = AVPlayerItem(asset: asset)
         player = AVQueuePlayer(playerItem: item)
-        // TODO: Remove hardcode
-//        player.isMuted = true
+        
+        #if DEBUG
         player.volume = 0
+        #endif
+        
         videoLooper = AVPlayerLooper(player: player, templateItem: item)
         
         playerLayer = AVPlayerLayer()
@@ -194,6 +225,20 @@ final class StudioViewController: BaseViewController {
         player.play()
         
         isPlayerSetup = true
+    }
+    
+    private func setupOverlay() {
+        
+        overlayView = UIView()
+        view.addSubview(overlayView)
+        overlayView.snp.makeConstraints { make in
+            make.top.equalTo(stackView)
+            make.left.equalTo(stackView)
+            make.right.equalTo(stackView)
+            make.bottom.equalTo(filtersView)
+        }
+        overlayView.backgroundColor = .black
+        overlayView.alpha = 0
     }
     
     // MARK: - Actions
@@ -261,21 +306,68 @@ final class StudioViewController: BaseViewController {
         })
     }
     
-    private func mergeAndExport() {
+    private func mergeAndExport(_ completion: @escaping (URL?) -> Void) {
         
         let assets = clipsManager.outputVideoURLs.map({ AVAsset(url: $0) })
+        
         mergeManager.merge(arrayVideos: assets) { [weak self] mergedVideoURL, error in
             if let error = error {
                 Log.error("[STUDIO] Merge failed:\n\(error)")
+                completion(nil)
+                self?.studioState = .ready
+                
             } else if let mergedVideoURL = mergedVideoURL {
                 Log.standard("[STUDIO] Merge done:\n\(mergedVideoURL)")
+                completion(mergedVideoURL)
+                self?.studioState = .exported
+                
             } else {
                 Log.error("[STUDIO] Merged video url creating failed")
+                completion(nil)
+                self?.studioState = .ready
             }
         }
     }
     
+    private func showExport(with url: URL) {
+        let exportViewController = ExportViewController(url: url)
+        exportViewController.modalPresentationStyle = .pageSheet
+        exportViewController.modalTransitionStyle = .coverVertical
+        present(exportViewController, animated: true)
+    }
+    
     @objc private func onExport(_ sender: Any) {
+        onExport()
+    }
+    
+    private func onExport() {
+        if studioState == .exported, let mergedURL = mergeManager.mergedURL {
+            showExport(with: mergedURL)
+        } else {
+            /* INFO: Applying filter before merge for displaying it in preview and for avoiding filtering of added black space in case of different aspect ratio */
+            studioState = .filtering
+            Log.standard("[STUDIO] Filtering started...")
+
+            filteringGroup = DispatchGroup()
+
+            clipsManager.inputVideoURLs.forEach { videoURL in
+                applyFilterAndExport(url: videoURL)
+            }
+
+            filteringGroup.notify(queue: .main) { [weak self] in
+                guard let self = self else { return }
+                studioState = .merging
+                Log.standard("[STUDIO] Merge started...")
+                mergeAndExport { [weak self] mergedURL in
+                    if let mergedURL = mergedURL {
+                        self?.showExport(with: mergedURL)
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc private func onCancel(_ sender: Any) {
         
     }
     
@@ -301,5 +393,20 @@ extension StudioViewController: ClipsViewControllerDelegate {
     
     func didSelectVideo(newIndex: Int) {
         selectedVideoIndex = newIndex
+    }
+}
+
+
+// MARK: StudioViewControllerDelegate
+
+extension StudioViewController: StatusViewControllerDelegate {
+    
+    func didTapStatus() {
+        switch studioState {
+        case .exported:
+            onExport()
+        default:
+            break
+        }
     }
 }

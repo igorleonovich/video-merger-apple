@@ -20,6 +20,8 @@ final class MergeManager {
     
     private weak var localFileManager: LocalFileManager!
     
+    var mergedURL: URL?
+    
     typealias Completion = (URL?, Error?) -> Void
     
     // MARK: - Life Cycle
@@ -232,9 +234,10 @@ extension MergeManager {
         }
     }
     
-    private func exportDidFinish(exporter: AVAssetExportSession?, videoURL:URL, completion: @escaping Completion) -> Void {
+    private func exportDidFinish(exporter: AVAssetExportSession?, videoURL: URL, completion: @escaping Completion) -> Void {
         
         if exporter?.status == AVAssetExportSession.Status.completed {
+            mergedURL = videoURL
             completion(videoURL,nil)
         }
         else if exporter?.status == AVAssetExportSession.Status.failed {

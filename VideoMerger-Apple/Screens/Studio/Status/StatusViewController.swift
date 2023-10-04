@@ -7,17 +7,34 @@
 
 import UIKit
 
+protocol StatusViewControllerDelegate: AnyObject {
+    
+    func didTapStatus()
+}
+
 final class StatusViewController: BaseViewController {
     
+    private weak var delegate: StatusViewControllerDelegate!
     private var stackView: UIStackView!
+    private var textLabel: Label!
     
     
     // MARK: Life Cycle
+    
+    init(delegate: StatusViewControllerDelegate) {
+        self.delegate = delegate
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStackView()
         setupTextLabel()
+        setupTapGesture()
     }
     
     
@@ -34,7 +51,7 @@ final class StatusViewController: BaseViewController {
     }
     
     private func setupTextLabel() {
-        let textLabel = Label()
+        textLabel = Label()
         stackView.addArrangedSubview(textLabel)
         textLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -46,10 +63,21 @@ final class StatusViewController: BaseViewController {
         textLabel.text = "Status".uppercased()
     }
     
+    private func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap(_:)))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
     
     // MARK: Update
     
-    func update() {
-        
+    func update(with text: String) {
+        textLabel.text = text.uppercased()
+    }
+    
+    // MARK: Actions
+    
+    @objc private func onTap(_ sender: Any) {
+        delegate?.didTapStatus()
     }
 }
