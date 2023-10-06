@@ -285,7 +285,7 @@ final class StudioViewController: BaseViewController {
         exporter?.videoComposition = videoComposition
         exporter?.outputFileType = AVFileType(rawValue: Constants.outputFileType)
         
-        let outputURL = localFileManager.fileURL(fileName: "\(url.fileName).\(selectedImageFilter.rawValue)", fileFormat: url.pathExtension)
+        let outputURL = localFileManager.fileURL(fileName: "\(url.fileName).\(selectedImageFilter.title.lowercased())", fileFormat: url.pathExtension)
         exporter?.outputURL = outputURL
         
         exporter?.exportAsynchronously(completionHandler: { [weak self] in

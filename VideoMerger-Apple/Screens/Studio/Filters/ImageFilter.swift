@@ -8,11 +8,11 @@
 import CoreImage
 import Foundation
 
-enum ImageFilter: String, CaseIterable {
+enum ImageFilter {
     
     case noFilter
     case inversion
-    case remote
+    case custom([CIFilter], String)
     
     var filter: CIFilter? {
         switch self {
@@ -21,9 +21,9 @@ enum ImageFilter: String, CaseIterable {
             return nil
         case .inversion:
             return CIFilter(name: "CIColorInvert")!
-        case .remote:
-            // TODO: Make "Remote"
-            return CIFilter()
+        case .custom:
+            // TODO: Make Custom
+            return nil
         }
     }
     
@@ -31,8 +31,10 @@ enum ImageFilter: String, CaseIterable {
         switch self {
         case .noFilter:
             return "Original"
-        default:
-            return rawValue.capitalized
+        case .inversion:
+            return "Inversion"
+        case .custom(_, let title):
+            return title
         }
     }
 }
