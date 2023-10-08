@@ -47,7 +47,7 @@ final class LocalFileManager {
                 try FileManager.default.removeItem(at: fileURL)
             }
         } catch  {
-            throw NSErrorDomain.init(string: "[LOCAL FILE MANAGER] Unable to remove all data") as! Error
+            throw NSErrorDomain.init(string: "[LOCAL FILE MANAGER] Unable to remove all files") as! Error
         }
     }
 

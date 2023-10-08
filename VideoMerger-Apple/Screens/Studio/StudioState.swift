@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum StudioState: String, CaseIterable {
+enum StudioState: String {
     
     case loading
     case ready

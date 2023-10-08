@@ -11,19 +11,14 @@ import Foundation
 enum ImageFilter {
     
     case noFilter
-    case inversion
-    case custom([CIFilter], String)
+    case custom(ImageFilterDTO)
     
     var filter: CIFilter? {
         switch self {
         case .noFilter:
-            // TODO: Fix "No Filter"
             return nil
-        case .inversion:
-            return CIFilter(name: "CIColorInvert")!
-        case .custom:
-            // TODO: Make Custom
-            return nil
+        case .custom(let imageFilterDTO):
+            return CIFilter(name: imageFilterDTO.name)
         }
     }
     
@@ -31,10 +26,15 @@ enum ImageFilter {
         switch self {
         case .noFilter:
             return "Original"
-        case .inversion:
-            return "Inversion"
-        case .custom(_, let title):
-            return title
+        case .custom(let imageFilterDTO):
+            return imageFilterDTO.title
         }
     }
+}
+
+
+struct ImageFilterDTO: Codable {
+    
+    let name: String
+    let title: String
 }

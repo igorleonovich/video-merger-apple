@@ -70,4 +70,3 @@ extension SceneDelegate {
         UIBarButtonItem.appearance().tintColor = .white
     }
 }
-

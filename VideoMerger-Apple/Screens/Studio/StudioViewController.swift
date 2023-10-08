@@ -37,6 +37,9 @@ final class StudioViewController: BaseViewController {
     }
     private var selectedFilterIndex = 0 {
         didSet {
+            if studioState == .exported, oldValue != selectedFilterIndex {
+                studioState = .ready
+            }
             print(selectedFilterIndex)
         }
     }
@@ -64,6 +67,9 @@ final class StudioViewController: BaseViewController {
     }
     
     private var filteringGroup: DispatchGroup!
+    
+    
+    // MARK: Life cycle
     
     init(videoURLs: [URL], localFileManager: LocalFileManager) {
         clipsManager = ClipsManager()
@@ -261,24 +267,15 @@ final class StudioViewController: BaseViewController {
         
         let selectedImageFilter = self.filtersManager.filters[selectedFilterIndex]
         
-        guard let filter = selectedImageFilter.filter else {
-            Log.error("[STUDIO] Cannot retrieve filter")
-            return
-        }
-        
         let asset = AVAsset(url: url)
         let item = AVPlayerItem(asset: asset)
         let videoComposition = AVMutableVideoComposition(asset: asset) { [weak self] request in
             guard let self = self else { return }
             let source = request.sourceImage.clampedToExtent()
-            filter.setValue(source, forKey: kCIInputImageKey)
-
-            let output = filter.outputImage!.cropped(to: request.sourceImage.extent)
-            // OPTIONAL TODO: Check different aspect ratio modes
-            // let output = filter.outputImage!
             
-            // INFO: Provide the filter output to the composition
-            request.finish(with: output, context: nil)
+            let outputImage = self.filtersManager.apply(selectedImageFilter.filter, for: source)
+            
+            request.finish(with: outputImage, context: nil)
         }
         item.videoComposition = videoComposition
 
@@ -331,6 +328,7 @@ final class StudioViewController: BaseViewController {
     }
     
     private func showExport(with url: URL) {
+        
         let exportViewController = ExportViewController(url: url)
         exportViewController.modalPresentationStyle = .pageSheet
         exportViewController.modalTransitionStyle = .coverVertical
@@ -338,10 +336,12 @@ final class StudioViewController: BaseViewController {
     }
     
     @objc private func onExport(_ sender: Any) {
+        
         onExport()
     }
     
     private func onExport() {
+        
         if studioState == .exported, let mergedURL = mergeManager.mergedURL {
             showExport(with: mergedURL)
         } else {

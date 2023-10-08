@@ -48,27 +48,23 @@ final class PickerViewController: BaseViewController {
     
     private func showPickerIfNeeded() {
         
-        guard picker == nil else {
-            return
-        }
+        guard picker == nil else { return }
         
-        do {
-            var config = PHPickerConfiguration()
-            
-            config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
-            config.selectionLimit = Constants.maxVideoFilesCount
-            
-            config.filter = .videos
-            let picker = PHPickerViewController(configuration: config)
-            self.picker = picker
-            
-            picker.modalPresentationStyle = .overFullScreen
-            picker.modalTransitionStyle = .crossDissolve
-            picker.delegate = self
-            
-            present(picker, animated: true) {
-                Log.standard("[PICKER] Picker opened")
-            }
+        var config = PHPickerConfiguration()
+        
+        config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+        config.selectionLimit = Constants.maxVideoFilesCount
+        
+        config.filter = .videos
+        let picker = PHPickerViewController(configuration: config)
+        self.picker = picker
+        
+        picker.modalPresentationStyle = .overFullScreen
+        picker.modalTransitionStyle = .crossDissolve
+        picker.delegate = self
+        
+        present(picker, animated: true) {
+            Log.standard("[PICKER] Picker opened")
         }
     }
     
@@ -134,7 +130,7 @@ extension PickerViewController: PHPickerViewControllerDelegate {
 
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
-        picker.dismiss(animated: true) {
+        picker.dismiss(animated: true) { [weak self] in
             
             ProgressHUD.show()
             
@@ -144,9 +140,6 @@ extension PickerViewController: PHPickerViewControllerDelegate {
                 } catch {
                     Log.error("[PICKER] Error:\n\(error)")
                 }
-            }
-            
-            DispatchQueue.main.async { [weak self] in
                 
                 guard let self = self else { return }
                 self.savingLocallyGroup = DispatchGroup()
@@ -157,20 +150,20 @@ extension PickerViewController: PHPickerViewControllerDelegate {
                         self.saveVideoLocally(result)
                     }
                 }
+            }
+            
+            self?.savingLocallyGroup.notify(queue: .main) { [weak self] in
                 
-                self.savingLocallyGroup.notify(queue: .main) { [weak self] in
-                    
-                    guard let self = self else { return }
-                    let studioViewController = StudioViewController(videoURLs: self.videoURLs,
-                                                                    localFileManager: localFileManager)
-                    // COMMENT: Ideally it should be handled by router
-                    self.navigationController?.pushViewController(studioViewController, animated: true)
-                    
-                    Log.standard("[PICKER] Picker has closed")
-                    self.picker = nil
-                    
-                    ProgressHUD.dismiss()
-                }
+                guard let self = self else { return }
+                let studioViewController = StudioViewController(videoURLs: self.videoURLs,
+                                                                localFileManager: localFileManager)
+                // COMMENT: Ideally it should be handled by router
+                self.navigationController?.pushViewController(studioViewController, animated: true)
+                
+                Log.standard("[PICKER] Picker has closed")
+                self.picker = nil
+                
+                ProgressHUD.dismiss()
             }
         }
     }
