@@ -32,6 +32,7 @@ final class FilterCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     // MARK: Setup
     
     private func setupUI() {
@@ -69,7 +70,8 @@ final class FilterCell: UICollectionViewCell {
         stackView.addArrangedSubview(imageView)
     }
     
-    // MARK: Updates
+    
+    // MARK: Configuration
     
     func configure(with filter: ImageFilter) {
         

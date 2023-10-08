@@ -19,21 +19,23 @@ final class FiltersManager {
     }
     
     func load(_ completion: @escaping () -> Void) {
-        readJsonFile { [weak self] in
-            self?.getCustomFilterChain()
-            self?.setupFilters()
+        readJsonFile()
+        if let customFilterChain = getCustomFilterChain() {
+            setupFilters(customFilterChain: customFilterChain)
+        } else {
+            setupFilters()
         }
+        completion()
     }
 
-    private func readJsonFile(_ completion: @escaping () -> Void)  {
-        if let path = Bundle.main.path(forResource: "BCPCITYLIGHTSPARIS", ofType: "json") {
+    private func readJsonFile()  {
+        if let path = Bundle.main.path(forResource: "filters", ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-                if let jsonResult = jsonResult as? [String:Any] {
+                if let jsonResult = jsonResult as? [String: Any] {
                     if let arrFilters = jsonResult["filters"] as? [[String:Any]] {
                         self.arrFilters.append(contentsOf: arrFilters)
-                        completion()
                     }
                 }
             } catch {
@@ -49,7 +51,7 @@ final class FiltersManager {
         }
     }
     
-    private func getCustomFilterChain() -> [CIFilter]  {
+    private func getCustomFilterChain() -> [CIFilter]?  {
         
         var filters = [CIFilter?]()
         

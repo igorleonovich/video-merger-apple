@@ -24,11 +24,13 @@ final class MergeManager {
     
     typealias Completion = (URL?, Error?) -> Void
     
+    
     // MARK: - Life Cycle
     
     init(localFileManager: LocalFileManager) {
         self.localFileManager = localFileManager
     }
+    
     
     // MARK: - Actions
     
@@ -119,8 +121,8 @@ final class MergeManager {
         // Export to file
         let exportURL = localFileManager.fileURL(fileName: "merged", fileFormat: Constants.outputExtension)
         
-        // Remove file if existed
-        localFileManager.removeFileIfExisted(exportURL)
+        // Remove file if exists
+        localFileManager.removeFileIfExists(exportURL)
         
         // Init exporter
         let exporter = AVAssetExportSession.init(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality)
@@ -139,7 +141,8 @@ final class MergeManager {
     }
 }
 
-// MARK: Private methods
+
+// MARK: Helpers
 
 extension MergeManager {
     

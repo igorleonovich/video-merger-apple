@@ -32,6 +32,7 @@ final class ClipCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     // MARK: Setup
     
     private func setupUI() {
@@ -61,7 +62,8 @@ final class ClipCell: UICollectionViewCell {
         overlayView.alpha = 0
     }
     
-    // MARK: Updates
+    
+    // MARK: Configuration
     
     func configure(with url: URL) {
         

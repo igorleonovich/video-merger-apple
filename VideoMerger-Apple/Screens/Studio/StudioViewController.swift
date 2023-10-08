@@ -22,7 +22,6 @@ final class StudioViewController: BaseViewController {
     private var previewView: UIView!
     private var filtersView: UIView!
     private var overlayView: UIView!
-    static let fixedPanelsHeight: CGFloat = 100
     private let statusPanelHeight: CGFloat = 50
     
     private var player: AVQueuePlayer!
@@ -41,8 +40,6 @@ final class StudioViewController: BaseViewController {
             print(selectedFilterIndex)
         }
     }
-    
-    private var filteringGroup: DispatchGroup!
     
     private var studioState: StudioState = .loading {
         didSet {
@@ -65,6 +62,8 @@ final class StudioViewController: BaseViewController {
             }
         }
     }
+    
+    private var filteringGroup: DispatchGroup!
     
     init(videoURLs: [URL], localFileManager: LocalFileManager) {
         clipsManager = ClipsManager()
@@ -98,10 +97,10 @@ final class StudioViewController: BaseViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        // INFO: Prevent wrong player frame size
         guard isPlayerSetup == false else {
             return
         }
-        // INFO: Prevent wrong player frame size
         if let url = clipsManager.inputVideoURLs.first {
             setupPlayer(with: url)
         } else {
@@ -116,7 +115,8 @@ final class StudioViewController: BaseViewController {
         }
     }
     
-    // MARK: - Setup
+    
+    // MARK: Setup
     
     private var exportButton: UIBarButtonItem {
         return UIBarButtonItem(title: "Export".uppercased(), style: .plain, target: self, action: #selector(onExport(_:)))
@@ -149,14 +149,14 @@ final class StudioViewController: BaseViewController {
     
     private func setupClips() {
         
-        let selectedVideoView = UIView()
-        stackView.addArrangedSubview(selectedVideoView)
-        selectedVideoView.snp.makeConstraints { make in
-            make.height.equalTo(StudioViewController.fixedPanelsHeight)
+        let clipsView = UIView()
+        stackView.addArrangedSubview(clipsView)
+        clipsView.snp.makeConstraints { make in
+            make.height.equalTo(CollectionViewController.fixedPanelsHeight)
         }
         
         let clipsViewController = ClipsViewController(delegate: self, clipsManager: clipsManager)
-        add(child: clipsViewController, containerView: selectedVideoView)
+        add(child: clipsViewController, containerView: clipsView)
     }
     
     private func setupPreview() {
@@ -173,7 +173,7 @@ final class StudioViewController: BaseViewController {
         filtersView = UIView()
         stackView.addArrangedSubview(filtersView)
         filtersView.snp.makeConstraints { make in
-            make.height.equalTo(StudioViewController.fixedPanelsHeight)
+            make.height.equalTo(CollectionViewController.fixedPanelsHeight)
         }
         
         let filtersViewController = FiltersViewController(delegate: self, filtersManager: filtersManager)
@@ -241,7 +241,8 @@ final class StudioViewController: BaseViewController {
         overlayView.alpha = 0
     }
     
-    // MARK: - Actions
+    
+    // MARK: Actions
     
     private func applyFilterAndExport(url: URL) {
         

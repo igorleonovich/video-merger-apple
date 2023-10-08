@@ -19,6 +19,7 @@ final class PickerViewController: BaseViewController {
     
     private var picker: PHPickerViewController?
     
+    
     // MARK: Life Cycle
     
     init(localFileManager: LocalFileManager) {
@@ -71,6 +72,7 @@ final class PickerViewController: BaseViewController {
         }
     }
     
+    
     // MARK: Actions
     
     fileprivate func saveVideoLocally(_ result: PHPickerResult) {
@@ -96,7 +98,7 @@ final class PickerViewController: BaseViewController {
         
         do {
             var localURL = localFileManager.fileURL(fileName: externalURL.fileName, fileFormat: externalURL.pathExtension)
-            if localFileManager.isFileExist(fileName: localURL.fileName, fileFormat: localURL.pathExtension) {
+            if localFileManager.isFileExists(fileName: localURL.fileName, fileFormat: localURL.pathExtension) {
                 localURL = urlWithChangedName(url: externalURL)
             }
             
@@ -114,6 +116,7 @@ final class PickerViewController: BaseViewController {
         
         return nil
     }
+    
     
     // MARK: Helpers
     

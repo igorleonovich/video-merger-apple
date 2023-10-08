@@ -40,33 +40,17 @@ final class ClipsViewController: CollectionViewController {
     
     // MARK: Setup
     
-    private func setupCollectionView() {
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
-        self.collectionView = collectionView
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+    override func setupCollectionView() {
+        super.setupCollectionView()
         
         collectionView.register(ClipCell.self, forCellWithReuseIdentifier: "ClipCell")
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .clear
-        collectionView.decelerationRate = .fast
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.contentInset = .zero
-        
-        func collectionViewLayout() -> UICollectionViewLayout {
-            let layout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .horizontal
-            return layout
-        }
     }
 }
 
 
-// MARK: - Collection View Data Source
+// MARK: UICollectionViewDataSource
 
 extension ClipsViewController: UICollectionViewDataSource {
     
@@ -86,7 +70,7 @@ extension ClipsViewController: UICollectionViewDataSource {
 }
 
 
-// MARK: - UICollectionViewDelegate
+// MARK: UICollectionViewDelegate
 
 extension ClipsViewController {
     

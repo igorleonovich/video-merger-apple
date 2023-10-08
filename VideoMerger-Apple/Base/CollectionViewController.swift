@@ -9,13 +9,44 @@ import UIKit
 
 class CollectionViewController: BaseViewController {
     
-    var collectionView: UICollectionView?
-    let cellSize = CGSize(width: StudioViewController.fixedPanelsHeight, height: StudioViewController.fixedPanelsHeight)
+    var collectionView: UICollectionView!
+    let cellSize = CGSize(width: CollectionViewController.fixedPanelsHeight, height: CollectionViewController.fixedPanelsHeight)
     let cellGap: CGFloat = 1
+    
+    static let fixedPanelsHeight: CGFloat = 100
+    
+    
+    // MARK: Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupCollectionView()
+    }
+    
+    
+    // MARK: Setup
+    
+    func setupCollectionView() {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        collectionView.backgroundColor = .clear
+        collectionView.decelerationRate = .fast
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.contentInset = .zero
+    }
 }
 
 
-// MARK: - Collection View Flow Layout Delegate
+// MARK: UICollectionViewDelegateFlowLayout
 
 extension CollectionViewController: UICollectionViewDelegateFlowLayout {
 

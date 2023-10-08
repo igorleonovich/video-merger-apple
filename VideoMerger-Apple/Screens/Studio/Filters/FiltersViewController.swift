@@ -34,39 +34,26 @@ final class FiltersViewController: CollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCollectionView()
+        
+        filtersManager.load { [weak self] in
+            self?.collectionView?.reloadData()
+        }
     }
     
     
     // MARK: Setup
     
-    private func setupCollectionView() {
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
-        self.collectionView = collectionView
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+    override func setupCollectionView() {
+        super.setupCollectionView()
         
         collectionView.register(FilterCell.self, forCellWithReuseIdentifier: "FilterCell")
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .clear
-        collectionView.decelerationRate = .fast
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.contentInset = .zero
-        
-        func collectionViewLayout() -> UICollectionViewLayout {
-            let layout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .horizontal
-            return layout
-        }
     }
 }
 
 
-// MARK: - Collection View Data Source
+// MARK: UICollectionViewDataSource
 
 extension FiltersViewController: UICollectionViewDataSource {
     
@@ -86,7 +73,7 @@ extension FiltersViewController: UICollectionViewDataSource {
 }
 
 
-// MARK: - UICollectionViewDelegate
+// MARK: UICollectionViewDelegate
 
 extension FiltersViewController {
     

@@ -14,19 +14,19 @@ final class LocalFileManager {
         return urls.first!
     }
 
-    func removeFile(fileName: String, fileFormat: String) throws {
-        guard isFileExist(fileName: fileName, fileFormat: fileFormat) else {
+    func removeFileIfExists(fileName: String, fileFormat: String) throws {
+        guard isFileExists(fileName: fileName, fileFormat: fileFormat) else {
             return
         }
-        let fileURL = self.fileURL(fileName: fileName, fileFormat: fileFormat)
+        let fileURL = fileURL(fileName: fileName, fileFormat: fileFormat)
         do {
             try FileManager.default.removeItem(at: fileURL)
         } catch {
-            throw NSErrorDomain.init(string: "[LOCAL FILE MANAGER] Unable to remove data") as! Error
+            throw NSErrorDomain.init(string: "[LOCAL FILE MANAGER] Unable to remove file") as! Error
         }
     }
     
-    func removeFileIfExisted(_ url: URL) -> Void {
+    func removeFileIfExists(_ url: URL) -> Void {
         if FileManager.default.fileExists(atPath: url.path) {
             do {
                 try FileManager.default.removeItem(atPath: url.path)
@@ -38,10 +38,9 @@ final class LocalFileManager {
     }
     
     func removeAllFiles() throws {
-        let documentsUrl =  self.defaultFileDirectory()
         
         do {
-            let fileURLs = try FileManager.default.contentsOfDirectory(at: documentsUrl,
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: defaultFileDirectory(),
                                                                        includingPropertiesForKeys: nil,
                                                                        options: [])
             for fileURL in fileURLs {
@@ -52,14 +51,13 @@ final class LocalFileManager {
         }
     }
 
-    func isFileExist(fileName: String, fileFormat: String) -> Bool {
-        let fileURL = self.fileURL(fileName: fileName, fileFormat: fileFormat)
-        let exists = FileManager.default.fileExists(atPath: fileURL.path)
-        return exists
+    func isFileExists(fileName: String, fileFormat: String) -> Bool {
+        
+        let fileURL = fileURL(fileName: fileName, fileFormat: fileFormat)
+        return FileManager.default.fileExists(atPath: fileURL.path)
     }
 
     func fileURL(fileName: String, fileFormat: String) -> URL {
-        return self.defaultFileDirectory().appendingPathComponent(fileName).appendingPathExtension(fileFormat)
+        return defaultFileDirectory().appendingPathComponent(fileName).appendingPathExtension(fileFormat)
     }
 }
-
