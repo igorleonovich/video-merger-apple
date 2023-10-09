@@ -12,6 +12,7 @@ final class ClipsViewController: CollectionViewController {
     weak var delegate: ClipsViewControllerDelegate!
     private weak var clipsManager: ClipsManager!
     private weak var filtersManager: FiltersManager!
+    private weak var localFileManager: LocalFileManager!
     
     private var selectedIndex = 0 {
         didSet {
@@ -23,11 +24,13 @@ final class ClipsViewController: CollectionViewController {
     
     // MARK: Life Cycle
     
-    init(delegate: ClipsViewControllerDelegate, clipsManager: ClipsManager, filtersManager: FiltersManager) {
+    init(delegate: ClipsViewControllerDelegate, clipsManager: ClipsManager, filtersManager: FiltersManager,
+         localFileManager: LocalFileManager) {
         super.init()
         self.delegate = delegate
         self.clipsManager = clipsManager
         self.filtersManager = filtersManager
+        self.localFileManager = localFileManager
     }
     
     required init?(coder: NSCoder) {
@@ -60,8 +63,8 @@ extension ClipsViewController: UICollectionViewDataSource {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ClipCell", for: indexPath) as? ClipCell {
             cell.configure(with: clipsManager.inputVideoURLs[indexPath.row],
-                           imageFilter: filtersManager.filters[7],
-                           filtersManager: filtersManager)
+                           imageFilter: filtersManager.filters[filtersManager.selectedFilterIndex],
+                           filtersManager: filtersManager, localFileManager: localFileManager)
             return cell
         }
         return UICollectionViewCell()

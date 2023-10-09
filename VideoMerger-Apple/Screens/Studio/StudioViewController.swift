@@ -43,6 +43,7 @@ final class StudioViewController: BaseViewController {
                 studioState = .ready
             }
             print(selectedFilterIndex)
+            filtersManager.selectedFilterIndex = selectedFilterIndex
             clipsViewController.collectionView.reloadData()
         }
     }
@@ -162,7 +163,8 @@ final class StudioViewController: BaseViewController {
             make.height.equalTo(CollectionViewController.cellSide)
         }
         
-        clipsViewController = ClipsViewController(delegate: self, clipsManager: clipsManager, filtersManager: filtersManager)
+        clipsViewController = ClipsViewController(delegate: self, clipsManager: clipsManager, filtersManager: filtersManager,
+                                                  localFileManager: localFileManager)
         add(child: clipsViewController, containerView: clipsView)
     }
     
@@ -264,7 +266,7 @@ final class StudioViewController: BaseViewController {
         
         filteringGroup.enter()
         
-        let selectedImageFilter = self.filtersManager.filters[selectedFilterIndex]
+        let selectedImageFilter = filtersManager.filters[selectedFilterIndex]
         
         let asset = AVAsset(url: url)
         let item = AVPlayerItem(asset: asset)
@@ -377,26 +379,6 @@ final class StudioViewController: BaseViewController {
 }
 
 
-// MARK: FiltersViewControllerDelegate
-
-extension StudioViewController: FiltersViewControllerDelegate {
-    
-    func didSelectFilter(newIndex: Int) {
-        selectedFilterIndex = newIndex
-    }
-}
-
-
-// MARK: SelectedVideoViewControllerDelegate
-
-extension StudioViewController: ClipsViewControllerDelegate {
-    
-    func didSelectVideo(newIndex: Int) {
-        selectedVideoIndex = newIndex
-    }
-}
-
-
 // MARK: StudioViewControllerDelegate
 
 extension StudioViewController: StatusViewControllerDelegate {
@@ -408,5 +390,25 @@ extension StudioViewController: StatusViewControllerDelegate {
         default:
             break
         }
+    }
+}
+
+
+// MARK: ClipsViewControllerDelegate
+
+extension StudioViewController: ClipsViewControllerDelegate {
+    
+    func didSelectVideo(newIndex: Int) {
+        selectedVideoIndex = newIndex
+    }
+}
+
+
+// MARK: FiltersViewControllerDelegate
+
+extension StudioViewController: FiltersViewControllerDelegate {
+    
+    func didSelectFilter(newIndex: Int) {
+        selectedFilterIndex = newIndex
     }
 }

@@ -13,6 +13,8 @@ final class FiltersManager {
     var filters: [ImageFilter] = [.noFilter]
     private var filtersDTO = [ImageFilterDTO]()
     
+    var selectedFilterIndex = 0
+    
     
     func load(_ completion: @escaping () -> Void) {
         

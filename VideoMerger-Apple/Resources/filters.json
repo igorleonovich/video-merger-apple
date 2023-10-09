@@ -36,7 +36,7 @@
         "title": "Mono"
     },
     {
-        "name": "CIMaskToAlpha",
+        "name": "CIMinimumComponent",
         "title": "B&W 1"
     },
     {
@@ -44,20 +44,16 @@
         "title": "B&W 2"
     },
     {
-        "name": "CIMinimumComponent",
+        "name": "CIPhotoEffectMono",
         "title": "B&W 3"
     },
     {
-        "name": "CIPhotoEffectMono",
+        "name": "CIPhotoEffectNoir",
         "title": "B&W 4"
     },
     {
-        "name": "CIPhotoEffectNoir",
-        "title": "B&W 5"
-    },
-    {
         "name": "CIPhotoEffectTonal",
-        "title": "B&W 6"
+        "title": "B&W 5"
     },
     {
         "name": "CIColorInvert",
