@@ -19,6 +19,7 @@ import UIKit
 extension Double {
     
     func toCMTime() -> CMTime {
+        
         return CMTime(seconds: self, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
     }
 }
@@ -26,6 +27,7 @@ extension Double {
 extension AVAssetTrack {
     
     var fixedPreferredTransform: CGAffineTransform {
+        
         var newT = preferredTransform
         switch [newT.a, newT.b, newT.c, newT.d] {
         case [1, 0, 0, 1]:

@@ -30,6 +30,7 @@ final class ExportViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .black
         setupStackView()
         setupPlayer(with: url)
@@ -45,7 +46,7 @@ final class ExportViewController: BaseViewController {
         stackView.axis = .vertical
         view.addSubview(stackView)
         stackView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()

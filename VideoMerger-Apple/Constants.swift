@@ -9,10 +9,9 @@ import Foundation
 
 struct Constants {
     
-    // MARK: General
+    // MARK: UI
     
     static let fontMinimumScaleFactor: CGFloat = 0.5
-    
     
     // MARK: Video
     

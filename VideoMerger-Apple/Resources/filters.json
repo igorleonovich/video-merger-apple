@@ -1,9 +1,5 @@
 [
     {
-        "name": "CIColorMonochrome",
-        "title": "Mono"
-    },
-    {
         "name": "CIPhotoEffectChrome",
         "title": "Chrome"
     },
@@ -34,6 +30,10 @@
     {
         "name": "CIFalseColor",
         "title": "False"
+    },
+    {
+        "name": "CIColorMonochrome",
+        "title": "Mono"
     },
     {
         "name": "CIMaskToAlpha",

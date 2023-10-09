@@ -9,8 +9,8 @@ import UIKit
 
 final class FiltersViewController: CollectionViewController {
     
-    weak var delegate: FiltersViewControllerDelegate?
-    weak private var filtersManager: FiltersManager!
+    weak var delegate: FiltersViewControllerDelegate!
+    private weak var filtersManager: FiltersManager!
     
     private var selectedIndex = 0 {
         didSet {
@@ -22,7 +22,7 @@ final class FiltersViewController: CollectionViewController {
     
     // MARK: Life Cycle
     
-    init(delegate: FiltersViewControllerDelegate? = nil, filtersManager: FiltersManager) {
+    init(delegate: FiltersViewControllerDelegate, filtersManager: FiltersManager) {
         super.init()
         self.delegate = delegate
         self.filtersManager = filtersManager

@@ -65,22 +65,22 @@ final class ClipCell: UICollectionViewCell {
     
     // MARK: Configuration
     
-    func configure(with url: URL) {
-        
-        imageView.image = imagePreview(from: url, in: 0)
-    }
-    
-    func imagePreview(from moviePath: URL, in seconds: Double) -> UIImage? {
+    func configure(with url: URL, imageFilter: ImageFilter, filtersManager: FiltersManager) {
         
         // INFO: There is no urgency to pass it on global queue for only 1 thumbnail
-        let timestamp = CMTime(seconds: seconds, preferredTimescale: 60)
-        let asset = AVURLAsset(url: moviePath)
+        let timestamp = CMTime(seconds: 0, preferredTimescale: 60)
+        let asset = AVURLAsset(url: url)
         let generator = AVAssetImageGenerator(asset: asset)
         generator.appliesPreferredTrackTransform = true
 
         guard let imageRef = try? generator.copyCGImage(at: timestamp, actualTime: nil) else {
-            return nil
+            return
         }
-        return UIImage(cgImage: imageRef)
+        
+        let thumbnailImage = CIImage(cgImage: imageRef)
+        
+        let filteredImage = filtersManager.apply(imageFilter.filter, for: thumbnailImage)
+        
+        imageView.image = UIImage(ciImage: filteredImage)
     }
 }

@@ -35,6 +35,7 @@ final class MergeManager {
     // MARK: - Actions
     
     func merge(arrayVideos: [AVAsset], completion: @escaping Completion) -> Void {
+        
         var insertTime = CMTime.zero
         var arrayLayerInstructions:[AVMutableVideoCompositionLayerInstruction] = []
 

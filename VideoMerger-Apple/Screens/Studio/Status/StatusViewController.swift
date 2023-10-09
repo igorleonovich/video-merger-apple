@@ -32,6 +32,7 @@ final class StatusViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupStackView()
         setupTextLabel()
         setupTapGesture()
@@ -51,6 +52,7 @@ final class StatusViewController: BaseViewController {
     }
     
     private func setupTextLabel() {
+        
         textLabel = Label()
         stackView.addArrangedSubview(textLabel)
         textLabel.snp.makeConstraints { make in
@@ -64,6 +66,7 @@ final class StatusViewController: BaseViewController {
     }
     
     private func setupTapGesture() {
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap(_:)))
         view.addGestureRecognizer(tapGesture)
     }
@@ -72,12 +75,14 @@ final class StatusViewController: BaseViewController {
     // MARK: Update
     
     func update(with text: String) {
+        
         textLabel.text = text.uppercased()
     }
     
     // MARK: Actions
     
     @objc private func onTap(_ sender: Any) {
+        
         delegate?.didTapStatus()
     }
 }

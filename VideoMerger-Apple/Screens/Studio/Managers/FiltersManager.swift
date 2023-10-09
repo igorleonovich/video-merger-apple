@@ -10,22 +10,24 @@ import Foundation
 
 final class FiltersManager {
     
-    var filters = [ImageFilter]()
+    var filters: [ImageFilter] = [.noFilter]
     private var filtersDTO = [ImageFilterDTO]()
     
     
     func load(_ completion: @escaping () -> Void) {
+        
         readJsonFile()
         setupFilters()
         completion()
     }
 
     private func readJsonFile()  {
+        
         if let path = Bundle.main.path(forResource: "filters", ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 filtersDTO = try JSONDecoder().decode([ImageFilterDTO].self, from: data)
-                Log.standard("\n[STUDIO] Filters decoded:\n\(filtersDTO.map({ $0.title }))")
+                Log.standard("[STUDIO] Filters decoded:\n\(filtersDTO.map({ $0.title }))")
             } catch {
                 // Handle error
             }
@@ -33,7 +35,7 @@ final class FiltersManager {
     }
     
     private func setupFilters() {
-        filters = [.noFilter]
+        
         filtersDTO.forEach { imageFilterDTO in
             filters.append(ImageFilter.custom(imageFilterDTO))
         }

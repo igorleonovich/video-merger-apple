@@ -103,11 +103,7 @@ final class PickerViewController: BaseViewController {
             
             return localURL
         } catch {
-            DispatchQueue.main.async { [weak self] in
-                let alert = UIAlertController(title: "main.alert.error.getting.file".localize, message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "button.ok".localize, style: .default, handler: nil))
-                self?.present(alert, animated: true, completion: nil)
-            }
+            Log.error("[PICKER] Cannot save locally:\n\(error))")
         }
         
         return nil

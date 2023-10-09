@@ -16,6 +16,7 @@ final class StudioViewController: BaseViewController {
     private var filtersManager: FiltersManager!
     private var clipsManager: ClipsManager!
     
+    private var clipsViewController: ClipsViewController!
     private var statusViewController: StatusViewController!
     
     private var stackView: UIStackView!
@@ -33,6 +34,7 @@ final class StudioViewController: BaseViewController {
     private var selectedVideoIndex = 0 {
         didSet {
             print(selectedVideoIndex)
+            setupPlayer(with: clipsManager.inputVideoURLs[selectedVideoIndex])
         }
     }
     private var selectedFilterIndex = 0 {
@@ -41,6 +43,7 @@ final class StudioViewController: BaseViewController {
                 studioState = .ready
             }
             print(selectedFilterIndex)
+            clipsViewController.collectionView.reloadData()
         }
     }
     
@@ -108,7 +111,10 @@ final class StudioViewController: BaseViewController {
             return
         }
         if let url = clipsManager.inputVideoURLs.first {
-            setupPlayer(with: url)
+            isPlayerSetup = true
+            DispatchQueue.main.async { [weak self] in
+                self?.setupPlayer(with: url)
+            }
         } else {
             Log.error("[STUDIO] Can't load initial video into player")
         }
@@ -116,6 +122,7 @@ final class StudioViewController: BaseViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         if studioState == .loading {
             studioState = .ready
         }
@@ -124,19 +131,13 @@ final class StudioViewController: BaseViewController {
     
     // MARK: Setup
     
-    private var exportButton: UIBarButtonItem {
-        return UIBarButtonItem(title: "Export".uppercased(), style: .plain, target: self, action: #selector(onExport(_:)))
-    }
-    
-    private var cancelButton: UIBarButtonItem {
-        return UIBarButtonItem(title: "Cancel".uppercased(), style: .plain, target: self, action: #selector(onCancel))
-    }
-    
     private func setupExportButton() {
+        let exportButton = UIBarButtonItem(title: "Export".uppercased(), style: .plain, target: self, action: #selector(onExport(_:)))
         navigationItem.rightBarButtonItem = exportButton
     }
     
     private func setupCancelButton() {
+        let cancelButton = UIBarButtonItem(title: "Cancel".uppercased(), style: .plain, target: self, action: #selector(onCancel(_:)))
         navigationItem.rightBarButtonItem = cancelButton
     }
     
@@ -158,10 +159,10 @@ final class StudioViewController: BaseViewController {
         let clipsView = UIView()
         stackView.addArrangedSubview(clipsView)
         clipsView.snp.makeConstraints { make in
-            make.height.equalTo(CollectionViewController.fixedPanelsHeight)
+            make.height.equalTo(CollectionViewController.cellSide)
         }
         
-        let clipsViewController = ClipsViewController(delegate: self, clipsManager: clipsManager)
+        clipsViewController = ClipsViewController(delegate: self, clipsManager: clipsManager, filtersManager: filtersManager)
         add(child: clipsViewController, containerView: clipsView)
     }
     
@@ -179,7 +180,7 @@ final class StudioViewController: BaseViewController {
         filtersView = UIView()
         stackView.addArrangedSubview(filtersView)
         filtersView.snp.makeConstraints { make in
-            make.height.equalTo(CollectionViewController.fixedPanelsHeight)
+            make.height.equalTo(CollectionViewController.cellSide)
         }
         
         let filtersViewController = FiltersViewController(delegate: self, filtersManager: filtersManager)
@@ -229,8 +230,6 @@ final class StudioViewController: BaseViewController {
         playerLayer.videoGravity = .resizeAspectFill
         playerView.layer.addSublayer(playerLayer)
         player.play()
-        
-        isPlayerSetup = true
     }
     
     private func setupOverlay() {

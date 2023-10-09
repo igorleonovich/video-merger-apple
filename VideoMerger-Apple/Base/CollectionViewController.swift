@@ -10,10 +10,10 @@ import UIKit
 class CollectionViewController: BaseViewController {
     
     var collectionView: UICollectionView!
-    let cellSize = CGSize(width: CollectionViewController.fixedPanelsHeight, height: CollectionViewController.fixedPanelsHeight)
+    let cellSize = CGSize(width: CollectionViewController.cellSide, height: CollectionViewController.cellSide)
     let cellGap: CGFloat = 1
     
-    static let fixedPanelsHeight: CGFloat = 100
+    static let cellSide: CGFloat = 100
     
     
     // MARK: Life Cycle
