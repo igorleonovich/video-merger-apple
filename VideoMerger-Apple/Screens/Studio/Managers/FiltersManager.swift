@@ -5,8 +5,9 @@
 //  Created by Igor Leonovich on 03/10/2023.
 //
 
+import AVFoundation
 import CoreImage
-import Foundation
+import UIKit
 
 final class FiltersManager {
     
@@ -49,5 +50,53 @@ final class FiltersManager {
         filter.setValue(image, forKey: kCIInputImageKey)
         // TODO: Change to implicit unwrapping, add error handling
         return filter.outputImage!
+    }
+    
+    func applyThumbnail(with url: URL, imageFilter: ImageFilter, filtersManager: FiltersManager, localFileManager: LocalFileManager,
+                        completion: ((UIImage?) -> Void)? = nil) {
+        
+        let thumbnailFilename = "\(url.fileName).\(url.pathExtension).thumbnail.\(imageFilter.title)"
+        let thumbnailUrl = localFileManager.fileURL(fileName: thumbnailFilename, fileFormat: "png")
+        
+        if localFileManager.isFileExists(fileName: thumbnailFilename, fileFormat: "png"),
+           let data = try? Data(contentsOf: thumbnailUrl), let image = UIImage(data: data) {
+            
+            applyImage(image: image)
+            func applyImage(image: UIImage) {
+                
+                completion?(image)
+            }
+        } else {
+            let timestamp = CMTime(seconds: 0, preferredTimescale: 60)
+            let asset = AVURLAsset(url: url)
+            let generator = AVAssetImageGenerator(asset: asset)
+            generator.appliesPreferredTrackTransform = true
+
+            if let cgImage = try? generator.copyCGImage(at: timestamp, actualTime: nil) {
+                
+                let thumbnailCIImage = CIImage(cgImage: cgImage)
+                
+                if let filter = imageFilter.filter {
+                    let filteredCIImage = filtersManager.apply(filter, for: thumbnailCIImage)
+                    let filteredUIImage = UIImage(ciImage: filteredCIImage)
+                    applyAndSaveImage(image: filteredUIImage)
+                } else {
+                    applyAndSaveImage(image: UIImage(ciImage: thumbnailCIImage))
+                }
+                
+                func applyAndSaveImage(image: UIImage) {
+                    
+                    completion?(image)
+                    
+                    if let data = image.pngData() {
+                        DispatchQueue.global().async {
+                            try? data.write(to: thumbnailUrl)
+                        }
+                    }
+                }
+            } else {
+                completion?(nil)
+            }
+        }
     }
 }

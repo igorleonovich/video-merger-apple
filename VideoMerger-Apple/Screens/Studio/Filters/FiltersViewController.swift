@@ -11,6 +11,11 @@ final class FiltersViewController: CollectionViewController {
     
     weak var delegate: FiltersViewControllerDelegate!
     private weak var filtersManager: FiltersManager!
+    private weak var localFileManager: LocalFileManager!
+    
+    override var cellSize: CGSize {
+        return CGSize(width: CollectionViewController.cellSide, height: 150)
+    }
     
     private var selectedIndex = 0 {
         didSet {
@@ -19,13 +24,16 @@ final class FiltersViewController: CollectionViewController {
         }
     }
     
+    var currentVideoUrl: URL!
+    
     
     // MARK: Life Cycle
     
-    init(delegate: FiltersViewControllerDelegate, filtersManager: FiltersManager) {
+    init(delegate: FiltersViewControllerDelegate, filtersManager: FiltersManager, localFileManager: LocalFileManager) {
         super.init()
         self.delegate = delegate
         self.filtersManager = filtersManager
+        self.localFileManager = localFileManager
     }
     
     required init?(coder: NSCoder) {
@@ -65,7 +73,7 @@ extension FiltersViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as? FilterCell {
-            cell.configure(with: filtersManager.filters[indexPath.row])
+            cell.configure(with: currentVideoUrl, imageFilter: filtersManager.filters[indexPath.row], filtersManager: filtersManager, localFileManager: localFileManager)
             return cell
         }
         return UICollectionViewCell()
@@ -78,7 +86,7 @@ extension FiltersViewController: UICollectionViewDataSource {
 extension FiltersViewController {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.cellForItem(at: indexPath)?.isSelected = true
+//        collectionView.cellForItem(at: indexPath)?.isSelected = true
         selectedIndex = indexPath.row
     }
     

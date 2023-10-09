@@ -16,7 +16,6 @@ final class ExportViewController: BaseViewController {
     
     private var stackView: UIStackView!
     
-    
     // MARK: Life Cycle
     
     init(url: URL) {

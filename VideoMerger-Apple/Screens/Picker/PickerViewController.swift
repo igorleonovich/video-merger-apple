@@ -33,16 +33,20 @@ final class PickerViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         showPickerIfNeeded()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        videoURLs.removeAll()
         showPickerIfNeeded()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     

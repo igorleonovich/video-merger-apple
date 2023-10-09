@@ -17,8 +17,10 @@ final class FilterCell: UICollectionViewCell {
         willSet {
             if newValue {
                 titleLabel.textColor = .green
+                imageView.alpha = 1
             } else {
                 titleLabel.textColor = .white
+                imageView.alpha = 0.5
             }
         }
     }
@@ -32,6 +34,12 @@ final class FilterCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        imageView.image = nil
+    }
+    
     
     // MARK: Setup
     
@@ -39,7 +47,7 @@ final class FilterCell: UICollectionViewCell {
         
         setupStackView()
         setupTitleLabel()
-//        setupImageView()
+        setupImageView()
     }
     
     private func setupStackView() {
@@ -57,7 +65,7 @@ final class FilterCell: UICollectionViewCell {
         titleLabel = Label()
         stackView.addArrangedSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.height.equalTo(40)
+            make.height.equalTo(50)
         }
         
         titleLabel.textAlignment = .center
@@ -68,13 +76,20 @@ final class FilterCell: UICollectionViewCell {
         
         imageView = UIImageView()
         stackView.addArrangedSubview(imageView)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
     }
     
     
     // MARK: Configuration
     
-    func configure(with filter: ImageFilter) {
+    func configure(with url: URL, imageFilter: ImageFilter, filtersManager: FiltersManager, localFileManager: LocalFileManager) {
         
-        titleLabel.text = filter.title.uppercased()
+        titleLabel.text = imageFilter.title.uppercased()
+        
+        filtersManager.applyThumbnail(with: url, imageFilter: imageFilter,
+                                      filtersManager: filtersManager, localFileManager: localFileManager) { [weak self] image in
+            self?.imageView?.image = image
+        }
     }
 }

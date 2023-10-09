@@ -72,7 +72,7 @@ final class StatusViewController: BaseViewController {
     }
     
     
-    // MARK: Update
+    // MARK: Updates
     
     func update(with text: String) {
         

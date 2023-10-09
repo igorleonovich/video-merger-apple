@@ -11,6 +11,7 @@ enum StudioState: String {
     
     case loading
     case ready
+    case prefiltering
     case filtering
     case merging
     case exported

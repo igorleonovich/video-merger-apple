@@ -17,10 +17,12 @@ final class StudioViewController: BaseViewController {
     private var clipsManager: ClipsManager!
     
     private var clipsViewController: ClipsViewController!
+    private var filtersViewController: FiltersViewController!
     private var statusViewController: StatusViewController!
     
     private var stackView: UIStackView!
     private var previewView: UIView!
+    private var thumbnailView: UIImageView!
     private var filtersView: UIView!
     private var overlayView: UIView!
     private let statusPanelHeight: CGFloat = 50
@@ -33,8 +35,13 @@ final class StudioViewController: BaseViewController {
     
     private var selectedVideoIndex = 0 {
         didSet {
+            updateThumbnail { [weak self] image in
+                self?.thumbnailView.image = image
+                self?.prefilterCurrentVideo()
+            }
+            filtersViewController.currentVideoUrl = clipsManager.inputVideoURLs[selectedVideoIndex]
+            filtersViewController.collectionView.reloadData()
             print(selectedVideoIndex)
-            setupPlayer(with: clipsManager.inputVideoURLs[selectedVideoIndex])
         }
     }
     private var selectedFilterIndex = 0 {
@@ -42,9 +49,14 @@ final class StudioViewController: BaseViewController {
             if studioState == .exported, oldValue != selectedFilterIndex {
                 studioState = .ready
             }
-            print(selectedFilterIndex)
             filtersManager.selectedFilterIndex = selectedFilterIndex
+            updateThumbnail { [weak self] image in
+                self?.thumbnailView.image = image
+                self?.prefilterCurrentVideo()
+                self?.clipsViewController.collectionView.reloadData()
+            }
             clipsViewController.collectionView.reloadData()
+            print(selectedFilterIndex)
         }
     }
     
@@ -57,6 +69,10 @@ final class StudioViewController: BaseViewController {
             case .ready:
                 overlayView.alpha = 0
                 setupExportButton()
+            case .prefiltering:
+                overlayView.alpha = 0.75
+                // TODO: Show Export button instead of Cancel (need to add Cancel functionality for that)
+                setupCancelButton()
             case .filtering:
                 overlayView.alpha = 0.75
                 setupCancelButton()
@@ -70,7 +86,7 @@ final class StudioViewController: BaseViewController {
         }
     }
     
-    private var filteringGroup: DispatchGroup!
+    private var filterAndMergeGroup: DispatchGroup!
     
     
     // MARK: Life cycle
@@ -100,6 +116,7 @@ final class StudioViewController: BaseViewController {
         setupStatus()
         
         setupPlayerView()
+        setupThumbnail()
         
         setupOverlay()
     }
@@ -115,6 +132,7 @@ final class StudioViewController: BaseViewController {
             isPlayerSetup = true
             DispatchQueue.main.async { [weak self] in
                 self?.setupPlayer(with: url)
+                self?.selectedVideoIndex = 0
             }
         } else {
             Log.error("[STUDIO] Can't load initial video into player")
@@ -182,11 +200,13 @@ final class StudioViewController: BaseViewController {
         filtersView = UIView()
         stackView.addArrangedSubview(filtersView)
         filtersView.snp.makeConstraints { make in
-            make.height.equalTo(CollectionViewController.cellSide)
+            make.height.equalTo(150)
         }
         
-        let filtersViewController = FiltersViewController(delegate: self, filtersManager: filtersManager)
+        filtersViewController = FiltersViewController(delegate: self, filtersManager: filtersManager, localFileManager: localFileManager)
         add(child: filtersViewController, containerView: filtersView)
+        
+        filtersViewController.currentVideoUrl = clipsManager.inputVideoURLs[selectedVideoIndex]
     }
     
     private func setupStatus() {
@@ -233,6 +253,18 @@ final class StudioViewController: BaseViewController {
         playerView.layer.addSublayer(playerLayer)
         player.play()
     }
+
+    
+    private func setupThumbnail() {
+        
+        thumbnailView = UIImageView()
+        view.addSubview(thumbnailView)
+        thumbnailView.snp.makeConstraints { make in
+            make.edges.equalTo(previewView)
+        }
+        thumbnailView.contentMode = .scaleAspectFill
+        thumbnailView.clipsToBounds = true
+    }
     
     private func setupOverlay() {
         
@@ -251,61 +283,107 @@ final class StudioViewController: BaseViewController {
     
     // MARK: Actions
     
-    private func applyFilterAndExport(url: URL) {
-        
-        guard selectedFilterIndex != 0  else {
-            clipsManager.outputVideoURLs.append(url)
-            Log.standard("[STUDIO] Use original video at:\n\(url)")
-            DispatchQueue.main.async { [weak self] in
-                self?.setupPlayer(with: url)
+    // TODO: Move Filtering and Merge functions to managers (currently it's toughly bounded to StudioViewController)
+    private func prefilterCurrentVideo() {
+        filterVideo(inputVideoURLs: [clipsManager.inputVideoURLs[selectedVideoIndex]], isPrefiltering: true) { [weak self] in
+            guard let self = self else { return }
+            self.thumbnailView.image = nil
+            if self.studioState == .prefiltering {
+                self.studioState = .ready
             }
-            return
         }
-        
-        // TODO: Move to FilterManager (currently it's toughly bounded to StudioViewController)
-        
-        filteringGroup.enter()
+    }
+    
+    private func filterVideo(inputVideoURLs: [URL], isPrefiltering: Bool = false, completion: @escaping () -> Void) {
+        /* INFO: Applying filter before merge for displaying it in preview and for avoiding filtering of added black space in case of different aspect ratio */
         
         let selectedImageFilter = filtersManager.filters[selectedFilterIndex]
         
-        let asset = AVAsset(url: url)
-        let item = AVPlayerItem(asset: asset)
-        let videoComposition = AVMutableVideoComposition(asset: asset) { [weak self] request in
-            guard let self = self else { return }
-            let source = request.sourceImage.clampedToExtent()
+        if isPrefiltering, let url = inputVideoURLs.first {
             
-            let outputImage = self.filtersManager.apply(selectedImageFilter.filter, for: source)
+            studioState = .prefiltering
+            Log.standard("[STUDIO] Pre-Filtering started...")
             
-            request.finish(with: outputImage, context: nil)
-        }
-        item.videoComposition = videoComposition
-
-        let exporter = AVAssetExportSession(asset: item.asset, presetName: AVAssetExportPresetHighestQuality)
-        exporter?.videoComposition = videoComposition
-        exporter?.outputFileType = AVFileType(rawValue: Constants.outputFileType)
-        
-        let outputURL = localFileManager.fileURL(fileName: "\(url.fileName).\(selectedImageFilter.title.lowercased())", fileFormat: url.pathExtension)
-        exporter?.outputURL = outputURL
-        
-        exporter?.exportAsynchronously(completionHandler: { [weak self] in
-            guard let self = self, exporter?.status == .completed else {
-                Log.error("[STUDIO] Export failed: \(exporter?.error)")
+            let outputURL = localFileManager.fileURL(fileName: "\(url.fileName).\(selectedImageFilter.title.lowercased())",
+                                                     fileFormat: url.pathExtension)
+            
+            guard !FileManager.default.fileExists(atPath: outputURL.path) else {
+                setupPlayer(with: outputURL)
+                completion()
                 return
             }
-            clipsManager.outputVideoURLs.append(outputURL)
-            Log.standard("[STUDIO] Export filtered video done:\n\(outputURL)")
+        } else {
+            studioState = .filtering
+            Log.standard("[STUDIO] Filtering started...")
+        }
+
+        filterAndMergeGroup = DispatchGroup()
+
+        inputVideoURLs.forEach { url in
             
-            DispatchQueue.main.async { [weak self] in
-                // TODO: Pass item instead of url?
-                // TODO: Avoid blink from player switching
-                self?.setupPlayer(with: outputURL)
+            let outputURL = localFileManager.fileURL(fileName: "\(url.fileName).\(selectedImageFilter.title.lowercased())",
+                                                     fileFormat: url.pathExtension)
+            
+            guard selectedFilterIndex != 0  else {
+                clipsManager.outputVideoURLs.append(url)
+                Log.standard("[STUDIO] Use original video at:\n\(url)")
+                DispatchQueue.main.async { [weak self] in
+                    self?.setupPlayer(with: url)
+                }
+                return
             }
             
-            self.filteringGroup.leave()
-        })
+            guard !FileManager.default.fileExists(atPath: outputURL.path) else {
+                clipsManager.outputVideoURLs.append(url)
+                Log.standard("[STUDIO] Use already filtered video at:\n\(outputURL)")
+                return
+            }
+            
+            // TODO: Move to FilterManager (currently it's toughly bounded to StudioViewController)
+            
+            filterAndMergeGroup.enter()
+            
+            let asset = AVAsset(url: url)
+            let item = AVPlayerItem(asset: asset)
+            let videoComposition = AVMutableVideoComposition(asset: asset) { [weak self] request in
+                guard let self = self else { return }
+                let source = request.sourceImage.clampedToExtent()
+                
+                let outputImage = self.filtersManager.apply(selectedImageFilter.filter, for: source)
+                
+                request.finish(with: outputImage, context: nil)
+            }
+            item.videoComposition = videoComposition
+
+            let exporter = AVAssetExportSession(asset: item.asset, presetName: AVAssetExportPresetHighestQuality)
+            exporter?.videoComposition = videoComposition
+            exporter?.outputFileType = AVFileType(rawValue: Constants.outputFileType)
+            exporter?.outputURL = outputURL
+            
+            exporter?.exportAsynchronously(completionHandler: { [weak self] in
+                guard let self = self, exporter?.status == .completed else {
+                    Log.error("[STUDIO] Export failed: \(exporter?.error)")
+                    return
+                }
+                clipsManager.outputVideoURLs.append(outputURL)
+                Log.standard("[STUDIO] Export filtered video done:\n\(outputURL)")
+                
+                DispatchQueue.main.async { [weak self] in
+                    // TODO: Pass item instead of url?
+                    // TODO: Avoid blink from player switching
+                    self?.setupPlayer(with: outputURL)
+                }
+                
+                self.filterAndMergeGroup.leave()
+            })
+        }
+
+        filterAndMergeGroup.notify(queue: .main) {
+            completion()
+        }
     }
     
-    private func mergeAndExport(_ completion: @escaping (URL?) -> Void) {
+    private func mergeAndExportVideo(_ completion: @escaping (URL?) -> Void) {
         
         let assets = clipsManager.outputVideoURLs.map({ AVAsset(url: $0) })
         
@@ -346,21 +424,11 @@ final class StudioViewController: BaseViewController {
         if studioState == .exported, let mergedURL = mergeManager.mergedURL {
             showExport(with: mergedURL)
         } else {
-            /* INFO: Applying filter before merge for displaying it in preview and for avoiding filtering of added black space in case of different aspect ratio */
-            studioState = .filtering
-            Log.standard("[STUDIO] Filtering started...")
-
-            filteringGroup = DispatchGroup()
-
-            clipsManager.inputVideoURLs.forEach { videoURL in
-                applyFilterAndExport(url: videoURL)
-            }
-
-            filteringGroup.notify(queue: .main) { [weak self] in
+            filterVideo(inputVideoURLs: clipsManager.inputVideoURLs) { [weak self] in
                 guard let self = self else { return }
                 studioState = .merging
                 Log.standard("[STUDIO] Merge started...")
-                mergeAndExport { [weak self] mergedURL in
+                mergeAndExportVideo { [weak self] mergedURL in
                     if let mergedURL = mergedURL {
                         self?.showExport(with: mergedURL)
                     }
@@ -373,8 +441,15 @@ final class StudioViewController: BaseViewController {
         
     }
     
-    deinit {
-        // TODO: Remove added child view controllers?
+    
+    // MARK: Updates
+    
+    private func updateThumbnail(_ completion: @escaping (UIImage?) -> Void) {
+        filtersManager.applyThumbnail(with: clipsManager.inputVideoURLs[selectedVideoIndex],
+                                 imageFilter: filtersManager.filters[selectedFilterIndex],
+                                 filtersManager: filtersManager,
+                                 localFileManager: localFileManager,
+                                      completion: completion)
     }
 }
 
