@@ -222,7 +222,7 @@ final class StudioViewController: BaseViewController {
         statusViewController = StatusViewController(delegate: self)
         add(child: statusViewController, containerView: statusView)
         
-        statusViewController.view.backgroundColor = .green
+        statusViewController.view.backgroundColor = Constants.tintColor
     }
     
     private func setupThumbnail() {

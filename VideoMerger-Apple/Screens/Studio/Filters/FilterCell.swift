@@ -16,10 +16,10 @@ final class FilterCell: UICollectionViewCell {
     override var isSelected: Bool {
         willSet {
             if newValue {
-                titleLabel.textColor = .green
+                titleLabel.textColor = Constants.tintColor
                 imageView.alpha = 1
             } else {
-                titleLabel.textColor = .white
+                titleLabel.textColor = Constants.foregroundColor
                 imageView.alpha = 0.5
             }
         }

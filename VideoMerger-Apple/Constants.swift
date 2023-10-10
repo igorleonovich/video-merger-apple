@@ -5,13 +5,17 @@
 //  Created by Igor Leonovich on 02/10/2023.
 //
 
-import Foundation
+import UIKit
 
 struct Constants {
     
     // MARK: UI
     
     static let fontMinimumScaleFactor: CGFloat = 0.5
+    
+    static let backgroundColor: UIColor = .black
+    static let foregroundColor: UIColor = .white
+    static let tintColor: UIColor = .green
     
     // MARK: Video
     

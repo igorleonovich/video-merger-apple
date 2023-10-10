@@ -59,7 +59,7 @@ final class ClipCell: UICollectionViewCell {
         overlayView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        overlayView.backgroundColor = .black
+        overlayView.backgroundColor = Constants.backgroundColor
         overlayView.alpha = 0
     }
     

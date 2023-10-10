@@ -31,7 +31,7 @@ final class ExportViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .black
+        view.backgroundColor = Constants.backgroundColor
         setupStackView()
         setupPlayer(with: url)
         setupSaveButton()
@@ -81,7 +81,7 @@ final class ExportViewController: BaseViewController {
         stackView.addArrangedSubview(button)
         button.addTarget(self, action: #selector(onSave), for: .touchUpInside)
         
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(Constants.foregroundColor, for: .normal)
         button.titleLabel?.font = Font.largeBlack.uifont
         button.setTitle("Save".uppercased(), for: .normal)
     }

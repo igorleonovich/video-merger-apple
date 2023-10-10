@@ -66,7 +66,7 @@ extension SceneDelegate {
     fileprivate func setupAppearance() {
         
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: Font.mediumBold.uifont,
-                                                             NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
-        UIBarButtonItem.appearance().tintColor = .white
+                                                             NSAttributedString.Key.foregroundColor: Constants.foregroundColor], for: .normal)
+        UIBarButtonItem.appearance().tintColor = Constants.foregroundColor
     }
 }
