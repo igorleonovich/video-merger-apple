@@ -20,4 +20,8 @@ struct Constants {
     static let frameDuration: Int32 = 30
     static let outputFileType = "public.mpeg-4"
     static let outputExtension = "mp4"
+    
+    // MARK: Network
+    
+    static let baseUrl = "https://www.igorleonovich.com"
 }

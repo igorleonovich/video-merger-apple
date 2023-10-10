@@ -16,33 +16,73 @@ final class FiltersManager {
     
     var selectedFilterIndex = 0
     
+    lazy var sessionConfiguration: URLSessionConfiguration = {
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = ["Content-Type": "application/json"]
+        return config
+    }()
+    
+    var getFiltersTask: URLSessionDataTask?
+    
+    
+    // MARK: Loading
     
     func load(_ completion: @escaping () -> Void) {
         
-        readJsonFile()
-        setupFilters()
-        completion()
-    }
-
-    private func readJsonFile()  {
-        
-        if let path = Bundle.main.path(forResource: "filters", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                filtersDTO = try JSONDecoder().decode([ImageFilterDTO].self, from: data)
-                Log.standard("[STUDIO] Filters decoded:\n\(filtersDTO.map({ $0.title }))")
-            } catch {
-                // Handle error
+        getFilters { [weak self] error in
+            if let error = error {
+                Log.error(error.localizedDescription)
+            } else {
+                self?.filtersDTO.forEach { imageFilterDTO in
+                    self?.filters.append(ImageFilter.custom(imageFilterDTO))
+                }
+                completion()
             }
         }
     }
     
-    private func setupFilters() {
+    func getFilters(_ completion: @escaping (Swift.Error?) -> Void) {
         
-        filtersDTO.forEach { imageFilterDTO in
-            filters.append(ImageFilter.custom(imageFilterDTO))
+        getFiltersTask?.cancel()
+        
+        let sessionDelegate = SessionDelegate()
+        let session = URLSession(configuration: sessionConfiguration, delegate: sessionDelegate, delegateQueue: OperationQueue.main)
+        
+        let path = "/filters.json"
+        guard let url = URL(string: "\(Constants.baseUrl)\(path)") else {
+            return
         }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        getFiltersTask = session.dataTask(with: request) { [weak self] (data, response, error) in
+            guard let self = self else { return }
+            defer {
+                self.getFiltersTask = nil
+            }
+            if let error = error {
+                completion(error)
+            } else if let data = data, let response = response as? HTTPURLResponse {
+                if response.statusCode == 200 {
+                    
+                    do {
+                        filtersDTO = try JSONDecoder().decode([ImageFilterDTO].self, from: data)
+                        completion(nil)
+                    } catch {
+                        completion(error)
+                    }
+                        
+                    Log.standard("[FILTERS] \(request.httpMethod ?? "") \(path) \(response.statusCode)")
+                } else {
+                    
+                    Log.error("[FILTERS] \(request.httpMethod ?? "") \(path) \(response.statusCode)")
+                }
+            }
+        }
+        getFiltersTask?.resume()
     }
+    
+    
+    // MARK: Applying filters
     
     func apply(_ filter: CIFilter?, for image: CIImage) -> CIImage {
         
@@ -98,5 +138,17 @@ final class FiltersManager {
                 completion?(nil)
             }
         }
+    }
+}
+
+
+// MARK: Helpers
+
+final class SessionDelegate: NSObject, URLSessionDelegate {
+    
+    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge,
+                    completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        
+        completionHandler(.useCredential, nil)
     }
 }

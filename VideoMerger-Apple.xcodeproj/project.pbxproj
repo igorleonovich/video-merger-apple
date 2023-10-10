@@ -40,7 +40,6 @@
 		697B5CB92ACBCD7C00E01711 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CB82ACBCD7C00E01711 /* ExportViewController.swift */; };
 		697B5CBB2ACBE6BA00E01711 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CBA2ACBE6BA00E01711 /* Button.swift */; };
 		697B5CC72ACCF9EB00E01711 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CC62ACCF9EB00E01711 /* CollectionViewController.swift */; };
-		697B5CCD2ACD151C00E01711 /* filters.json in Resources */ = {isa = PBXBuildFile; fileRef = 697B5CCC2ACD151C00E01711 /* filters.json */; };
 		B790AA37C3BE7BDEFB5451AF /* Pods_VideoMerger_Apple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FEB61ACF58B3CBD29D3207 /* Pods_VideoMerger_Apple.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,7 +82,6 @@
 		697B5CB82ACBCD7C00E01711 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 		697B5CBA2ACBE6BA00E01711 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		697B5CC62ACCF9EB00E01711 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
-		697B5CCC2ACD151C00E01711 /* filters.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = filters.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,7 +154,6 @@
 		69696B312ACA3550007DD91F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				697B5CCC2ACD151C00E01711 /* filters.json */,
 				697B5CBF2ACBF5B300E01711 /* Audio */,
 				697B5CBE2ACBF5A700E01711 /* Video */,
 			);
@@ -372,7 +369,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				69696B302ACA354D007DD91F /* boeing-c-17.mp4 in Resources */,
-				697B5CCD2ACD151C00E01711 /* filters.json in Resources */,
 				69696B282ACA3200007DD91F /* LaunchScreen.storyboard in Resources */,
 				69696B252ACA3200007DD91F /* Assets.xcassets in Resources */,
 				697B5C8E2ACB15FE00E01711 /* silence.mp3 in Resources */,
