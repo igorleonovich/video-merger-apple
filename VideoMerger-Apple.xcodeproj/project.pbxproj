@@ -40,8 +40,19 @@
 		697B5CB92ACBCD7C00E01711 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CB82ACBCD7C00E01711 /* ExportViewController.swift */; };
 		697B5CBB2ACBE6BA00E01711 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CBA2ACBE6BA00E01711 /* Button.swift */; };
 		697B5CC72ACCF9EB00E01711 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CC62ACCF9EB00E01711 /* CollectionViewController.swift */; };
+		697B5CDF2AD513CA00E01711 /* VideoMerger_Apple_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CDE2AD513CA00E01711 /* VideoMerger_Apple_Tests.swift */; };
 		B790AA37C3BE7BDEFB5451AF /* Pods_VideoMerger_Apple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FEB61ACF58B3CBD29D3207 /* Pods_VideoMerger_Apple.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		697B5CE02AD513CA00E01711 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 69696B102ACA31FC007DD91F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 69696B172ACA31FC007DD91F;
+			remoteInfo = "VideoMerger-Apple";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		02FEB61ACF58B3CBD29D3207 /* Pods_VideoMerger_Apple.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoMerger_Apple.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +93,8 @@
 		697B5CB82ACBCD7C00E01711 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 		697B5CBA2ACBE6BA00E01711 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		697B5CC62ACCF9EB00E01711 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		697B5CDC2AD513C900E01711 /* VideoMerger-Apple-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VideoMerger-Apple-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		697B5CDE2AD513CA00E01711 /* VideoMerger_Apple_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMerger_Apple_Tests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +103,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B790AA37C3BE7BDEFB5451AF /* Pods_VideoMerger_Apple.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		697B5CD92AD513C900E01711 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				69696B1A2ACA31FC007DD91F /* VideoMerger-Apple */,
+				697B5CDD2AD513CA00E01711 /* VideoMerger-Apple-Tests */,
 				69696B192ACA31FC007DD91F /* Products */,
 				3D24CC19D9FB70764274AD02 /* Pods */,
 				287A192017EA797F367248CF /* Frameworks */,
@@ -127,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				69696B182ACA31FC007DD91F /* VideoMerger-Apple.app */,
+				697B5CDC2AD513C900E01711 /* VideoMerger-Apple-Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -308,6 +330,14 @@
 			path = Audio;
 			sourceTree = "<group>";
 		};
+		697B5CDD2AD513CA00E01711 /* VideoMerger-Apple-Tests */ = {
+			isa = PBXGroup;
+			children = (
+				697B5CDE2AD513CA00E01711 /* VideoMerger_Apple_Tests.swift */,
+			);
+			path = "VideoMerger-Apple-Tests";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -330,6 +360,24 @@
 			productReference = 69696B182ACA31FC007DD91F /* VideoMerger-Apple.app */;
 			productType = "com.apple.product-type.application";
 		};
+		697B5CDB2AD513C900E01711 /* VideoMerger-Apple-Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 697B5CE22AD513CA00E01711 /* Build configuration list for PBXNativeTarget "VideoMerger-Apple-Tests" */;
+			buildPhases = (
+				697B5CD82AD513C900E01711 /* Sources */,
+				697B5CD92AD513C900E01711 /* Frameworks */,
+				697B5CDA2AD513C900E01711 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				697B5CE12AD513CA00E01711 /* PBXTargetDependency */,
+			);
+			name = "VideoMerger-Apple-Tests";
+			productName = "VideoMerger-Apple-Tests";
+			productReference = 697B5CDC2AD513C900E01711 /* VideoMerger-Apple-Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -342,6 +390,10 @@
 				TargetAttributes = {
 					69696B172ACA31FC007DD91F = {
 						CreatedOnToolsVersion = 14.3.1;
+					};
+					697B5CDB2AD513C900E01711 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 69696B172ACA31FC007DD91F;
 					};
 				};
 			};
@@ -359,6 +411,7 @@
 			projectRoot = "";
 			targets = (
 				69696B172ACA31FC007DD91F /* VideoMerger-Apple */,
+				697B5CDB2AD513C900E01711 /* VideoMerger-Apple-Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -373,6 +426,13 @@
 				69696B252ACA3200007DD91F /* Assets.xcassets in Resources */,
 				697B5C8E2ACB15FE00E01711 /* silence.mp3 in Resources */,
 				697B5C7B2ACA75A500E01711 /* boeing-777.mp4 in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		697B5CDA2AD513C900E01711 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,7 +516,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		697B5CD82AD513C900E01711 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				697B5CDF2AD513CA00E01711 /* VideoMerger_Apple_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		697B5CE12AD513CA00E01711 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 69696B172ACA31FC007DD91F /* VideoMerger-Apple */;
+			targetProxy = 697B5CE02AD513CA00E01711 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		69696B262ACA3200007DD91F /* LaunchScreen.storyboard */ = {
@@ -595,6 +671,7 @@
 				DEVELOPMENT_TEAM = 9TZZKGNZ6W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "VideoMerger-Apple/Info.plist";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs access to Photos for select videos to merge";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -604,7 +681,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.il.test.vidak.VideoMerger-Apple";
+				PRODUCT_BUNDLE_IDENTIFIER = com.il.test.videomerger.apple;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -623,6 +700,7 @@
 				DEVELOPMENT_TEAM = 9TZZKGNZ6W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "VideoMerger-Apple/Info.plist";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs access to Photos for select videos to merge";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -632,11 +710,47 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.il.test.vidak.VideoMerger-Apple";
+				PRODUCT_BUNDLE_IDENTIFIER = com.il.test.videomerger.apple;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		697B5CE32AD513CA00E01711 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9TZZKGNZ6W;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.il.test.videomerger.apple.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VideoMerger-Apple.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VideoMerger-Apple";
+			};
+			name = Debug;
+		};
+		697B5CE42AD513CA00E01711 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9TZZKGNZ6W;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.il.test.videomerger.apple.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VideoMerger-Apple.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VideoMerger-Apple";
 			};
 			name = Release;
 		};
@@ -657,6 +771,15 @@
 			buildConfigurations = (
 				69696B2D2ACA3200007DD91F /* Debug */,
 				69696B2E2ACA3200007DD91F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		697B5CE22AD513CA00E01711 /* Build configuration list for PBXNativeTarget "VideoMerger-Apple-Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				697B5CE32AD513CA00E01711 /* Debug */,
+				697B5CE42AD513CA00E01711 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
