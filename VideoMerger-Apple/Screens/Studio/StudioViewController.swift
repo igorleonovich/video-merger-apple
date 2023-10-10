@@ -117,7 +117,7 @@ final class StudioViewController: BaseViewController {
         
         setupOverlay()
         
-            previewViewController.setupPlayerView()
+        previewViewController.setupPlayerView()
         setupThumbnail()
     }
     

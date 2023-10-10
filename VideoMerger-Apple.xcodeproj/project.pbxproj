@@ -156,10 +156,9 @@
 		69696B1A2ACA31FC007DD91F /* VideoMerger-Apple */ = {
 			isa = PBXGroup;
 			children = (
-				69696B322ACA65B0007DD91F /* Base */,
 				69696B372ACA664C007DD91F /* Screens */,
 				697B5C842ACAD44400E01711 /* Managers */,
-				697B5CA62ACB760400E01711 /* Views */,
+				69696B322ACA65B0007DD91F /* Base */,
 				697B5C912ACB3EA300E01711 /* Tools */,
 				697B5C7F2ACABA0D00E01711 /* Extensions */,
 				697B5C872ACAD78900E01711 /* Constants.swift */,
@@ -185,9 +184,8 @@
 		69696B322ACA65B0007DD91F /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				697B5C9D2ACB568800E01711 /* RootNavigationController.swift */,
-				69696B3A2ACA66D0007DD91F /* BaseViewController.swift */,
-				697B5CC62ACCF9EB00E01711 /* CollectionViewController.swift */,
+				697B5D282AD5F3A100E01711 /* ViewControllers */,
+				697B5CA62ACB760400E01711 /* Views */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -195,6 +193,7 @@
 		69696B372ACA664C007DD91F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				697B5D272AD5F34A00E01711 /* Root */,
 				69696B382ACA6654007DD91F /* Picker */,
 				69696B392ACA665A007DD91F /* Studio */,
 			);
@@ -336,6 +335,23 @@
 				697B5CDE2AD513CA00E01711 /* VideoMerger_Apple_Tests.swift */,
 			);
 			path = "VideoMerger-Apple-Tests";
+			sourceTree = "<group>";
+		};
+		697B5D272AD5F34A00E01711 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				697B5C9D2ACB568800E01711 /* RootNavigationController.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		697B5D282AD5F3A100E01711 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				69696B3A2ACA66D0007DD91F /* BaseViewController.swift */,
+				697B5CC62ACCF9EB00E01711 /* CollectionViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

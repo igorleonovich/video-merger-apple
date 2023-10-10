@@ -14,7 +14,6 @@ class CollectionViewController: BaseViewController {
         return CGSize(width: CollectionViewController.cellSide, height: CollectionViewController.cellSide)
     }
     let cellGap: CGFloat = 1
-    
     static let cellSide: CGFloat = 100
     
     
