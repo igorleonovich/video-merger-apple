@@ -16,6 +16,7 @@ final class ExportViewController: BaseViewController {
     
     private var stackView: UIStackView!
     private let playerPadding: CGFloat = 30
+    private let saveButtonHeight: CGFloat = 150
     
     // MARK: Life Cycle
     
@@ -74,16 +75,16 @@ final class ExportViewController: BaseViewController {
     
     private func setupSaveButton() {
         
-        let button = Button()
-        button.snp.makeConstraints { make in
-            make.height.equalTo(150)
+        let saveButton = Button()
+        saveButton.snp.makeConstraints { make in
+            make.height.equalTo(saveButtonHeight)
         }
-        stackView.addArrangedSubview(button)
-        button.addTarget(self, action: #selector(onSave), for: .touchUpInside)
+        stackView.addArrangedSubview(saveButton)
+        saveButton.addTarget(self, action: #selector(onSave), for: .touchUpInside)
         
-        button.setTitleColor(Constants.foregroundColor, for: .normal)
-        button.titleLabel?.font = Font.largeBlack.uifont
-        button.setTitle("Save".uppercased(), for: .normal)
+        saveButton.setTitleColor(Constants.foregroundColor, for: .normal)
+        saveButton.titleLabel?.font = Font.largeBlack.uifont
+        saveButton.setTitle("Save".uppercased(), for: .normal)
     }
     
     

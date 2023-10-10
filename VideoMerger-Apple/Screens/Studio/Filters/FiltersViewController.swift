@@ -13,8 +13,11 @@ final class FiltersViewController: CollectionViewController {
     private weak var filtersManager: FiltersManager!
     private weak var localFileManager: LocalFileManager!
     
+    static var height: CGFloat {
+        return CollectionViewController.cellSide + FilterCell.titleHeight
+    }
     override var cellSize: CGSize {
-        return CGSize(width: CollectionViewController.cellSide, height: 150)
+        return CGSize(width: CollectionViewController.cellSide, height: FiltersViewController.height)
     }
     
     private var selectedIndex = 0 {
@@ -86,7 +89,6 @@ extension FiltersViewController: UICollectionViewDataSource {
 extension FiltersViewController {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        collectionView.cellForItem(at: indexPath)?.isSelected = true
         selectedIndex = indexPath.row
     }
     

@@ -12,6 +12,7 @@ final class FilterCell: UICollectionViewCell {
     private var stackView: UIStackView!
     private var imageView: UIImageView!
     private var titleLabel: Label!
+    static let titleHeight: CGFloat = 50
     
     override var isSelected: Bool {
         willSet {
@@ -59,7 +60,7 @@ final class FilterCell: UICollectionViewCell {
         titleLabel = Label()
         stackView.addArrangedSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.height.equalTo(50)
+            make.height.equalTo(FilterCell.titleHeight)
         }
         
         titleLabel.textAlignment = .center

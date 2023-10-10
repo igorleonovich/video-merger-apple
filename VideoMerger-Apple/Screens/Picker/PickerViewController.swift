@@ -50,6 +50,9 @@ final class PickerViewController: BaseViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
+    
+    // MARK: Actions
+    
     private func showPickerIfNeeded() {
         
         guard picker == nil else { return }
@@ -71,9 +74,6 @@ final class PickerViewController: BaseViewController {
             Log.standard("[PICKER] Picker opened")
         }
     }
-    
-    
-    // MARK: Actions
     
     fileprivate func saveVideoLocally(_ result: PHPickerResult) {
         
@@ -125,6 +125,8 @@ final class PickerViewController: BaseViewController {
     }
 }
 
+
+// MARK: PHPickerViewControllerDelegate
 
 extension PickerViewController: PHPickerViewControllerDelegate {
 

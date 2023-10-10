@@ -202,7 +202,7 @@ final class StudioViewController: BaseViewController {
         filtersView = UIView()
         stackView.addArrangedSubview(filtersView)
         filtersView.snp.makeConstraints { make in
-            make.height.equalTo(150)
+            make.height.equalTo(FiltersViewController.height)
         }
         
         filtersViewController = FiltersViewController(delegate: self, filtersManager: filtersManager, localFileManager: localFileManager)
@@ -423,8 +423,8 @@ final class StudioViewController: BaseViewController {
                         mergeAndExportVideo { [weak self] mergedURL in
                             if let mergedURL = mergedURL {
                                 self?.showExport(with: mergedURL)
-                                self?.exportAction = nil
                             }
+                            self?.exportAction = nil
                         }
                     }
                 }
@@ -459,6 +459,7 @@ final class StudioViewController: BaseViewController {
 extension StudioViewController: StatusViewControllerDelegate {
     
     func didTapStatus() {
+        
         switch studioState {
         case .exported:
             onExport()
@@ -474,6 +475,7 @@ extension StudioViewController: StatusViewControllerDelegate {
 extension StudioViewController: ClipsViewControllerDelegate {
     
     func didSelectVideo(newIndex: Int) {
+        
         selectedVideoIndex = newIndex
     }
 }
@@ -484,6 +486,7 @@ extension StudioViewController: ClipsViewControllerDelegate {
 extension StudioViewController: FiltersViewControllerDelegate {
     
     func didSelectFilter(newIndex: Int) {
+        
         selectedFilterIndex = newIndex
     }
 }

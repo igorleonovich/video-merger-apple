@@ -10,11 +10,13 @@ import Foundation
 final class LocalFileManager {
     
     private func defaultFileDirectory() -> URL {
+        
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls.first!
     }
 
     func removeFileIfExists(fileName: String, fileFormat: String) throws {
+        
         guard isFileExists(fileName: fileName, fileFormat: fileFormat) else {
             return
         }
@@ -27,6 +29,7 @@ final class LocalFileManager {
     }
     
     func removeFileIfExists(_ url: URL) -> Void {
+        
         if FileManager.default.fileExists(atPath: url.path) {
             do {
                 try FileManager.default.removeItem(atPath: url.path)
@@ -58,6 +61,7 @@ final class LocalFileManager {
     }
 
     func fileURL(fileName: String, fileFormat: String) -> URL {
+        
         return defaultFileDirectory().appendingPathComponent(fileName).appendingPathExtension(fileFormat)
     }
 }
