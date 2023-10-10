@@ -21,8 +21,10 @@ enum Font {
             return 12
         case .medium, .mediumBold:
             return 16
-        case .large, .largeBlack:
+        case .large:
             return 18
+        case .largeBlack:
+            return 24
         }
     }
     

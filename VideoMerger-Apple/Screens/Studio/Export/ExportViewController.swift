@@ -15,6 +15,7 @@ final class ExportViewController: BaseViewController {
     private var url: URL
     
     private var stackView: UIStackView!
+    private let playerPadding: CGFloat = 30
     
     // MARK: Life Cycle
     
@@ -45,7 +46,7 @@ final class ExportViewController: BaseViewController {
         stackView.axis = .vertical
         view.addSubview(stackView)
         stackView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(playerPadding)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
@@ -56,13 +57,11 @@ final class ExportViewController: BaseViewController {
         
         let playerView = UIView()
         stackView.addArrangedSubview(playerView)
+        stackView.setCustomSpacing(playerPadding, after: playerView)
         
         let avPlayerViewController = AVPlayerViewController()
         let player = AVPlayer(url: url)
         avPlayerViewController.player = player
-        self.addChild(avPlayerViewController)
-        avPlayerViewController.view.frame = view.bounds
-        
         avPlayerViewController.view.backgroundColor = view.backgroundColor
         
         add(child: avPlayerViewController, containerView: playerView)
@@ -83,7 +82,7 @@ final class ExportViewController: BaseViewController {
         button.addTarget(self, action: #selector(onSave), for: .touchUpInside)
         
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = Font.mediumBold.uifont
+        button.titleLabel?.font = Font.largeBlack.uifont
         button.setTitle("Save".uppercased(), for: .normal)
     }
     
