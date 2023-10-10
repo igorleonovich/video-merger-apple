@@ -130,6 +130,8 @@ extension PickerViewController: PHPickerViewControllerDelegate {
 
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
+        guard results.isEmpty == false else { return }
+        
         picker.dismiss(animated: true) { [weak self] in
             
             ProgressHUD.show()
