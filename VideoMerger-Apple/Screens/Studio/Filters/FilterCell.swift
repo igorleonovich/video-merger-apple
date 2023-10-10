@@ -34,12 +34,6 @@ final class FilterCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        imageView.image = nil
-    }
-    
     
     // MARK: Setup
     
@@ -89,7 +83,11 @@ final class FilterCell: UICollectionViewCell {
         
         filtersManager.applyThumbnail(with: url, imageFilter: imageFilter,
                                       filtersManager: filtersManager, localFileManager: localFileManager) { [weak self] image in
-            self?.imageView?.image = image
+            
+            DispatchQueue.main.async {
+                
+                self?.imageView?.image = image
+            }
         }
     }
 }

@@ -44,11 +44,12 @@ final class ClipCell: UICollectionViewCell {
     private func setupImageView() {
         
         imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
         addSubview(imageView)
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
     }
     
     private func setupOverlay() {
@@ -66,10 +67,14 @@ final class ClipCell: UICollectionViewCell {
     // MARK: Configuration
     
     func configure(with url: URL, imageFilter: ImageFilter, filtersManager: FiltersManager, localFileManager: LocalFileManager) {
-        
+    
         filtersManager.applyThumbnail(with: url, imageFilter: imageFilter,
                                       filtersManager: filtersManager, localFileManager: localFileManager) { [weak self] image in
-            self?.imageView?.image = image
+
+            DispatchQueue.main.async {
+                
+                self?.imageView?.image = image
+            }
         }
     }
 }
