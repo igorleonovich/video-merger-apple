@@ -27,17 +27,18 @@ final class StudioViewController: BaseViewController {
     private var filtersView: UIView!
     private var overlayView: UIView!
     private let statusPanelHeight: CGFloat = 50
+    private let topOffset: CGFloat = 15
     private let animationDuration: CGFloat = 0.5
     private let activeOverlayViewAlpha: CGFloat = 0.75
     
-    private var selectedVideoIndex = 0 {
+    private var selectedClipIndex = 0 {
         didSet {
             UIView.transition(with: view, duration: animationDuration, options: .transitionCrossDissolve, animations: { [weak self] in
                 guard let self = self else { return }
                 updateThumbnail { [weak self] in
                     self?.filtersViewController.collectionView.reloadData()
                 }
-                filtersViewController.currentVideoUrl = clipsManager.inputVideoURLs[selectedVideoIndex]
+                filtersViewController.currentVideoUrl = clipsManager.inputVideoURLs[selectedClipIndex]
             })
         }
     }
@@ -123,16 +124,15 @@ final class StudioViewController: BaseViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         // INFO: Prevent wrong player frame size
-        guard previewViewController.isPlayerSetup == false else {
-            return
-        }
+        
+        guard previewViewController.isPlayerSetup == false else { return }
+        
         if let url = clipsManager.inputVideoURLs.first {
             previewViewController.isPlayerSetup = true
             DispatchQueue.main.async { [weak self] in
                 self?.previewViewController.setupPlayer(with: url)
-                self?.selectedVideoIndex = 0
+                self?.selectedClipIndex = 0
             }
         } else {
             Log.error("[STUDIO] Can't load initial video into player")
@@ -151,11 +151,13 @@ final class StudioViewController: BaseViewController {
     // MARK: Setup
     
     private func setupExportButton() {
+        
         let exportButton = UIBarButtonItem(title: "Export".uppercased(), style: .plain, target: self, action: #selector(onExport(_:)))
         navigationItem.rightBarButtonItem = exportButton
     }
     
     private func setupCancelButton() {
+        
         // TODO: Implement cancellation
 //        let cancelButton = UIBarButtonItem(title: "Cancel".uppercased(), style: .plain, target: self, action: #selector(onCancel(_:)))
         let cancelButton = UIBarButtonItem(title: "".uppercased(), style: .plain, target: self, action: #selector(onCancel(_:)))
@@ -168,7 +170,7 @@ final class StudioViewController: BaseViewController {
         stackView.axis = .vertical
         view.addSubview(stackView)
         stackView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(topOffset)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin)
@@ -208,7 +210,7 @@ final class StudioViewController: BaseViewController {
         filtersViewController = FiltersViewController(delegate: self, filtersManager: filtersManager, localFileManager: localFileManager)
         add(child: filtersViewController, containerView: filtersView)
         
-        filtersViewController.currentVideoUrl = clipsManager.inputVideoURLs[selectedVideoIndex]
+        filtersViewController.currentVideoUrl = clipsManager.inputVideoURLs[selectedClipIndex]
     }
     
     private func setupStatus() {
@@ -256,7 +258,7 @@ final class StudioViewController: BaseViewController {
     // TODO: Move Filtering and Merge functions to managers (currently it's toughly bounded to StudioViewController)
     private func prefilterCurrentVideo() {
         
-        filterVideo(inputVideoURLs: [clipsManager.inputVideoURLs[selectedVideoIndex]], isPrefiltering: true) { [weak self] in
+        filterVideo(inputVideoURLs: [clipsManager.inputVideoURLs[selectedClipIndex]], isPrefiltering: true) { [weak self] in
             guard let self = self else { return }
             UIView.transition(with: view, duration: animationDuration * 2, options: .transitionCrossDissolve) { [weak self] in
                 self?.thumbnailView.image = nil
@@ -401,11 +403,11 @@ final class StudioViewController: BaseViewController {
     
     private func onExport() {
         
+        makeExportAction()
+        
         if studioState == .prefiltering {
             setupCancelButton()
-            makeExportAction()
         } else {
-            makeExportAction()
             exportAction?()
         }
         
@@ -441,7 +443,7 @@ final class StudioViewController: BaseViewController {
     
     private func updateThumbnail(_ completion: (() -> Void)? = nil) {
         
-        filtersManager.applyThumbnail(with: clipsManager.inputVideoURLs[selectedVideoIndex],
+        filtersManager.applyThumbnail(with: clipsManager.inputVideoURLs[selectedClipIndex],
                                  imageFilter: filtersManager.filters[selectedFilterIndex],
                                  filtersManager: filtersManager,
                                       localFileManager: localFileManager) { [weak self] image in
@@ -454,29 +456,13 @@ final class StudioViewController: BaseViewController {
 }
 
 
-// MARK: StudioViewControllerDelegate
-
-extension StudioViewController: StatusViewControllerDelegate {
-    
-    func didTapStatus() {
-        
-        switch studioState {
-        case .exported:
-            onExport()
-        default:
-            break
-        }
-    }
-}
-
-
 // MARK: ClipsViewControllerDelegate
 
 extension StudioViewController: ClipsViewControllerDelegate {
     
     func didSelectVideo(newIndex: Int) {
         
-        selectedVideoIndex = newIndex
+        selectedClipIndex = newIndex
     }
 }
 
@@ -488,5 +474,21 @@ extension StudioViewController: FiltersViewControllerDelegate {
     func didSelectFilter(newIndex: Int) {
         
         selectedFilterIndex = newIndex
+    }
+}
+
+
+// MARK: StatusViewControllerDelegate
+
+extension StudioViewController: StatusViewControllerDelegate {
+    
+    func didTapStatus() {
+        
+        switch studioState {
+        case .exported:
+            onExport()
+        default:
+            break
+        }
     }
 }

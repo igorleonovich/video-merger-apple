@@ -7,11 +7,6 @@
 
 import UIKit
 
-protocol StatusViewControllerDelegate: AnyObject {
-    
-    func didTapStatus()
-}
-
 final class StatusViewController: BaseViewController {
     
     private weak var delegate: StatusViewControllerDelegate!
@@ -85,4 +80,10 @@ final class StatusViewController: BaseViewController {
         
         delegate?.didTapStatus()
     }
+}
+
+
+protocol StatusViewControllerDelegate: AnyObject {
+    
+    func didTapStatus()
 }
