@@ -5,13 +5,14 @@
 //  Created by Igor Leonovich on 02/10/2023.
 //
 
+import RxSwift
 import UIKit
 
 final class FiltersViewController: CollectionViewController {
     
     weak var delegate: FiltersViewControllerDelegate!
-    private weak var filtersManager: FiltersManager!
-    private weak var localFileManager: LocalFileManager!
+    weak var filtersManager: FiltersManager!
+    weak var localFileManager: LocalFileManager!
     
     static var height: CGFloat {
         return CollectionViewController.cellSide + FilterCell.titleHeight
@@ -30,9 +31,15 @@ final class FiltersViewController: CollectionViewController {
     var currentVideoUrl: URL!
     
     public var viewModel: FiltersCollectionViewModeling?
+    private var viewCellModels: [FiltersCollectionViewCellModeling] = []
+    private var disposeBag = DisposeBag()
     
     
     // MARK: Life Cycle
+    
+    override init() {
+        super.init()
+    }
     
     init(delegate: FiltersViewControllerDelegate, filtersManager: FiltersManager, localFileManager: LocalFileManager) {
         super.init()
@@ -48,9 +55,18 @@ final class FiltersViewController: CollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        filtersManager.load { [weak self] in
-            self?.collectionView?.reloadData()
-        }
+        viewModel?.getFilters().subscribe(onNext: { filters in
+            DispatchQueue.main.async { [weak self] in
+                
+//                self?.viewCellModels = filters
+                let filtersDTO = filters.map({ ImageFilterDTO(name: $0.name, title: $0.title) })
+                self?.filtersManager.filtersDTO = filtersDTO
+                self?.filtersManager.filters.append(contentsOf: filtersDTO.map({ ImageFilter.custom($0) }))
+                
+                self?.collectionView.reloadData()
+            }
+        })
+        .disposed(by: disposeBag)
     }
     
     

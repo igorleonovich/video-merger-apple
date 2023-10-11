@@ -19,7 +19,7 @@ public final class FiltersService: FiltersGetting {
 
     public func getFilters() -> Observable<ResponseEntity> {
         
-        let url = "\(Constants.baseUrl)/"
+        let url = "\(Constants.baseUrl)/filters"
         return Observable.create { [weak self] observer -> Disposable in
             guard let self = self else {
                 observer.onError(NetworkError.NotReachedServer)

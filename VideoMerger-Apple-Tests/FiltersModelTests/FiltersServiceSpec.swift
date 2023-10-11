@@ -24,7 +24,6 @@ final class FiltersServiceSpec: QuickSpec {
         func requestJSON(url: String, parameters: [String: Any]?) -> Observable<Any> {
             
             let json: [String: Any] = [
-                "totalCount": 2,
                 "filters": filtersJSON["filters"] ?? [String: Any]()
             ]
             
@@ -77,7 +76,6 @@ final class FiltersServiceSpec: QuickSpec {
                 }).disposed(by: disposeBag)
 
             expect(response).toEventuallyNot(beNil())
-            expect(response?.totalCount).toEventually(equal(2))
             expect(response?.filters.count).toEventually(equal(2))
             expect(response?.filters[0].name).toEventually(equal("name0"))
             expect(response?.filters[0].title).toEventually(equal("title0"))

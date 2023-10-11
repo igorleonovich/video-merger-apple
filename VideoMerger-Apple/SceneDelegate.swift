@@ -5,11 +5,32 @@
 //  Created by Igor Leonovich on 02/10/2023.
 //
 
+import Swinject
 import UIKit
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    let container = Container() { container in
+        // Models
+        container.register(Networking.self) { _ in Network() }
+        container.register(FiltersGetting.self) { r in
+            FiltersService(network: r.resolve(Networking.self)!)
+        }
+
+        // View models
+        container.register(FiltersCollectionViewModeling.self) { r in
+            FiltersCollectionViewModel(filtersService: r.resolve(FiltersGetting.self)!,
+                                      network: r.resolve(Networking.self)!)
+        }
+
+        // Views
+        container.register(FiltersViewController.self) { r in
+            let controller = FiltersViewController()
+            controller.viewModel = r.resolve(FiltersCollectionViewModeling.self)!
+            return controller
+        }
+    }
     
     private var localFileManager: LocalFileManager!
 

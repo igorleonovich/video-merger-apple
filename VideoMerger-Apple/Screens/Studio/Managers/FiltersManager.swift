@@ -12,7 +12,7 @@ import UIKit
 final class FiltersManager {
     
     var filters: [ImageFilter] = [.noFilter]
-    private var filtersDTO = [ImageFilterDTO]()
+    var filtersDTO = [ImageFilterDTO]()
     
     var selectedFilterIndex = 0
     
@@ -26,60 +26,6 @@ final class FiltersManager {
     
     
     // MARK: Loading
-    
-    func load(_ completion: @escaping () -> Void) {
-        
-        getFilters { [weak self] error in
-            if let error = error {
-                Log.error(error.localizedDescription)
-            } else {
-                self?.filtersDTO.forEach { imageFilterDTO in
-                    self?.filters.append(ImageFilter.custom(imageFilterDTO))
-                }
-                completion()
-            }
-        }
-    }
-    
-    func getFilters(_ completion: @escaping (Swift.Error?) -> Void) {
-        
-        getFiltersTask?.cancel()
-        
-        let sessionDelegate = SessionDelegate()
-        let session = URLSession(configuration: sessionConfiguration, delegate: sessionDelegate, delegateQueue: OperationQueue.main)
-        
-        let path = "/filters"
-        guard let url = URL(string: "\(Constants.baseUrl)\(path)") else {
-            return
-        }
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        getFiltersTask = session.dataTask(with: request) { [weak self] (data, response, error) in
-            guard let self = self else { return }
-            defer {
-                self.getFiltersTask = nil
-            }
-            if let error = error {
-                completion(error)
-            } else if let data = data, let response = response as? HTTPURLResponse {
-                if response.statusCode == 200 {
-                    
-                    do {
-                        filtersDTO = try JSONDecoder().decode(ImageFiltersDTO.self, from: data).filters
-                        completion(nil)
-                    } catch {
-                        completion(error)
-                    }
-                    
-                    Log.standard("[FILTERS] \(request.httpMethod ?? "") \(path) \(response.statusCode)")
-                } else {
-                    
-                    Log.error("[FILTERS] \(request.httpMethod ?? "") \(path) \(response.statusCode)")
-                }
-            }
-        }
-        getFiltersTask?.resume()
-    }
     
     
     // MARK: Applying filters

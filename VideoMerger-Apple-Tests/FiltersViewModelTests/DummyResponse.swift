@@ -18,5 +18,5 @@ let dummyResponse: ResponseEntity = {
     let filter1 = ImageFilterDTO(
         name: "name2",
         title: "title2")
-    return ResponseEntity(totalCount: 2, filters: [filter0, filter1])
+    return ResponseEntity(filters: [filter0, filter1])
 }()

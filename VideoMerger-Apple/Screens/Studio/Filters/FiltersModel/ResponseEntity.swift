@@ -9,7 +9,6 @@ import SwiftyJSON
 
 public struct ResponseEntity {
     
-    public let totalCount: Int64
     public let filters: [ImageFilterDTO]
 }
 
@@ -20,7 +19,7 @@ extension ResponseEntity: Decodable {
     
     public static func decode(_ e: JSON) throws -> ResponseEntity {
         
-        guard let totalCount = e["totalCount"].int64, let filtersJson = e["filters"].array else {
+        guard let filtersJson = e["filters"].array else {
             throw NetworkError.IncorrectDataReturned
         }
 
@@ -30,7 +29,6 @@ extension ResponseEntity: Decodable {
         }
 
         return ResponseEntity(
-            totalCount: totalCount,
             filters: filters
         )
     }

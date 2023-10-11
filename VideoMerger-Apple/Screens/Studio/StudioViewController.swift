@@ -207,7 +207,14 @@ final class StudioViewController: BaseViewController {
             make.height.equalTo(FiltersViewController.height)
         }
         
-        filtersViewController = FiltersViewController(delegate: self, filtersManager: filtersManager, localFileManager: localFileManager)
+        let scene = UIApplication.shared.connectedScenes.first
+        if let sceneDelegate = scene?.delegate as? SceneDelegate {
+            filtersViewController = sceneDelegate.container.resolve(FiltersViewController.self)
+            filtersViewController.delegate = self
+            filtersViewController.filtersManager = filtersManager
+            filtersViewController.localFileManager = localFileManager
+        }
+        
         add(child: filtersViewController, containerView: filtersView)
         
         filtersViewController.currentVideoUrl = clipsManager.inputVideoURLs[selectedClipIndex]
