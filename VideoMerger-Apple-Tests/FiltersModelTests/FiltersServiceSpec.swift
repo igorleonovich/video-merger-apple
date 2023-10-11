@@ -9,9 +9,11 @@ import Nimble
 import Quick
 import RxSwift
 import UIKit
+
 @testable import VideoMerger_Apple
 
-final class GetFiltersSpec: QuickSpec {
+
+final class FiltersServiceSpec: QuickSpec {
 
     private static let disposeBag = DisposeBag()
     

@@ -12,6 +12,7 @@ import UIKit
 
 @testable import VideoMerger_Apple
 
+
 final class FiltersCollectionViewModelSpec: QuickSpec {
 
     // MARK: Stub

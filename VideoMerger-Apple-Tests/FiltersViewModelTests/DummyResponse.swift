@@ -6,7 +6,9 @@
 //
 
 import UIKit
+
 @testable import VideoMerger_Apple
+
 
 let dummyResponse: ResponseEntity = {
     

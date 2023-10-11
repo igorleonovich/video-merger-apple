@@ -12,6 +12,7 @@ import UIKit
 
 @testable import VideoMerger_Apple
 
+
 final class FiltersCollectionViewCellModelSpec: QuickSpec {
     
     private static let disposeBag = DisposeBag()

@@ -19,13 +19,12 @@
 		691E5C0E2AD642AC00395128 /* FiltersCollectionViewCellModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691E5C0A2AD642AC00395128 /* FiltersCollectionViewCellModeling.swift */; };
 		691E5C0F2AD642AC00395128 /* FiltersCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691E5C0B2AD642AC00395128 /* FiltersCollectionViewCellModel.swift */; };
 		691E5C102AD642AC00395128 /* FiltersCollectionViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691E5C0C2AD642AC00395128 /* FiltersCollectionViewModeling.swift */; };
-		6939C4452AD659DF00BB7555 /* FiltersModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939C4442AD659DF00BB7555 /* FiltersModelTests.swift */; };
 		6939C4692AD65B8B00BB7555 /* FiltersCollectionViewCellModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939C4662AD65B8A00BB7555 /* FiltersCollectionViewCellModelSpec.swift */; };
 		6939C46A2AD65B8B00BB7555 /* DummyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939C4672AD65B8B00BB7555 /* DummyResponse.swift */; };
 		6939C46B2AD65B8B00BB7555 /* FiltersCollectionViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939C4682AD65B8B00BB7555 /* FiltersCollectionViewModelSpec.swift */; };
 		6939C46C2AD65D0900BB7555 /* NetworkSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939C4602AD65B6A00BB7555 /* NetworkSpec.swift */; };
 		6939C46D2AD65D0900BB7555 /* DummyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939C45E2AD65B6A00BB7555 /* DummyResponse.swift */; };
-		6939C46F2AD65D0900BB7555 /* GetFiltersSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939C45F2AD65B6A00BB7555 /* GetFiltersSpec.swift */; };
+		6939C46F2AD65D0900BB7555 /* FiltersServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939C45F2AD65B6A00BB7555 /* FiltersServiceSpec.swift */; };
 		69696B1C2ACA31FC007DD91F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69696B1B2ACA31FC007DD91F /* AppDelegate.swift */; };
 		69696B1E2ACA31FC007DD91F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69696B1D2ACA31FC007DD91F /* SceneDelegate.swift */; };
 		69696B202ACA31FC007DD91F /* StudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69696B1F2ACA31FC007DD91F /* StudioViewController.swift */; };
@@ -100,10 +99,9 @@
 		691E5C0C2AD642AC00395128 /* FiltersCollectionViewModeling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersCollectionViewModeling.swift; sourceTree = "<group>"; };
 		6939C43C2AD659A500BB7555 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = "VideoMerger-Apple-Tests/FiltersModelTests/Info.plist"; sourceTree = SOURCE_ROOT; };
 		6939C4422AD659DF00BB7555 /* FiltersModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FiltersModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6939C4442AD659DF00BB7555 /* FiltersModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersModelTests.swift; sourceTree = "<group>"; };
 		6939C4502AD65A9E00BB7555 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6939C45E2AD65B6A00BB7555 /* DummyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyResponse.swift; sourceTree = "<group>"; };
-		6939C45F2AD65B6A00BB7555 /* GetFiltersSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetFiltersSpec.swift; sourceTree = "<group>"; };
+		6939C45F2AD65B6A00BB7555 /* FiltersServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersServiceSpec.swift; sourceTree = "<group>"; };
 		6939C4602AD65B6A00BB7555 /* NetworkSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSpec.swift; sourceTree = "<group>"; };
 		6939C4662AD65B8A00BB7555 /* FiltersCollectionViewCellModelSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersCollectionViewCellModelSpec.swift; sourceTree = "<group>"; };
 		6939C4672AD65B8B00BB7555 /* DummyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyResponse.swift; sourceTree = "<group>"; };
@@ -252,17 +250,9 @@
 			isa = PBXGroup;
 			children = (
 				6939C45E2AD65B6A00BB7555 /* DummyResponse.swift */,
-				6939C45F2AD65B6A00BB7555 /* GetFiltersSpec.swift */,
+				6939C45F2AD65B6A00BB7555 /* FiltersServiceSpec.swift */,
 				6939C4602AD65B6A00BB7555 /* NetworkSpec.swift */,
 				6939C4502AD65A9E00BB7555 /* Info.plist */,
-			);
-			path = FiltersModelTests;
-			sourceTree = "<group>";
-		};
-		6939C4432AD659DF00BB7555 /* FiltersModelTests */ = {
-			isa = PBXGroup;
-			children = (
-				6939C4442AD659DF00BB7555 /* FiltersModelTests.swift */,
 			);
 			path = FiltersModelTests;
 			sourceTree = "<group>";
@@ -272,7 +262,6 @@
 			children = (
 				69696B1A2ACA31FC007DD91F /* VideoMerger-Apple */,
 				697B5CDD2AD513CA00E01711 /* VideoMerger-Apple-Tests */,
-				6939C4432AD659DF00BB7555 /* FiltersModelTests */,
 				69696B192ACA31FC007DD91F /* Products */,
 				3D24CC19D9FB70764274AD02 /* Pods */,
 				287A192017EA797F367248CF /* Frameworks */,
@@ -752,10 +741,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6939C4452AD659DF00BB7555 /* FiltersModelTests.swift in Sources */,
 				6939C46D2AD65D0900BB7555 /* DummyResponse.swift in Sources */,
 				6939C46C2AD65D0900BB7555 /* NetworkSpec.swift in Sources */,
-				6939C46F2AD65D0900BB7555 /* GetFiltersSpec.swift in Sources */,
+				6939C46F2AD65D0900BB7555 /* FiltersServiceSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
