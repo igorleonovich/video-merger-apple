@@ -35,8 +35,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "697B5CDB2AD513C900E01711"
-               BuildableName = "VideoMerger-Apple-Tests.xctest"
-               BlueprintName = "VideoMerger-Apple-Tests"
+               BuildableName = "FiltersViewModelTests.xctest"
+               BlueprintName = "FiltersViewModelTests"
                ReferencedContainer = "container:VideoMerger-Apple.xcodeproj">
             </BuildableReference>
          </TestableReference>

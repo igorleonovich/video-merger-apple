@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "AB1E5A6C-AD92-484B-ACCC-ADF37740E970",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:VideoMerger-Apple.xcodeproj",
+        "identifier" : "697B5CDB2AD513C900E01711",
+        "name" : "FiltersViewModelTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		61550CC93EBD8B77E5A9176F /* Pods_VideoMerger_Apple_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6CEFE670F91F848F7A95FFF /* Pods_VideoMerger_Apple_Tests.framework */; };
+		690A35EC2AD62E1D0044554B /* FiltersViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690A35EA2AD62E1D0044554B /* FiltersViewModelTests.swift */; };
+		690A35F02AD62F7B0044554B /* DummyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690A35EF2AD62F7B0044554B /* DummyResponse.swift */; };
+		691E5BF12AD63F1800395128 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C8F2ACB322300E01711 /* ImageFilter.swift */; };
 		69696B1C2ACA31FC007DD91F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69696B1B2ACA31FC007DD91F /* AppDelegate.swift */; };
 		69696B1E2ACA31FC007DD91F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69696B1D2ACA31FC007DD91F /* SceneDelegate.swift */; };
 		69696B202ACA31FC007DD91F /* StudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69696B1F2ACA31FC007DD91F /* StudioViewController.swift */; };
@@ -23,7 +26,6 @@
 		697B5C882ACAD78900E01711 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C872ACAD78900E01711 /* Constants.swift */; };
 		697B5C8C2ACB144A00E01711 /* MergeManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C8B2ACB144A00E01711 /* MergeManager+Extensions.swift */; };
 		697B5C8E2ACB15FE00E01711 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 697B5C8D2ACB15FE00E01711 /* silence.mp3 */; };
-		697B5C902ACB322300E01711 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C8F2ACB322300E01711 /* ImageFilter.swift */; };
 		697B5C932ACB3EB000E01711 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C922ACB3EB000E01711 /* Log.swift */; };
 		697B5C962ACB4B3C00E01711 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C952ACB4B3C00E01711 /* PreviewViewController.swift */; };
 		697B5C982ACB4C0F00E01711 /* ClipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C972ACB4C0F00E01711 /* ClipsViewController.swift */; };
@@ -41,7 +43,6 @@
 		697B5CB92ACBCD7C00E01711 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CB82ACBCD7C00E01711 /* ExportViewController.swift */; };
 		697B5CBB2ACBE6BA00E01711 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CBA2ACBE6BA00E01711 /* Button.swift */; };
 		697B5CC72ACCF9EB00E01711 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CC62ACCF9EB00E01711 /* CollectionViewController.swift */; };
-		697B5CDF2AD513CA00E01711 /* VideoMerger_Apple_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CDE2AD513CA00E01711 /* VideoMerger_Apple_Tests.swift */; };
 		B790AA37C3BE7BDEFB5451AF /* Pods_VideoMerger_Apple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FEB61ACF58B3CBD29D3207 /* Pods_VideoMerger_Apple.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,10 @@
 		0E845E884B75004222697244 /* Pods-VideoMerger-Apple-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoMerger-Apple-Tests.release.xcconfig"; path = "Target Support Files/Pods-VideoMerger-Apple-Tests/Pods-VideoMerger-Apple-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		5C6657561AED1451B4537F6B /* Pods-VideoMerger-Apple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoMerger-Apple.debug.xcconfig"; path = "Target Support Files/Pods-VideoMerger-Apple/Pods-VideoMerger-Apple.debug.xcconfig"; sourceTree = "<group>"; };
 		61F85276E3A5866346E53D80 /* Pods-VideoMerger-Apple.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoMerger-Apple.release.xcconfig"; path = "Target Support Files/Pods-VideoMerger-Apple/Pods-VideoMerger-Apple.release.xcconfig"; sourceTree = "<group>"; };
+		690A35EA2AD62E1D0044554B /* FiltersViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersViewModelTests.swift; sourceTree = "<group>"; };
+		690A35EB2AD62E1D0044554B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		690A35EE2AD62EC10044554B /* VideoMerger-Apple.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "VideoMerger-Apple.xctestplan"; sourceTree = "<group>"; };
+		690A35EF2AD62F7B0044554B /* DummyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyResponse.swift; sourceTree = "<group>"; };
 		69696B182ACA31FC007DD91F /* VideoMerger-Apple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VideoMerger-Apple.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69696B1B2ACA31FC007DD91F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69696B1D2ACA31FC007DD91F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,8 +100,7 @@
 		697B5CB82ACBCD7C00E01711 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 		697B5CBA2ACBE6BA00E01711 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		697B5CC62ACCF9EB00E01711 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
-		697B5CDC2AD513C900E01711 /* VideoMerger-Apple-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VideoMerger-Apple-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		697B5CDE2AD513CA00E01711 /* VideoMerger_Apple_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMerger_Apple_Tests.swift; sourceTree = "<group>"; };
+		697B5CDC2AD513C900E01711 /* FiltersViewModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FiltersViewModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B46C235669282028CC231BF /* Pods-VideoMerger-Apple-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoMerger-Apple-Tests.debug.xcconfig"; path = "Target Support Files/Pods-VideoMerger-Apple-Tests/Pods-VideoMerger-Apple-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		F6CEFE670F91F848F7A95FFF /* Pods_VideoMerger_Apple_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoMerger_Apple_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -141,6 +145,24 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		690A35E92AD62E1D0044554B /* FiltersViewModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				690A35EA2AD62E1D0044554B /* FiltersViewModelTests.swift */,
+				690A35EF2AD62F7B0044554B /* DummyResponse.swift */,
+				690A35EB2AD62E1D0044554B /* Info.plist */,
+			);
+			path = FiltersViewModelTests;
+			sourceTree = "<group>";
+		};
+		690A36022AD636B00044554B /* FiltersModel */ = {
+			isa = PBXGroup;
+			children = (
+				697B5C8F2ACB322300E01711 /* ImageFilter.swift */,
+			);
+			path = FiltersModel;
+			sourceTree = "<group>";
+		};
 		69696B0F2ACA31FC007DD91F = {
 			isa = PBXGroup;
 			children = (
@@ -156,7 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				69696B182ACA31FC007DD91F /* VideoMerger-Apple.app */,
-				697B5CDC2AD513C900E01711 /* VideoMerger-Apple-Tests.xctest */,
+				697B5CDC2AD513C900E01711 /* FiltersViewModelTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -297,9 +319,9 @@
 		697B5CB52ACBBC1000E01711 /* Filters */ = {
 			isa = PBXGroup;
 			children = (
+				690A36022AD636B00044554B /* FiltersModel */,
 				697B5C992ACB4C3100E01711 /* FiltersViewController.swift */,
 				697B5CA42ACB6E4400E01711 /* FilterCell.swift */,
-				697B5C8F2ACB322300E01711 /* ImageFilter.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -340,7 +362,8 @@
 		697B5CDD2AD513CA00E01711 /* VideoMerger-Apple-Tests */ = {
 			isa = PBXGroup;
 			children = (
-				697B5CDE2AD513CA00E01711 /* VideoMerger_Apple_Tests.swift */,
+				690A35EE2AD62EC10044554B /* VideoMerger-Apple.xctestplan */,
+				690A35E92AD62E1D0044554B /* FiltersViewModelTests */,
 			);
 			path = "VideoMerger-Apple-Tests";
 			sourceTree = "<group>";
@@ -384,9 +407,9 @@
 			productReference = 69696B182ACA31FC007DD91F /* VideoMerger-Apple.app */;
 			productType = "com.apple.product-type.application";
 		};
-		697B5CDB2AD513C900E01711 /* VideoMerger-Apple-Tests */ = {
+		697B5CDB2AD513C900E01711 /* FiltersViewModelTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 697B5CE22AD513CA00E01711 /* Build configuration list for PBXNativeTarget "VideoMerger-Apple-Tests" */;
+			buildConfigurationList = 697B5CE22AD513CA00E01711 /* Build configuration list for PBXNativeTarget "FiltersViewModelTests" */;
 			buildPhases = (
 				C4FCF5EA837BCAE4D5AED2A7 /* [CP] Check Pods Manifest.lock */,
 				697B5CD82AD513C900E01711 /* Sources */,
@@ -399,9 +422,9 @@
 			dependencies = (
 				697B5CE12AD513CA00E01711 /* PBXTargetDependency */,
 			);
-			name = "VideoMerger-Apple-Tests";
+			name = FiltersViewModelTests;
 			productName = "VideoMerger-Apple-Tests";
-			productReference = 697B5CDC2AD513C900E01711 /* VideoMerger-Apple-Tests.xctest */;
+			productReference = 697B5CDC2AD513C900E01711 /* FiltersViewModelTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -437,7 +460,7 @@
 			projectRoot = "";
 			targets = (
 				69696B172ACA31FC007DD91F /* VideoMerger-Apple */,
-				697B5CDB2AD513C900E01711 /* VideoMerger-Apple-Tests */,
+				697B5CDB2AD513C900E01711 /* FiltersViewModelTests */,
 			);
 		};
 /* End PBXProject section */
@@ -553,7 +576,6 @@
 				69696B362ACA65DA007DD91F /* PickerViewController.swift in Sources */,
 				697B5CA12ACB641F00E01711 /* StatusViewController.swift in Sources */,
 				697B5C982ACB4C0F00E01711 /* ClipsViewController.swift in Sources */,
-				697B5C902ACB322300E01711 /* ImageFilter.swift in Sources */,
 				697B5C882ACAD78900E01711 /* Constants.swift in Sources */,
 				697B5CB22ACBB76B00E01711 /* ClipsManager.swift in Sources */,
 				697B5CA82ACB761200E01711 /* Label.swift in Sources */,
@@ -564,6 +586,7 @@
 				697B5C8C2ACB144A00E01711 /* MergeManager+Extensions.swift in Sources */,
 				697B5CA52ACB6E4400E01711 /* FilterCell.swift in Sources */,
 				697B5CAA2ACB7E7E00E01711 /* FiltersManager.swift in Sources */,
+				691E5BF12AD63F1800395128 /* ImageFilter.swift in Sources */,
 				697B5CB02ACBB54200E01711 /* ClipCell.swift in Sources */,
 				697B5CC72ACCF9EB00E01711 /* CollectionViewController.swift in Sources */,
 				69696B1C2ACA31FC007DD91F /* AppDelegate.swift in Sources */,
@@ -585,7 +608,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				697B5CDF2AD513CA00E01711 /* VideoMerger_Apple_Tests.swift in Sources */,
+				690A35EC2AD62E1D0044554B /* FiltersViewModelTests.swift in Sources */,
+				690A35F02AD62F7B0044554B /* DummyResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,7 +685,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -715,7 +739,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -741,6 +765,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -770,6 +795,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -792,6 +818,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9TZZKGNZ6W;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "VideoMerger-Apple-Tests/FiltersViewModelTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.il.test.videomerger.apple.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -811,6 +839,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9TZZKGNZ6W;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "VideoMerger-Apple-Tests/FiltersViewModelTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.il.test.videomerger.apple.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -842,7 +872,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		697B5CE22AD513CA00E01711 /* Build configuration list for PBXNativeTarget "VideoMerger-Apple-Tests" */ = {
+		697B5CE22AD513CA00E01711 /* Build configuration list for PBXNativeTarget "FiltersViewModelTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				697B5CE32AD513CA00E01711 /* Debug */,
