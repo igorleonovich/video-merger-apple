@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61550CC93EBD8B77E5A9176F /* Pods_VideoMerger_Apple_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6CEFE670F91F848F7A95FFF /* Pods_VideoMerger_Apple_Tests.framework */; };
 		69696B1C2ACA31FC007DD91F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69696B1B2ACA31FC007DD91F /* AppDelegate.swift */; };
 		69696B1E2ACA31FC007DD91F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69696B1D2ACA31FC007DD91F /* SceneDelegate.swift */; };
 		69696B202ACA31FC007DD91F /* StudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69696B1F2ACA31FC007DD91F /* StudioViewController.swift */; };
@@ -56,6 +57,7 @@
 
 /* Begin PBXFileReference section */
 		02FEB61ACF58B3CBD29D3207 /* Pods_VideoMerger_Apple.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoMerger_Apple.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E845E884B75004222697244 /* Pods-VideoMerger-Apple-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoMerger-Apple-Tests.release.xcconfig"; path = "Target Support Files/Pods-VideoMerger-Apple-Tests/Pods-VideoMerger-Apple-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		5C6657561AED1451B4537F6B /* Pods-VideoMerger-Apple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoMerger-Apple.debug.xcconfig"; path = "Target Support Files/Pods-VideoMerger-Apple/Pods-VideoMerger-Apple.debug.xcconfig"; sourceTree = "<group>"; };
 		61F85276E3A5866346E53D80 /* Pods-VideoMerger-Apple.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoMerger-Apple.release.xcconfig"; path = "Target Support Files/Pods-VideoMerger-Apple/Pods-VideoMerger-Apple.release.xcconfig"; sourceTree = "<group>"; };
 		69696B182ACA31FC007DD91F /* VideoMerger-Apple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VideoMerger-Apple.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +97,8 @@
 		697B5CC62ACCF9EB00E01711 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		697B5CDC2AD513C900E01711 /* VideoMerger-Apple-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VideoMerger-Apple-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		697B5CDE2AD513CA00E01711 /* VideoMerger_Apple_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMerger_Apple_Tests.swift; sourceTree = "<group>"; };
+		6B46C235669282028CC231BF /* Pods-VideoMerger-Apple-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoMerger-Apple-Tests.debug.xcconfig"; path = "Target Support Files/Pods-VideoMerger-Apple-Tests/Pods-VideoMerger-Apple-Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		F6CEFE670F91F848F7A95FFF /* Pods_VideoMerger_Apple_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoMerger_Apple_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61550CC93EBD8B77E5A9176F /* Pods_VideoMerger_Apple_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				02FEB61ACF58B3CBD29D3207 /* Pods_VideoMerger_Apple.framework */,
+				F6CEFE670F91F848F7A95FFF /* Pods_VideoMerger_Apple_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -129,6 +135,8 @@
 			children = (
 				5C6657561AED1451B4537F6B /* Pods-VideoMerger-Apple.debug.xcconfig */,
 				61F85276E3A5866346E53D80 /* Pods-VideoMerger-Apple.release.xcconfig */,
+				6B46C235669282028CC231BF /* Pods-VideoMerger-Apple-Tests.debug.xcconfig */,
+				0E845E884B75004222697244 /* Pods-VideoMerger-Apple-Tests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -380,9 +388,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 697B5CE22AD513CA00E01711 /* Build configuration list for PBXNativeTarget "VideoMerger-Apple-Tests" */;
 			buildPhases = (
+				C4FCF5EA837BCAE4D5AED2A7 /* [CP] Check Pods Manifest.lock */,
 				697B5CD82AD513C900E01711 /* Sources */,
 				697B5CD92AD513C900E01711 /* Frameworks */,
 				697B5CDA2AD513C900E01711 /* Resources */,
+				FCB9F9E90B0523B6FECA7070 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -475,6 +485,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C4FCF5EA837BCAE4D5AED2A7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VideoMerger-Apple-Tests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCB9F9E90B0523B6FECA7070 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VideoMerger-Apple-Tests/Pods-VideoMerger-Apple-Tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VideoMerger-Apple-Tests/Pods-VideoMerger-Apple-Tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VideoMerger-Apple-Tests/Pods-VideoMerger-Apple-Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FE931DFAC968FDA385375FF4 /* [CP] Embed Pods Frameworks */ = {
@@ -736,6 +785,7 @@
 		};
 		697B5CE32AD513CA00E01711 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B46C235669282028CC231BF /* Pods-VideoMerger-Apple-Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -754,6 +804,7 @@
 		};
 		697B5CE42AD513CA00E01711 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E845E884B75004222697244 /* Pods-VideoMerger-Apple-Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
