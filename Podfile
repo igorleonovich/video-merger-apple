@@ -12,11 +12,12 @@ target 'VideoMerger-Apple' do
   
   shared_pods
   pod 'ProgressHUD'
+  pod 'RxCocoa'
   pod 'SnapKit'
   pod 'SwiftyJSON'
 end
 
-target 'VideoMerger-Apple-Tests' do
+target 'FiltersViewModelTests' do
   use_frameworks!
   
   shared_pods

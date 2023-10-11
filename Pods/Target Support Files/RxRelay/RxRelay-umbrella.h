@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_VideoMerger_Apple_TestsVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_VideoMerger_Apple_TestsVersionString[];
+FOUNDATION_EXPORT double RxRelayVersionNumber;
+FOUNDATION_EXPORT const unsigned char RxRelayVersionString[];
 
