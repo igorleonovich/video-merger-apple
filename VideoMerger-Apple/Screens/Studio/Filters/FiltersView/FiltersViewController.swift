@@ -58,6 +58,7 @@ final class FiltersViewController: CollectionViewController {
         viewModel?.getFilters().subscribe(onNext: { filters in
             DispatchQueue.main.async { [weak self] in
                 
+                // TODO: Unify cell view model usage
 //                self?.viewCellModels = filters
                 let filtersDTO = filters.map({ ImageFilterDTO(name: $0.name, title: $0.title) })
                 self?.filtersManager.filtersDTO = filtersDTO
@@ -93,6 +94,7 @@ extension FiltersViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        // TODO: Unify cell view model usage
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as? FilterCell {
             cell.configure(with: currentVideoUrl, imageFilter: filtersManager.filters[indexPath.row], filtersManager: filtersManager, localFileManager: localFileManager)
             return cell
