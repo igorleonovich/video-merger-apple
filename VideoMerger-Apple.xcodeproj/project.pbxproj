@@ -7,9 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		690A35EC2AD62E1D0044554B /* FiltersViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690A35EA2AD62E1D0044554B /* FiltersViewModelTests.swift */; };
-		690A35F02AD62F7B0044554B /* DummyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690A35EF2AD62F7B0044554B /* DummyResponse.swift */; };
+		22258D8BC9F223DC4E0FB8D0 /* Pods_FiltersModelTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB5076AE73FDD2E51E456D38 /* Pods_FiltersModelTests.framework */; };
 		691E5BF12AD63F1800395128 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5C8F2ACB322300E01711 /* ImageFilter.swift */; };
+		691E5BFE2AD6424D00395128 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691E5BF52AD6424D00395128 /* Networking.swift */; };
+		691E5BFF2AD6424D00395128 /* ResponseEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691E5BF62AD6424D00395128 /* ResponseEntity.swift */; };
+		691E5C002AD6424D00395128 /* FiltersGetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691E5BF72AD6424D00395128 /* FiltersGetting.swift */; };
+		691E5C022AD6424D00395128 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691E5BF92AD6424D00395128 /* Network.swift */; };
+		691E5C042AD6424D00395128 /* FiltersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691E5BFB2AD6424D00395128 /* FiltersService.swift */; };
+		691E5C052AD6424D00395128 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691E5BFD2AD6424D00395128 /* NetworkError.swift */; };
+		691E5C0D2AD642AC00395128 /* FiltersCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691E5C092AD642AC00395128 /* FiltersCollectionViewModel.swift */; };
+		691E5C0E2AD642AC00395128 /* FiltersCollectionViewCellModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691E5C0A2AD642AC00395128 /* FiltersCollectionViewCellModeling.swift */; };
+		691E5C0F2AD642AC00395128 /* FiltersCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691E5C0B2AD642AC00395128 /* FiltersCollectionViewCellModel.swift */; };
+		691E5C102AD642AC00395128 /* FiltersCollectionViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691E5C0C2AD642AC00395128 /* FiltersCollectionViewModeling.swift */; };
+		6939C4452AD659DF00BB7555 /* FiltersModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939C4442AD659DF00BB7555 /* FiltersModelTests.swift */; };
+		6939C4692AD65B8B00BB7555 /* FiltersCollectionViewCellModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939C4662AD65B8A00BB7555 /* FiltersCollectionViewCellModelSpec.swift */; };
+		6939C46A2AD65B8B00BB7555 /* DummyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939C4672AD65B8B00BB7555 /* DummyResponse.swift */; };
+		6939C46B2AD65B8B00BB7555 /* FiltersCollectionViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939C4682AD65B8B00BB7555 /* FiltersCollectionViewModelSpec.swift */; };
+		6939C46C2AD65D0900BB7555 /* NetworkSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939C4602AD65B6A00BB7555 /* NetworkSpec.swift */; };
+		6939C46D2AD65D0900BB7555 /* DummyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939C45E2AD65B6A00BB7555 /* DummyResponse.swift */; };
+		6939C46F2AD65D0900BB7555 /* GetFiltersSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939C45F2AD65B6A00BB7555 /* GetFiltersSpec.swift */; };
 		69696B1C2ACA31FC007DD91F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69696B1B2ACA31FC007DD91F /* AppDelegate.swift */; };
 		69696B1E2ACA31FC007DD91F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69696B1D2ACA31FC007DD91F /* SceneDelegate.swift */; };
 		69696B202ACA31FC007DD91F /* StudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69696B1F2ACA31FC007DD91F /* StudioViewController.swift */; };
@@ -47,6 +63,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		6939C4462AD659DF00BB7555 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 69696B102ACA31FC007DD91F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 69696B172ACA31FC007DD91F;
+			remoteInfo = "VideoMerger-Apple";
+		};
 		697B5CE02AD513CA00E01711 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 69696B102ACA31FC007DD91F /* Project object */;
@@ -59,13 +82,32 @@
 /* Begin PBXFileReference section */
 		02FEB61ACF58B3CBD29D3207 /* Pods_VideoMerger_Apple.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoMerger_Apple.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E845E884B75004222697244 /* Pods-VideoMerger-Apple-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoMerger-Apple-Tests.release.xcconfig"; path = "Target Support Files/Pods-VideoMerger-Apple-Tests/Pods-VideoMerger-Apple-Tests.release.xcconfig"; sourceTree = "<group>"; };
+		3407A70F8C2ED54880774AE7 /* Pods-FiltersModelTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FiltersModelTests.debug.xcconfig"; path = "Target Support Files/Pods-FiltersModelTests/Pods-FiltersModelTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3E6CFF4084997010B363018D /* Pods-FiltersModelTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FiltersModelTests.release.xcconfig"; path = "Target Support Files/Pods-FiltersModelTests/Pods-FiltersModelTests.release.xcconfig"; sourceTree = "<group>"; };
 		3EDFCB19643217C5BD33A6AB /* Pods-FiltersViewModelTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FiltersViewModelTests.release.xcconfig"; path = "Target Support Files/Pods-FiltersViewModelTests/Pods-FiltersViewModelTests.release.xcconfig"; sourceTree = "<group>"; };
 		5C6657561AED1451B4537F6B /* Pods-VideoMerger-Apple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoMerger-Apple.debug.xcconfig"; path = "Target Support Files/Pods-VideoMerger-Apple/Pods-VideoMerger-Apple.debug.xcconfig"; sourceTree = "<group>"; };
 		61F85276E3A5866346E53D80 /* Pods-VideoMerger-Apple.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoMerger-Apple.release.xcconfig"; path = "Target Support Files/Pods-VideoMerger-Apple/Pods-VideoMerger-Apple.release.xcconfig"; sourceTree = "<group>"; };
-		690A35EA2AD62E1D0044554B /* FiltersViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersViewModelTests.swift; sourceTree = "<group>"; };
-		690A35EB2AD62E1D0044554B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		690A35EE2AD62EC10044554B /* VideoMerger-Apple.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "VideoMerger-Apple.xctestplan"; sourceTree = "<group>"; };
-		690A35EF2AD62F7B0044554B /* DummyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyResponse.swift; sourceTree = "<group>"; };
+		691E5BF52AD6424D00395128 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		691E5BF62AD6424D00395128 /* ResponseEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseEntity.swift; sourceTree = "<group>"; };
+		691E5BF72AD6424D00395128 /* FiltersGetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersGetting.swift; sourceTree = "<group>"; };
+		691E5BF92AD6424D00395128 /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		691E5BFB2AD6424D00395128 /* FiltersService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersService.swift; sourceTree = "<group>"; };
+		691E5BFD2AD6424D00395128 /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		691E5C092AD642AC00395128 /* FiltersCollectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersCollectionViewModel.swift; sourceTree = "<group>"; };
+		691E5C0A2AD642AC00395128 /* FiltersCollectionViewCellModeling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersCollectionViewCellModeling.swift; sourceTree = "<group>"; };
+		691E5C0B2AD642AC00395128 /* FiltersCollectionViewCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersCollectionViewCellModel.swift; sourceTree = "<group>"; };
+		691E5C0C2AD642AC00395128 /* FiltersCollectionViewModeling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersCollectionViewModeling.swift; sourceTree = "<group>"; };
+		6939C43C2AD659A500BB7555 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = "VideoMerger-Apple-Tests/FiltersModelTests/Info.plist"; sourceTree = SOURCE_ROOT; };
+		6939C4422AD659DF00BB7555 /* FiltersModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FiltersModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6939C4442AD659DF00BB7555 /* FiltersModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersModelTests.swift; sourceTree = "<group>"; };
+		6939C4502AD65A9E00BB7555 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6939C45E2AD65B6A00BB7555 /* DummyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyResponse.swift; sourceTree = "<group>"; };
+		6939C45F2AD65B6A00BB7555 /* GetFiltersSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetFiltersSpec.swift; sourceTree = "<group>"; };
+		6939C4602AD65B6A00BB7555 /* NetworkSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSpec.swift; sourceTree = "<group>"; };
+		6939C4662AD65B8A00BB7555 /* FiltersCollectionViewCellModelSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersCollectionViewCellModelSpec.swift; sourceTree = "<group>"; };
+		6939C4672AD65B8B00BB7555 /* DummyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyResponse.swift; sourceTree = "<group>"; };
+		6939C4682AD65B8B00BB7555 /* FiltersCollectionViewModelSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersCollectionViewModelSpec.swift; sourceTree = "<group>"; };
 		69696B182ACA31FC007DD91F /* VideoMerger-Apple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VideoMerger-Apple.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69696B1B2ACA31FC007DD91F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69696B1D2ACA31FC007DD91F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,9 +147,18 @@
 		6B46C235669282028CC231BF /* Pods-VideoMerger-Apple-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoMerger-Apple-Tests.debug.xcconfig"; path = "Target Support Files/Pods-VideoMerger-Apple-Tests/Pods-VideoMerger-Apple-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C14CCED84A4950CB4949D6F /* Pods-FiltersViewModelTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FiltersViewModelTests.debug.xcconfig"; path = "Target Support Files/Pods-FiltersViewModelTests/Pods-FiltersViewModelTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AB08C2E15831077231990689 /* Pods_FiltersViewModelTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FiltersViewModelTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB5076AE73FDD2E51E456D38 /* Pods_FiltersModelTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FiltersModelTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6939C43F2AD659DF00BB7555 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22258D8BC9F223DC4E0FB8D0 /* Pods_FiltersModelTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69696B152ACA31FC007DD91F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -132,6 +183,7 @@
 			children = (
 				02FEB61ACF58B3CBD29D3207 /* Pods_VideoMerger_Apple.framework */,
 				AB08C2E15831077231990689 /* Pods_FiltersViewModelTests.framework */,
+				EB5076AE73FDD2E51E456D38 /* Pods_FiltersModelTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -145,6 +197,8 @@
 				0E845E884B75004222697244 /* Pods-VideoMerger-Apple-Tests.release.xcconfig */,
 				9C14CCED84A4950CB4949D6F /* Pods-FiltersViewModelTests.debug.xcconfig */,
 				3EDFCB19643217C5BD33A6AB /* Pods-FiltersViewModelTests.release.xcconfig */,
+				3407A70F8C2ED54880774AE7 /* Pods-FiltersModelTests.debug.xcconfig */,
+				3E6CFF4084997010B363018D /* Pods-FiltersModelTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -152,9 +206,10 @@
 		690A35E92AD62E1D0044554B /* FiltersViewModelTests */ = {
 			isa = PBXGroup;
 			children = (
-				690A35EA2AD62E1D0044554B /* FiltersViewModelTests.swift */,
-				690A35EF2AD62F7B0044554B /* DummyResponse.swift */,
-				690A35EB2AD62E1D0044554B /* Info.plist */,
+				6939C4672AD65B8B00BB7555 /* DummyResponse.swift */,
+				6939C4662AD65B8A00BB7555 /* FiltersCollectionViewCellModelSpec.swift */,
+				6939C4682AD65B8B00BB7555 /* FiltersCollectionViewModelSpec.swift */,
+				6939C43C2AD659A500BB7555 /* Info.plist */,
 			);
 			path = FiltersViewModelTests;
 			sourceTree = "<group>";
@@ -163,8 +218,53 @@
 			isa = PBXGroup;
 			children = (
 				697B5C8F2ACB322300E01711 /* ImageFilter.swift */,
+				691E5BFB2AD6424D00395128 /* FiltersService.swift */,
+				691E5BF72AD6424D00395128 /* FiltersGetting.swift */,
+				691E5BF92AD6424D00395128 /* Network.swift */,
+				691E5BFD2AD6424D00395128 /* NetworkError.swift */,
+				691E5BF52AD6424D00395128 /* Networking.swift */,
+				691E5BF62AD6424D00395128 /* ResponseEntity.swift */,
 			);
 			path = FiltersModel;
+			sourceTree = "<group>";
+		};
+		691E5C062AD6426900395128 /* FiltersViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				691E5C0B2AD642AC00395128 /* FiltersCollectionViewCellModel.swift */,
+				691E5C0A2AD642AC00395128 /* FiltersCollectionViewCellModeling.swift */,
+				691E5C092AD642AC00395128 /* FiltersCollectionViewModel.swift */,
+				691E5C0C2AD642AC00395128 /* FiltersCollectionViewModeling.swift */,
+			);
+			path = FiltersViewModel;
+			sourceTree = "<group>";
+		};
+		691E5C072AD6427900395128 /* FiltersView */ = {
+			isa = PBXGroup;
+			children = (
+				697B5C992ACB4C3100E01711 /* FiltersViewController.swift */,
+				697B5CA42ACB6E4400E01711 /* FilterCell.swift */,
+			);
+			path = FiltersView;
+			sourceTree = "<group>";
+		};
+		6939C4332AD6597200BB7555 /* FiltersModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				6939C45E2AD65B6A00BB7555 /* DummyResponse.swift */,
+				6939C45F2AD65B6A00BB7555 /* GetFiltersSpec.swift */,
+				6939C4602AD65B6A00BB7555 /* NetworkSpec.swift */,
+				6939C4502AD65A9E00BB7555 /* Info.plist */,
+			);
+			path = FiltersModelTests;
+			sourceTree = "<group>";
+		};
+		6939C4432AD659DF00BB7555 /* FiltersModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				6939C4442AD659DF00BB7555 /* FiltersModelTests.swift */,
+			);
+			path = FiltersModelTests;
 			sourceTree = "<group>";
 		};
 		69696B0F2ACA31FC007DD91F = {
@@ -172,6 +272,7 @@
 			children = (
 				69696B1A2ACA31FC007DD91F /* VideoMerger-Apple */,
 				697B5CDD2AD513CA00E01711 /* VideoMerger-Apple-Tests */,
+				6939C4432AD659DF00BB7555 /* FiltersModelTests */,
 				69696B192ACA31FC007DD91F /* Products */,
 				3D24CC19D9FB70764274AD02 /* Pods */,
 				287A192017EA797F367248CF /* Frameworks */,
@@ -183,6 +284,7 @@
 			children = (
 				69696B182ACA31FC007DD91F /* VideoMerger-Apple.app */,
 				697B5CDC2AD513C900E01711 /* FiltersViewModelTests.xctest */,
+				6939C4422AD659DF00BB7555 /* FiltersModelTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -324,8 +426,8 @@
 			isa = PBXGroup;
 			children = (
 				690A36022AD636B00044554B /* FiltersModel */,
-				697B5C992ACB4C3100E01711 /* FiltersViewController.swift */,
-				697B5CA42ACB6E4400E01711 /* FilterCell.swift */,
+				691E5C062AD6426900395128 /* FiltersViewModel */,
+				691E5C072AD6427900395128 /* FiltersView */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -367,6 +469,7 @@
 			isa = PBXGroup;
 			children = (
 				690A35EE2AD62EC10044554B /* VideoMerger-Apple.xctestplan */,
+				6939C4332AD6597200BB7555 /* FiltersModelTests */,
 				690A35E92AD62E1D0044554B /* FiltersViewModelTests */,
 			);
 			path = "VideoMerger-Apple-Tests";
@@ -392,6 +495,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6939C4412AD659DF00BB7555 /* FiltersModelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6939C4482AD659DF00BB7555 /* Build configuration list for PBXNativeTarget "FiltersModelTests" */;
+			buildPhases = (
+				6B355AEDF60EC0F8E4F31588 /* [CP] Check Pods Manifest.lock */,
+				6939C43E2AD659DF00BB7555 /* Sources */,
+				6939C43F2AD659DF00BB7555 /* Frameworks */,
+				6939C4402AD659DF00BB7555 /* Resources */,
+				49091BFD2226C156D6D90A24 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6939C4472AD659DF00BB7555 /* PBXTargetDependency */,
+			);
+			name = FiltersModelTests;
+			productName = FiltersModelTests;
+			productReference = 6939C4422AD659DF00BB7555 /* FiltersModelTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		69696B172ACA31FC007DD91F /* VideoMerger-Apple */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69696B2C2ACA3200007DD91F /* Build configuration list for PBXNativeTarget "VideoMerger-Apple" */;
@@ -441,11 +564,16 @@
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					6939C4412AD659DF00BB7555 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 69696B172ACA31FC007DD91F;
+					};
 					69696B172ACA31FC007DD91F = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
 					697B5CDB2AD513C900E01711 = {
 						CreatedOnToolsVersion = 14.3.1;
+						LastSwiftMigration = 1430;
 						TestTargetID = 69696B172ACA31FC007DD91F;
 					};
 				};
@@ -465,11 +593,19 @@
 			targets = (
 				69696B172ACA31FC007DD91F /* VideoMerger-Apple */,
 				697B5CDB2AD513C900E01711 /* FiltersViewModelTests */,
+				6939C4412AD659DF00BB7555 /* FiltersModelTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6939C4402AD659DF00BB7555 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69696B162ACA31FC007DD91F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -508,6 +644,45 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-VideoMerger-Apple-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		49091BFD2226C156D6D90A24 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FiltersModelTests/Pods-FiltersModelTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FiltersModelTests/Pods-FiltersModelTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FiltersModelTests/Pods-FiltersModelTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6B355AEDF60EC0F8E4F31588 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FiltersModelTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -573,6 +748,17 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6939C43E2AD659DF00BB7555 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6939C4452AD659DF00BB7555 /* FiltersModelTests.swift in Sources */,
+				6939C46D2AD65D0900BB7555 /* DummyResponse.swift in Sources */,
+				6939C46C2AD65D0900BB7555 /* NetworkSpec.swift in Sources */,
+				6939C46F2AD65D0900BB7555 /* GetFiltersSpec.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69696B142ACA31FC007DD91F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -582,28 +768,38 @@
 				697B5C982ACB4C0F00E01711 /* ClipsViewController.swift in Sources */,
 				697B5C882ACAD78900E01711 /* Constants.swift in Sources */,
 				697B5CB22ACBB76B00E01711 /* ClipsManager.swift in Sources */,
+				691E5C022AD6424D00395128 /* Network.swift in Sources */,
 				697B5CA82ACB761200E01711 /* Label.swift in Sources */,
 				697B5CBB2ACBE6BA00E01711 /* Button.swift in Sources */,
 				697B5C832ACAC6CA00E01711 /* URL+Extensions.swift in Sources */,
 				69696B202ACA31FC007DD91F /* StudioViewController.swift in Sources */,
+				691E5C002AD6424D00395128 /* FiltersGetting.swift in Sources */,
 				697B5C9C2ACB4D2F00E01711 /* UIVIewController+Extensions.swift in Sources */,
 				697B5C8C2ACB144A00E01711 /* MergeManager+Extensions.swift in Sources */,
 				697B5CA52ACB6E4400E01711 /* FilterCell.swift in Sources */,
 				697B5CAA2ACB7E7E00E01711 /* FiltersManager.swift in Sources */,
 				691E5BF12AD63F1800395128 /* ImageFilter.swift in Sources */,
 				697B5CB02ACBB54200E01711 /* ClipCell.swift in Sources */,
+				691E5BFF2AD6424D00395128 /* ResponseEntity.swift in Sources */,
 				697B5CC72ACCF9EB00E01711 /* CollectionViewController.swift in Sources */,
 				69696B1C2ACA31FC007DD91F /* AppDelegate.swift in Sources */,
 				697B5C962ACB4B3C00E01711 /* PreviewViewController.swift in Sources */,
 				697B5C932ACB3EB000E01711 /* Log.swift in Sources */,
 				697B5C9E2ACB568800E01711 /* RootNavigationController.swift in Sources */,
+				691E5C102AD642AC00395128 /* FiltersCollectionViewModeling.swift in Sources */,
+				691E5C0F2AD642AC00395128 /* FiltersCollectionViewCellModel.swift in Sources */,
 				69696B1E2ACA31FC007DD91F /* SceneDelegate.swift in Sources */,
 				697B5CB92ACBCD7C00E01711 /* ExportViewController.swift in Sources */,
 				697B5C862ACAD45600E01711 /* MergeManager.swift in Sources */,
 				697B5CAC2ACB898700E01711 /* StudioState.swift in Sources */,
+				691E5C042AD6424D00395128 /* FiltersService.swift in Sources */,
 				697B5CAE2ACB8FF200E01711 /* Font.swift in Sources */,
 				69696B3B2ACA66D0007DD91F /* BaseViewController.swift in Sources */,
+				691E5BFE2AD6424D00395128 /* Networking.swift in Sources */,
+				691E5C0E2AD642AC00395128 /* FiltersCollectionViewCellModeling.swift in Sources */,
 				697B5C7E2ACAB85800E01711 /* LocalFileManager.swift in Sources */,
+				691E5C052AD6424D00395128 /* NetworkError.swift in Sources */,
+				691E5C0D2AD642AC00395128 /* FiltersCollectionViewModel.swift in Sources */,
 				697B5C9A2ACB4C3100E01711 /* FiltersViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -612,14 +808,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				690A35EC2AD62E1D0044554B /* FiltersViewModelTests.swift in Sources */,
-				690A35F02AD62F7B0044554B /* DummyResponse.swift in Sources */,
+				6939C4692AD65B8B00BB7555 /* FiltersCollectionViewCellModelSpec.swift in Sources */,
+				6939C46B2AD65B8B00BB7555 /* FiltersCollectionViewModelSpec.swift in Sources */,
+				6939C46A2AD65B8B00BB7555 /* DummyResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		6939C4472AD659DF00BB7555 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 69696B172ACA31FC007DD91F /* VideoMerger-Apple */;
+			targetProxy = 6939C4462AD659DF00BB7555 /* PBXContainerItemProxy */;
+		};
 		697B5CE12AD513CA00E01711 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 69696B172ACA31FC007DD91F /* VideoMerger-Apple */;
@@ -639,6 +841,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		6939C4492AD659DF00BB7555 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3407A70F8C2ED54880774AE7 /* Pods-FiltersModelTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9TZZKGNZ6W;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "VideoMerger-Apple-Tests/FiltersModelTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.il.test.videomerger.apple.FiltersModelTests.FiltersModelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VideoMerger-Apple.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VideoMerger-Apple";
+			};
+			name = Debug;
+		};
+		6939C44A2AD659DF00BB7555 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E6CFF4084997010B363018D /* Pods-FiltersModelTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9TZZKGNZ6W;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "VideoMerger-Apple-Tests/FiltersModelTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.il.test.videomerger.apple.FiltersModelTests.FiltersModelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VideoMerger-Apple.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VideoMerger-Apple";
+			};
+			name = Release;
+		};
 		69696B2A2ACA3200007DD91F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -818,6 +1062,7 @@
 			baseConfigurationReference = 9C14CCED84A4950CB4949D6F /* Pods-FiltersViewModelTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9TZZKGNZ6W;
@@ -828,6 +1073,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.il.test.videomerger.apple.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VideoMerger-Apple.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VideoMerger-Apple";
@@ -839,6 +1085,7 @@
 			baseConfigurationReference = 3EDFCB19643217C5BD33A6AB /* Pods-FiltersViewModelTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9TZZKGNZ6W;
@@ -858,6 +1105,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6939C4482AD659DF00BB7555 /* Build configuration list for PBXNativeTarget "FiltersModelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6939C4492AD659DF00BB7555 /* Debug */,
+				6939C44A2AD659DF00BB7555 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		69696B132ACA31FC007DD91F /* Build configuration list for PBXProject "VideoMerger-Apple" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

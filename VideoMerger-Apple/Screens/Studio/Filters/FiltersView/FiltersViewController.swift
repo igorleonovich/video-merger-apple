@@ -29,6 +29,8 @@ final class FiltersViewController: CollectionViewController {
     
     var currentVideoUrl: URL!
     
+    public var viewModel: FiltersCollectionViewModeling?
+    
     
     // MARK: Life Cycle
     

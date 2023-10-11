@@ -1,13 +1,13 @@
 //
-//  VideoMerger_Apple_Tests.swift
-//  VideoMerger-Apple-Tests
+//  FiltersModelTests.swift
+//  FiltersModelTests
 //
-//  Created by Igor Leonovich on 10/10/2023.
+//  Created by Igor Leonovich on 11/10/2023.
 //
 
 import XCTest
 
-final class FiltersViewModelTests: XCTestCase {
+final class FiltersModelTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -31,4 +31,5 @@ final class FiltersViewModelTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+
 }

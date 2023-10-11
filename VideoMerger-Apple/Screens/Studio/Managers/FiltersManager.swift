@@ -48,7 +48,7 @@ final class FiltersManager {
         let sessionDelegate = SessionDelegate()
         let session = URLSession(configuration: sessionConfiguration, delegate: sessionDelegate, delegateQueue: OperationQueue.main)
         
-        let path = "/filters.json"
+        let path = "/filters"
         guard let url = URL(string: "\(Constants.baseUrl)\(path)") else {
             return
         }
@@ -65,12 +65,12 @@ final class FiltersManager {
                 if response.statusCode == 200 {
                     
                     do {
-                        filtersDTO = try JSONDecoder().decode([ImageFilterDTO].self, from: data)
+                        filtersDTO = try JSONDecoder().decode(ImageFiltersDTO.self, from: data).filters
                         completion(nil)
                     } catch {
                         completion(error)
                     }
-                        
+                    
                     Log.standard("[FILTERS] \(request.httpMethod ?? "") \(path) \(response.statusCode)")
                 } else {
                     

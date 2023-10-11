@@ -7,6 +7,7 @@
 
 import CoreImage
 import Foundation
+import SwiftyJSON
 
 enum ImageFilter {
     
@@ -33,8 +34,23 @@ enum ImageFilter {
 }
 
 
-struct ImageFilterDTO: Codable {
+public struct ImageFilterDTO: Codable {
     
     let name: String
     let title: String
+    
+    static func decode(_ e: JSON) throws -> ImageFilterDTO {
+
+        guard let name = e["name"].string,
+              let title = e["title"].string else {
+            throw NetworkError.IncorrectDataReturned
+        }
+
+        return ImageFilterDTO(name: name, title: title)
+    }
+}
+
+struct ImageFiltersDTO: Codable {
+    
+    let filters: [ImageFilterDTO]
 }

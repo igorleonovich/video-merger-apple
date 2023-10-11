@@ -1,62 +1,64 @@
-[
-    {
-        "name": "CIPhotoEffectChrome",
-        "title": "Chrome"
-    },
-    {
-        "name": "CIColorPosterize",
-        "title": "Posterize"
-    },
-    {
-        "name": "CIPhotoEffectFade",
-        "title": "Fade"
-    },
-    {
-        "name": "CIPhotoEffectInstant",
-        "title": "Instant"
-    },
-    {
-        "name": "CIPhotoEffectProcess",
-        "title": "Process"
-    },
-    {
-        "name": "CIPhotoEffectTransfer",
-        "title": "Transfer"
-    },
-    {
-        "name": "CISepiaTone",
-        "title": "Sepia"
-    },
-    {
-        "name": "CIFalseColor",
-        "title": "False"
-    },
-    {
-        "name": "CIColorMonochrome",
-        "title": "Mono"
-    },
-    {
-        "name": "CIMinimumComponent",
-        "title": "B&W 1"
-    },
-    {
-        "name": "CIMaximumComponent",
-        "title": "B&W 2"
-    },
-    {
-        "name": "CIPhotoEffectMono",
-        "title": "B&W 3"
-    },
-    {
-        "name": "CIPhotoEffectNoir",
-        "title": "B&W 4"
-    },
-    {
-        "name": "CIPhotoEffectTonal",
-        "title": "B&W 5"
-    },
-    {
-        "name": "CIColorInvert",
-        "title": "Invert"
-    }
-]
+{
+    "filters": [
+        {
+            "name": "CIPhotoEffectChrome",
+            "title": "Chrome"
+        },
+        {
+            "name": "CIColorPosterize",
+            "title": "Posterize"
+        },
+        {
+            "name": "CIPhotoEffectFade",
+            "title": "Fade"
+        },
+        {
+            "name": "CIPhotoEffectInstant",
+            "title": "Instant"
+        },
+        {
+            "name": "CIPhotoEffectProcess",
+            "title": "Process"
+        },
+        {
+            "name": "CIPhotoEffectTransfer",
+            "title": "Transfer"
+        },
+        {
+            "name": "CISepiaTone",
+            "title": "Sepia"
+        },
+        {
+            "name": "CIFalseColor",
+            "title": "False"
+        },
+        {
+            "name": "CIColorMonochrome",
+            "title": "Mono"
+        },
+        {
+            "name": "CIMinimumComponent",
+            "title": "B&W 1"
+        },
+        {
+            "name": "CIMaximumComponent",
+            "title": "B&W 2"
+        },
+        {
+            "name": "CIPhotoEffectMono",
+            "title": "B&W 3"
+        },
+        {
+            "name": "CIPhotoEffectNoir",
+            "title": "B&W 4"
+        },
+        {
+            "name": "CIPhotoEffectTonal",
+            "title": "B&W 5"
+        },
+        {
+            "name": "CIColorInvert",
+            "title": "Invert"
+        }
+    ]
+}

@@ -40,6 +40,17 @@
                ReferencedContainer = "container:VideoMerger-Apple.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6939C4412AD659DF00BB7555"
+               BuildableName = "FiltersModelTests.xctest"
+               BlueprintName = "FiltersModelTests"
+               ReferencedContainer = "container:VideoMerger-Apple.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
