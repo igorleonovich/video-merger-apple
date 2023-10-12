@@ -19,7 +19,6 @@ target 'VideoMerger-Apple' do
   
   shared_pods
   pod 'ProgressHUD'
-  pod 'RxCocoa'
   pod 'SnapKit'
 end
 
