@@ -55,16 +55,20 @@ final class FiltersViewController: CollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel?.getFilters().subscribe(onNext: { filters in
+        viewModel?.getFilters().subscribe(onNext: { viewCellModels in
             DispatchQueue.main.async { [weak self] in
                 
-                // TODO: Unify cell view model usage
-//                self?.viewCellModels = filters
-                let filtersDTO = filters.map({ ImageFilterDTO(name: $0.name, title: $0.title) })
-                self?.filtersManager.filtersDTO = filtersDTO
-                self?.filtersManager.filters.append(contentsOf: filtersDTO.map({ ImageFilter.custom($0) }))
+                guard let network = self?.viewModel?.network else { return }
+                
+                let noFilterCellModel = FiltersCollectionViewCellModel(network: network)
+                var allViewCellModels = viewCellModels
+                allViewCellModels.insert(noFilterCellModel, at: 0)
+                self?.viewCellModels = allViewCellModels
                 
                 self?.collectionView.reloadData()
+                
+                // INFO: Pass filters to FiltersManager for Clips and maybe other modules in future
+                self?.filtersManager.filters.append(contentsOf: allViewCellModels.map({ $0.imageFilter }))
             }
         })
         .disposed(by: disposeBag)
@@ -89,14 +93,13 @@ extension FiltersViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return filtersManager.filters.count
+        return viewCellModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        // TODO: Unify cell view model usage
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as? FilterCell {
-            cell.configure(with: currentVideoUrl, imageFilter: filtersManager.filters[indexPath.row], filtersManager: filtersManager, localFileManager: localFileManager)
+            cell.configure(with: currentVideoUrl, viewCellModel: viewCellModels[indexPath.row], filtersManager: filtersManager, localFileManager: localFileManager)
             return cell
         }
         return UICollectionViewCell()

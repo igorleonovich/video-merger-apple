@@ -9,14 +9,16 @@ import UIKit
 
 public final class FiltersCollectionViewCellModel: FiltersCollectionViewCellModeling {
 
-    public let name: String
-    public let title: String
+    public let imageFilter: ImageFilter
 
     private let network: Networking
     
-    internal init(filterDTO: ImageFilterDTO, network: Networking) {
-        name = filterDTO.name
-        title = filterDTO.title
+    internal init(filterDTO: ImageFilterDTO? = nil, network: Networking) {
+        if let filterDTO {
+            imageFilter = .custom(filterDTO)
+        } else {
+            imageFilter = .noFilter
+        }
         
         self.network = network
     }

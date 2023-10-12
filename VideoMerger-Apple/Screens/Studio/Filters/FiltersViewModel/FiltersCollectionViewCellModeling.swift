@@ -9,6 +9,5 @@ import Foundation
 
 public protocol FiltersCollectionViewCellModeling {
     
-    var name: String { get }
-    var title: String { get }
+    var imageFilter: ImageFilter { get }
 }

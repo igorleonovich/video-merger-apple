@@ -5,10 +5,10 @@
 //  Created by Igor Leonovich on 11/10/2023.
 //
 
+import Foundation
 import Nimble
 import Quick
 import RxSwift
-import UIKit
 
 @testable import VideoMerger_Apple
 
@@ -56,10 +56,8 @@ final class FiltersCollectionViewCellModelSpec: QuickSpec {
 
         describe("Constant values") {
             
-            it("sets name and title.") {
-                
-                expect(viewModel.name).toEventually(equal("name2"))
-                expect(viewModel.title).toEventually(equal("title2"))
+            it("sets title.") {
+                expect(viewModel.imageFilter.title).toEventually(equal("title2"))
             }
         }
     }

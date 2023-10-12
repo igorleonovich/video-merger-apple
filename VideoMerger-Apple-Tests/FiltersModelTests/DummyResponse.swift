@@ -5,6 +5,8 @@
 //  Created by Igor Leonovich on 11/10/2023.
 //
 
+import Foundation
+
 let filtersJSON: [String: Any] = [
     
     "filters": [

@@ -996,6 +996,7 @@
 				DEVELOPMENT_TEAM = 9TZZKGNZ6W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "VideoMerger-Apple/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = VideoMerger;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs access to Photos for select videos to merge";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1026,6 +1027,7 @@
 				DEVELOPMENT_TEAM = 9TZZKGNZ6W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "VideoMerger-Apple/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = VideoMerger;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs access to Photos for select videos to merge";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

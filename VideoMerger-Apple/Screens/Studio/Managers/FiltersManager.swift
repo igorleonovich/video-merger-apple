@@ -12,7 +12,6 @@ import UIKit
 final class FiltersManager {
     
     var filters: [ImageFilter] = [.noFilter]
-    var filtersDTO = [ImageFilterDTO]()
     
     var selectedFilterIndex = 0
     

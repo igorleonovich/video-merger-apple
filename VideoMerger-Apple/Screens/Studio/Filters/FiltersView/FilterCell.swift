@@ -78,11 +78,11 @@ final class FilterCell: UICollectionViewCell {
     
     // MARK: Configuration
     
-    func configure(with url: URL, imageFilter: ImageFilter, filtersManager: FiltersManager, localFileManager: LocalFileManager) {
+    func configure(with url: URL, viewCellModel: FiltersCollectionViewCellModeling, filtersManager: FiltersManager, localFileManager: LocalFileManager) {
         
-        titleLabel.text = imageFilter.title.uppercased()
+        titleLabel.text = viewCellModel.imageFilter.title.uppercased()
         
-        filtersManager.applyThumbnail(with: url, imageFilter: imageFilter,
+        filtersManager.applyThumbnail(with: url, imageFilter: viewCellModel.imageFilter,
                                       filtersManager: filtersManager, localFileManager: localFileManager) { [weak self] image in
             
             DispatchQueue.main.async {

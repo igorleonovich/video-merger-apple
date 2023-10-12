@@ -24,7 +24,7 @@ public final class Network: Networking {
                        encoding: URLEncoding.default,
                        headers: nil,
                        interceptor: nil
-            ).responseJSON(queue: self.queue) { (response) in
+            ).responseJSON(queue: self.queue) { response in
                 switch response.result {
                 case .success(let value):
                     observer.onNext(value)

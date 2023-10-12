@@ -5,7 +5,7 @@
 //  Created by Igor Leonovich on 11/10/2023.
 //
 
-import UIKit
+import Foundation
 
 @testable import VideoMerger_Apple
 

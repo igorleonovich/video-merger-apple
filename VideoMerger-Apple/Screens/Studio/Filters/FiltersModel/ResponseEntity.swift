@@ -5,6 +5,7 @@
 //  Created by Igor Leonovich on 02/10/2023.
 //
 
+import Foundation
 import SwiftyJSON
 
 public struct ResponseEntity {
@@ -17,9 +18,9 @@ public struct ResponseEntity {
 
 extension ResponseEntity: Decodable {
     
-    public static func decode(_ e: JSON) throws -> ResponseEntity {
+    public static func decode(_ json: JSON) throws -> ResponseEntity {
         
-        guard let filtersJson = e["filters"].array else {
+        guard let filtersJson = json["filters"].array else {
             throw NetworkError.IncorrectDataReturned
         }
 

@@ -6,10 +6,10 @@
 //
 
 import Alamofire
+import Foundation
 import Nimble
 import Quick
 import RxSwift
-import UIKit
 
 @testable import VideoMerger_Apple
 

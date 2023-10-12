@@ -5,10 +5,10 @@
 //  Created by Igor Leonovich on 11/10/2023.
 //
 
+import Foundation
 import Nimble
 import Quick
 import RxSwift
-import UIKit
 
 @testable import VideoMerger_Apple
 
@@ -85,27 +85,27 @@ final class FiltersServiceSpec: QuickSpec {
 
         it("sends an error if the network returns incorrect data.") {
             
-            var error: NetworkError? = nil
+            var networkError: NetworkError? = nil
             let filtersService = FiltersService(network: FailureStubNetwork())
 
             filtersService.getFilters()
-                .subscribe ({ e in
-                    error = e.error as? NetworkError
+                .subscribe ({ error in
+                    networkError = error.error as? NetworkError
                 }).disposed(by: self.disposeBag)
 
-            expect(error).toEventually(equal(NetworkError.IncorrectDataReturned))
+            expect(networkError).toEventually(equal(NetworkError.IncorrectDataReturned))
         }
 
         it("passes the error sent by the network.") {
             
-            var error: NetworkError? = nil
+            var networkError: NetworkError? = nil
             let filtersService = FiltersService(network: ErrorStubNetwork())
             filtersService.getFilters()
-                .subscribe ({ e in
-                    error = e.error as? NetworkError
+                .subscribe ({ error in
+                    networkError = error.error as? NetworkError
                 }).disposed(by: self.disposeBag)
 
-            expect(error).toEventually(equal(NetworkError.NotConnectedToInternet))
+            expect(networkError).toEventually(equal(NetworkError.NotConnectedToInternet))
         }
     }
 }

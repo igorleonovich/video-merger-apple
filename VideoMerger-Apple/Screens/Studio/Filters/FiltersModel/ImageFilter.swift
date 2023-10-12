@@ -9,7 +9,7 @@ import CoreImage
 import Foundation
 import SwiftyJSON
 
-enum ImageFilter {
+public enum ImageFilter {
     
     case noFilter
     case custom(ImageFilterDTO)
@@ -39,10 +39,10 @@ public struct ImageFilterDTO: Codable {
     let name: String
     let title: String
     
-    static func decode(_ e: JSON) throws -> ImageFilterDTO {
+    static func decode(_ json: JSON) throws -> ImageFilterDTO {
 
-        guard let name = e["name"].string,
-              let title = e["title"].string else {
+        guard let name = json["name"].string,
+              let title = json["title"].string else {
             throw NetworkError.IncorrectDataReturned
         }
 

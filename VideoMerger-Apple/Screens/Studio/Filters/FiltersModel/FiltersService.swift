@@ -34,8 +34,8 @@ public final class FiltersService: FiltersGetting {
                     }
 
                     observer.onError(NetworkError.IncorrectDataReturned)
-                }, onError: { e in
-                    observer.onError(e)
+                }, onError: { error in
+                    observer.onError(error)
                 })
         }
     }
