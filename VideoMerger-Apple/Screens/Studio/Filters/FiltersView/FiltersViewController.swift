@@ -99,7 +99,8 @@ extension FiltersViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as? FilterCell {
-            cell.configure(with: currentVideoUrl, viewCellModel: viewCellModels[indexPath.row], filtersManager: filtersManager, localFileManager: localFileManager)
+            cell.configure(with: viewCellModels[indexPath.row], currentVideoUrl: currentVideoUrl,
+                           filtersManager: filtersManager, localFileManager: localFileManager)
             return cell
         }
         return UICollectionViewCell()
