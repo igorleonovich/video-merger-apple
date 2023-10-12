@@ -5,7 +5,6 @@
 //  Created by Igor Leonovich on 02/10/2023.
 //
 
-import RxSwift
 import UIKit
 
 public final class FiltersCollectionViewCellModel: FiltersCollectionViewCellModeling {
@@ -14,7 +13,6 @@ public final class FiltersCollectionViewCellModel: FiltersCollectionViewCellMode
     public let title: String
 
     private let network: Networking
-    private let disposeBag = DisposeBag()
     
     internal init(filterDTO: ImageFilterDTO, network: Networking) {
         name = filterDTO.name

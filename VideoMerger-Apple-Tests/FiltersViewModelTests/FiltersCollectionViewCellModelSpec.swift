@@ -56,7 +56,7 @@ final class FiltersCollectionViewCellModelSpec: QuickSpec {
 
         describe("Constant values") {
             
-            it("sets name.") {
+            it("sets name and title.") {
                 
                 expect(viewModel.name).toEventually(equal("name2"))
                 expect(viewModel.title).toEventually(equal("title2"))

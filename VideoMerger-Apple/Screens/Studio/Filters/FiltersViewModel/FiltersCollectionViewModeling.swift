@@ -5,7 +5,6 @@
 //  Created by Igor Leonovich on 02/10/2023.
 //
 
-import RxCocoa
 import RxSwift
 
 public protocol FiltersCollectionViewModeling {

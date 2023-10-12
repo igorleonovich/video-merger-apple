@@ -6,7 +6,6 @@
 //
 
 import RxSwift
-import RxCocoa
 
 public final class FiltersCollectionViewModel: FiltersCollectionViewModeling {
 

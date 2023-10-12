@@ -5,8 +5,7 @@
 //  Created by Igor Leonovich on 02/10/2023.
 //
 
-import RxSwift
-import UIKit
+import Foundation
 
 public protocol FiltersCollectionViewCellModeling {
     
