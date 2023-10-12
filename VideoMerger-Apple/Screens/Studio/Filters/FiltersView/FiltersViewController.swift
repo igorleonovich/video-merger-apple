@@ -68,7 +68,7 @@ final class FiltersViewController: CollectionViewController {
                 self?.collectionView.reloadData()
                 
                 // INFO: Pass filters to FiltersManager for Clips and maybe other modules in future
-                self?.filtersManager.filters.append(contentsOf: allViewCellModels.map({ $0.imageFilter }))
+                self?.filtersManager.filters.append(contentsOf: viewCellModels.map({ $0.imageFilter }))
             }
         })
         .disposed(by: disposeBag)
