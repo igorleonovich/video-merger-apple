@@ -37,7 +37,7 @@ final class MergeManager {
     func merge(arrayVideos: [AVAsset], completion: @escaping Completion) -> Void {
         
         var insertTime = CMTime.zero
-        var arrayLayerInstructions:[AVMutableVideoCompositionLayerInstruction] = []
+        var arrayLayerInstructions: [AVMutableVideoCompositionLayerInstruction] = []
 
         // Silence sound (in case video has no sound track)
         guard let silenceURL = Bundle.main.url(forResource: "silence", withExtension: "mp3") else {
@@ -90,7 +90,9 @@ final class MergeManager {
                 
                 // Add instruction for video track
                 if let videoCompositionTrack = videoCompositionTrack {
-                    let layerInstruction = videoCompositionInstructionForTrack(track: videoCompositionTrack, asset: videoAsset, targetSize: Constants.defaultVideoSize)
+                    let layerInstruction = videoCompositionInstructionForTrack(track: videoCompositionTrack,
+                                                                               asset: videoAsset,
+                                                                               targetSize: Constants.defaultVideoSize)
                     
                     // Hide video track before changing to new track
                     let endTime = CMTimeAdd(insertTime, duration)
@@ -168,7 +170,7 @@ extension MergeManager {
             let scaleFactor = CGAffineTransform(scaleX: scaleToFitRatio, y: scaleToFitRatio)
             
             // Align center Y
-            let newY = targetSize.height/2 - (assetTrack.naturalSize.width * scaleToFitRatio)/2
+            let newY = targetSize.height / 2 - (assetTrack.naturalSize.width * scaleToFitRatio) / 2
             let moveCenterFactor = CGAffineTransform(translationX: 0, y: newY)
             
             let finalTransform = transform.concatenating(scaleFactor).concatenating(moveCenterFactor)
@@ -179,7 +181,7 @@ extension MergeManager {
             let scaleFactor = CGAffineTransform(scaleX: scaleToFitRatio, y: scaleToFitRatio)
             
             // Align center Y
-            let newY = targetSize.height/2 - (assetTrack.naturalSize.height * scaleToFitRatio)/2
+            let newY = targetSize.height / 2 - (assetTrack.naturalSize.height * scaleToFitRatio) / 2
             let moveCenterFactor = CGAffineTransform(translationX: 0, y: newY)
             
             let finalTransform = transform.concatenating(scaleFactor).concatenating(moveCenterFactor)
@@ -225,7 +227,7 @@ extension MergeManager {
             // Do nothing
         }
         else if image.imageOrientation == UIImage.Orientation.left {
-            let rotate = CGAffineTransform(rotationAngle: .pi/2)
+            let rotate = CGAffineTransform(rotationAngle: .pi / 2)
             onLayer.setAffineTransform(rotate)
         }
         else if image.imageOrientation == UIImage.Orientation.down {
@@ -233,7 +235,7 @@ extension MergeManager {
             onLayer.setAffineTransform(rotate)
         }
         else if image.imageOrientation == UIImage.Orientation.right {
-            let rotate = CGAffineTransform(rotationAngle: -.pi/2)
+            let rotate = CGAffineTransform(rotationAngle: -.pi / 2)
             onLayer.setAffineTransform(rotate)
         }
     }

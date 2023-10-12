@@ -15,18 +15,6 @@ final class FiltersManager {
     
     var selectedFilterIndex = 0
     
-    lazy var sessionConfiguration: URLSessionConfiguration = {
-        let config = URLSessionConfiguration.default
-        config.httpAdditionalHeaders = ["Content-Type": "application/json"]
-        return config
-    }()
-    
-    var getFiltersTask: URLSessionDataTask?
-    
-    
-    // MARK: Loading
-    
-    
     // MARK: Applying filters
     
     func apply(_ filter: CIFilter?, for image: CIImage) -> CIImage {
@@ -83,17 +71,5 @@ final class FiltersManager {
                 completion?(nil)
             }
         }
-    }
-}
-
-
-// MARK: Helpers
-
-final class SessionDelegate: NSObject, URLSessionDelegate {
-    
-    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge,
-                    completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        
-        completionHandler(.useCredential, nil)
     }
 }

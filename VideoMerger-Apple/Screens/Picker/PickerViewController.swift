@@ -161,7 +161,7 @@ extension PickerViewController: PHPickerViewControllerDelegate {
                 guard let self = self else { return }
                 let studioViewController = StudioViewController(videoURLs: self.videoURLs,
                                                                 localFileManager: localFileManager)
-                // COMMENT: Ideally it should be handled by router
+                // OPTIONAL TODO: Ideally it should be handled by router
                 self.navigationController?.pushViewController(studioViewController, animated: true)
                 
                 Log.standard("[PICKER] Picker has closed")

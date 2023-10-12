@@ -11,7 +11,7 @@ import UIKit
 
 public final class Network: Networking {
 
-    private let queue = DispatchQueue(label: "***REMOVED***")
+    private let queue = DispatchQueue(label: "videomerger.queue.network")
 
     public init() {}
 

@@ -278,8 +278,6 @@ final class StudioViewController: BaseViewController {
     
     private func filterVideo(inputVideoURLs: [URL], isPrefiltering: Bool = false, completion: @escaping () -> Void) {
         
-        /* INFO: Applying filter before merge for displaying it in preview and for avoiding filtering of added black space in case of different aspect ratio */
-        
         let selectedImageFilter = filtersManager.filters[selectedFilterIndex]
         
         if isPrefiltering, let url = inputVideoURLs.first {

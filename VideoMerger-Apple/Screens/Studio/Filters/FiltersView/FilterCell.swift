@@ -78,7 +78,8 @@ final class FilterCell: UICollectionViewCell {
     
     // MARK: Configuration
     
-    func configure(with viewCellModel: FiltersCollectionViewCellModeling, currentVideoUrl: URL, filtersManager: FiltersManager, localFileManager: LocalFileManager) {
+    func configure(with viewCellModel: FiltersCollectionViewCellModeling, currentVideoUrl: URL,
+                   filtersManager: FiltersManager, localFileManager: LocalFileManager) {
         
         titleLabel.text = viewCellModel.imageFilter.title.uppercased()
         

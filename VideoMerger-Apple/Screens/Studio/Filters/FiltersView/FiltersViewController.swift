@@ -98,6 +98,8 @@ extension FiltersViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        /* TODO: Ideally it should be just reading url of pre-processed image by separate manager.
+           Thus cells could be loaded independently from the processing. */
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as? FilterCell {
             cell.configure(with: viewCellModels[indexPath.row], currentVideoUrl: currentVideoUrl,
                            filtersManager: filtersManager, localFileManager: localFileManager)
