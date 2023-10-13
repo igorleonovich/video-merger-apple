@@ -9,6 +9,8 @@ import Foundation
 
 final class LocalFileManager {
     
+    // MARK: Common
+    
     private func defaultFileDirectory() -> URL {
         
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -59,9 +61,23 @@ final class LocalFileManager {
         let fileURL = fileURL(fileName: fileName, fileFormat: fileFormat)
         return FileManager.default.fileExists(atPath: fileURL.path)
     }
+    
+    func isFileExists(fileURL: URL) -> Bool {
+        
+        return FileManager.default.fileExists(atPath: fileURL.path)
+    }
 
     func fileURL(fileName: String, fileFormat: String) -> URL {
         
         return defaultFileDirectory().appendingPathComponent(fileName).appendingPathExtension(fileFormat)
+    }
+    
+    
+    // MARK: Custom
+    
+    func thumbnailURL(for url: URL, imageFilter: ImageFilter) -> URL {
+        
+        let thumbnailFilename = "\(url.fileName).\(url.pathExtension).thumbnail.\(imageFilter.title)"
+        return fileURL(fileName: thumbnailFilename, fileFormat: "png")
     }
 }

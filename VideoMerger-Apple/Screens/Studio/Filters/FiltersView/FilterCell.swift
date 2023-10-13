@@ -7,10 +7,9 @@
 
 import UIKit
 
-final class FilterCell: UICollectionViewCell {
+final class FilterCell: CollectionViewCell {
     
     private var stackView: UIStackView!
-    private var imageView: UIImageView!
     private var titleLabel: Label!
     static let titleHeight: CGFloat = 50
     
@@ -83,13 +82,7 @@ final class FilterCell: UICollectionViewCell {
         
         titleLabel.text = viewCellModel.imageFilter.title.uppercased()
         
-        filtersManager.applyThumbnail(with: currentVideoUrl, imageFilter: viewCellModel.imageFilter,
-                                      filtersManager: filtersManager, localFileManager: localFileManager) { [weak self] image in
-            
-            DispatchQueue.main.async {
-                
-                self?.imageView?.image = image
-            }
-        }
+        configure(with: currentVideoUrl, imageFilter: viewCellModel.imageFilter,
+                  filtersManager: filtersManager, localFileManager: localFileManager)
     }
 }

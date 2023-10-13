@@ -12,6 +12,7 @@ final class FiltersViewController: CollectionViewController {
     
     weak var delegate: FiltersViewControllerDelegate!
     weak var filtersManager: FiltersManager!
+    weak var clipsManager: ClipsManager!
     weak var localFileManager: LocalFileManager!
     
     static var height: CGFloat {
@@ -28,8 +29,6 @@ final class FiltersViewController: CollectionViewController {
         }
     }
     
-    var currentVideoUrl: URL!
-    
     public var viewModel: FiltersCollectionViewModeling?
     private var viewCellModels: [FiltersCollectionViewCellModeling] = []
     private var disposeBag = DisposeBag()
@@ -41,10 +40,12 @@ final class FiltersViewController: CollectionViewController {
         super.init()
     }
     
-    init(delegate: FiltersViewControllerDelegate, filtersManager: FiltersManager, localFileManager: LocalFileManager) {
+    init(delegate: FiltersViewControllerDelegate,
+         filtersManager: FiltersManager, clipsManager: ClipsManager, localFileManager: LocalFileManager) {
         super.init()
         self.delegate = delegate
         self.filtersManager = filtersManager
+        self.clipsManager = clipsManager
         self.localFileManager = localFileManager
     }
     
@@ -58,17 +59,17 @@ final class FiltersViewController: CollectionViewController {
         viewModel?.getFilters().subscribe(onNext: { viewCellModels in
             DispatchQueue.main.async { [weak self] in
                 
-                guard let network = self?.viewModel?.network else { return }
+                guard let self = self, let network = self.viewModel?.network else { return }
                 
                 let noFilterCellModel = FiltersCollectionViewCellModel(network: network)
                 var allViewCellModels = viewCellModels
                 allViewCellModels.insert(noFilterCellModel, at: 0)
-                self?.viewCellModels = allViewCellModels
+                self.viewCellModels = allViewCellModels
                 
-                self?.collectionView.reloadData()
+                self.filtersManager.filters.append(contentsOf: viewCellModels.map({ $0.imageFilter }))
+                self.filtersManager.generateThumbnailsForCurrentVideoAndAllFilters()
                 
-                // INFO: Pass filters to FiltersManager for Clips and maybe other modules in future
-                self?.filtersManager.filters.append(contentsOf: viewCellModels.map({ $0.imageFilter }))
+                self.collectionView.reloadData()
             }
         })
         .disposed(by: disposeBag)
@@ -101,7 +102,8 @@ extension FiltersViewController: UICollectionViewDataSource {
         /* TODO: Ideally it should be just reading url of pre-processed image by separate manager.
            Thus cells could be loaded independently from the processing. */
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as? FilterCell {
-            cell.configure(with: viewCellModels[indexPath.row], currentVideoUrl: currentVideoUrl,
+            cell.configure(with: viewCellModels[indexPath.row],
+                           currentVideoUrl: clipsManager.inputVideoURLs[clipsManager.selectedClipIndex],
                            filtersManager: filtersManager, localFileManager: localFileManager)
             return cell
         }

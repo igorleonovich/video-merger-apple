@@ -11,7 +11,6 @@ import SwiftyJSON
 public final class FiltersService: FiltersGetting {
     
     private let network: Networking
-    private let disposeBag = DisposeBag()
     
     public init(network: Networking) {
         self.network = network

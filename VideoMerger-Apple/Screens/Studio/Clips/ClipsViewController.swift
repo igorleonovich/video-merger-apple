@@ -46,6 +46,8 @@ final class ClipsViewController: CollectionViewController {
         collectionView.register(ClipCell.self, forCellWithReuseIdentifier: "ClipCell")
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        filtersManager.generateThumbnailsForCurrentFilterAndAllVideos()
     }
 }
 

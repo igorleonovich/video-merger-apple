@@ -15,8 +15,6 @@ import RxSwift
 
 final class FiltersCollectionViewCellModelSpec: QuickSpec {
     
-    private static let disposeBag = DisposeBag()
-    
     // MARK: Stubs
     
     class StubNetwork: Networking {

@@ -11,9 +11,20 @@ import UIKit
 
 final class FiltersManager {
     
-    var filters: [ImageFilter] = [.noFilter]
+    private weak var localFileManager: LocalFileManager!
+    private weak var clipsManager: ClipsManager!
     
+    var filters: [ImageFilter] = [.noFilter]
     var selectedFilterIndex = 0
+    
+    
+    // MARK: Life Cycle
+    
+    init(localFileManager: LocalFileManager, clipsManager: ClipsManager) {
+        self.localFileManager = localFileManager
+        self.clipsManager = clipsManager
+    }
+    
     
     // MARK: Applying filters
     
@@ -25,23 +36,45 @@ final class FiltersManager {
         return filter.outputImage!
     }
     
-    func applyThumbnail(with url: URL, imageFilter: ImageFilter, filtersManager: FiltersManager, localFileManager: LocalFileManager,
-                        completion: ((UIImage?) -> Void)? = nil) {
+    // MARK: Actions
+    
+    /* INFO: This solution works prefectly for reasonable count of filters only. In case of huge amount of filters
+    it will generate thumbnails for all of them despite of not being visible on collection view */
+    
+    func generateThumbnails() {
+        generateThumbnailsForCurrentVideoAndAllFilters()
+        generateThumbnailsForCurrentFilterAndAllVideos()
+    }
+    
+    func generateThumbnailsForCurrentVideoAndAllFilters() {
         
-        let thumbnailFilename = "\(url.fileName).\(url.pathExtension).thumbnail.\(imageFilter.title)"
-        let thumbnailUrl = localFileManager.fileURL(fileName: thumbnailFilename, fileFormat: "png")
+        filters.forEach { imageFilter in
+            generateThumbnail(with: clipsManager.inputVideoURLs[clipsManager.selectedClipIndex], imageFilter: imageFilter)
+        }
+    }
+    
+    func generateThumbnailsForCurrentFilterAndAllVideos() {
         
-        if localFileManager.isFileExists(fileName: thumbnailFilename, fileFormat: "png"),
+        clipsManager.inputVideoURLs.forEach { videoURL in
+            generateThumbnail(with: videoURL, imageFilter: filters[selectedFilterIndex])
+        }
+    }
+    
+    func generateThumbnail(with videoURL: URL, imageFilter: ImageFilter, completion: ((UIImage?) -> Void)? = nil) {
+        
+        let thumbnailUrl = localFileManager.thumbnailURL(for: videoURL, imageFilter: imageFilter)
+        
+        if localFileManager.isFileExists(fileURL: thumbnailUrl),
            let data = try? Data(contentsOf: thumbnailUrl), let image = UIImage(data: data) {
-            
+
             applyImage(image: image)
             func applyImage(image: UIImage) {
-                
+
                 completion?(image)
             }
         } else {
             let timestamp = CMTime(seconds: 0, preferredTimescale: 60)
-            let asset = AVURLAsset(url: url)
+            let asset = AVURLAsset(url: videoURL)
             let generator = AVAssetImageGenerator(asset: asset)
             generator.appliesPreferredTrackTransform = true
 
@@ -50,7 +83,7 @@ final class FiltersManager {
                 let thumbnailCIImage = CIImage(cgImage: cgImage)
                 
                 if let filter = imageFilter.filter {
-                    let filteredCIImage = filtersManager.apply(filter, for: thumbnailCIImage)
+                    let filteredCIImage = apply(filter, for: thumbnailCIImage)
                     let filteredUIImage = UIImage(ciImage: filteredCIImage)
                     applyAndSaveImage(image: filteredUIImage)
                 } else {

@@ -8,9 +8,8 @@
 import AVFoundation
 import UIKit
 
-final class ClipCell: UICollectionViewCell {
+final class ClipCell: CollectionViewCell {
     
-    private var imageView: UIImageView!
     private var overlayView: UIView!
     
     override var isSelected: Bool {
@@ -61,20 +60,5 @@ final class ClipCell: UICollectionViewCell {
         }
         overlayView.backgroundColor = Constants.backgroundColor
         overlayView.alpha = 0
-    }
-    
-    
-    // MARK: Configuration
-    
-    func configure(with url: URL, imageFilter: ImageFilter, filtersManager: FiltersManager, localFileManager: LocalFileManager) {
-    
-        filtersManager.applyThumbnail(with: url, imageFilter: imageFilter,
-                                      filtersManager: filtersManager, localFileManager: localFileManager) { [weak self] image in
-
-            DispatchQueue.main.async {
-                
-                self?.imageView?.image = image
-            }
-        }
     }
 }

@@ -9,6 +9,7 @@ import Foundation
 
 final class ClipsManager {
     
+    var selectedClipIndex = 0
     var inputVideoURLs = [URL]()
     var outputVideoURLs = [URL]()
 }

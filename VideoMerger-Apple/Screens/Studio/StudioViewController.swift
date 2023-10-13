@@ -38,7 +38,8 @@ final class StudioViewController: BaseViewController {
                 updateThumbnail { [weak self] in
                     self?.filtersViewController.collectionView.reloadData()
                 }
-                filtersViewController.currentVideoUrl = clipsManager.inputVideoURLs[selectedClipIndex]
+                clipsManager.selectedClipIndex = selectedClipIndex
+                filtersManager.generateThumbnails()
             })
         }
     }
@@ -51,6 +52,8 @@ final class StudioViewController: BaseViewController {
                     studioState = .ready
                 }
                 filtersManager.selectedFilterIndex = selectedFilterIndex
+                filtersManager.generateThumbnails()
+                
                 updateThumbnail { [weak self] in
                     self?.clipsViewController.collectionView.reloadData()
                 }
@@ -107,7 +110,7 @@ final class StudioViewController: BaseViewController {
         super.viewDidLoad()
         
         mergeManager = MergeManager(localFileManager: localFileManager)
-        filtersManager = FiltersManager()
+        filtersManager = FiltersManager(localFileManager: localFileManager, clipsManager: clipsManager)
         
         setupStackView()
         
@@ -159,6 +162,7 @@ final class StudioViewController: BaseViewController {
     private func setupCancelButton() {
         
         // TODO: Implement cancellation
+        
 //        let cancelButton = UIBarButtonItem(title: "Cancel".uppercased(), style: .plain, target: self, action: #selector(onCancel(_:)))
         let cancelButton = UIBarButtonItem(title: "".uppercased(), style: .plain, target: self, action: #selector(onCancel(_:)))
         navigationItem.rightBarButtonItem = cancelButton
@@ -212,12 +216,11 @@ final class StudioViewController: BaseViewController {
             filtersViewController = sceneDelegate.container.resolve(FiltersViewController.self)
             filtersViewController.delegate = self
             filtersViewController.filtersManager = filtersManager
+            filtersViewController.clipsManager = clipsManager
             filtersViewController.localFileManager = localFileManager
         }
         
         add(child: filtersViewController, containerView: filtersView)
-        
-        filtersViewController.currentVideoUrl = clipsManager.inputVideoURLs[selectedClipIndex]
     }
     
     private func setupStatus() {
@@ -263,6 +266,7 @@ final class StudioViewController: BaseViewController {
     // MARK: Actions
     
     // TODO: Move Filtering and Merge functions to managers (currently it's toughly bounded to StudioViewController)
+    
     private func prefilterCurrentVideo() {
         
         filterVideo(inputVideoURLs: [clipsManager.inputVideoURLs[selectedClipIndex]], isPrefiltering: true) { [weak self] in
@@ -448,10 +452,8 @@ final class StudioViewController: BaseViewController {
     
     private func updateThumbnail(_ completion: (() -> Void)? = nil) {
         
-        filtersManager.applyThumbnail(with: clipsManager.inputVideoURLs[selectedClipIndex],
-                                 imageFilter: filtersManager.filters[selectedFilterIndex],
-                                 filtersManager: filtersManager,
-                                      localFileManager: localFileManager) { [weak self] image in
+        filtersManager.generateThumbnail(with: clipsManager.inputVideoURLs[selectedClipIndex],
+                                         imageFilter: filtersManager.filters[selectedFilterIndex]) { [weak self] image in
             
             self?.thumbnailView.image = image
             self?.prefilterCurrentVideo()

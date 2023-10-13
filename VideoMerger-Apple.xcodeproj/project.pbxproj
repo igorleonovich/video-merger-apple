@@ -57,6 +57,7 @@
 		697B5CB92ACBCD7C00E01711 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CB82ACBCD7C00E01711 /* ExportViewController.swift */; };
 		697B5CBB2ACBE6BA00E01711 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CBA2ACBE6BA00E01711 /* Button.swift */; };
 		697B5CC72ACCF9EB00E01711 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697B5CC62ACCF9EB00E01711 /* CollectionViewController.swift */; };
+		699BB2332AD8D3AD0036B80F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699BB2322AD8D3AD0036B80F /* CollectionViewCell.swift */; };
 		B790AA37C3BE7BDEFB5451AF /* Pods_VideoMerger_Apple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FEB61ACF58B3CBD29D3207 /* Pods_VideoMerger_Apple.framework */; };
 		E765221F80AAC2995D92B397 /* Pods_FiltersViewModelTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB08C2E15831077231990689 /* Pods_FiltersViewModelTests.framework */; };
 /* End PBXBuildFile section */
@@ -142,6 +143,7 @@
 		697B5CBA2ACBE6BA00E01711 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		697B5CC62ACCF9EB00E01711 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		697B5CDC2AD513C900E01711 /* FiltersViewModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FiltersViewModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		699BB2322AD8D3AD0036B80F /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		6B46C235669282028CC231BF /* Pods-VideoMerger-Apple-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoMerger-Apple-Tests.debug.xcconfig"; path = "Target Support Files/Pods-VideoMerger-Apple-Tests/Pods-VideoMerger-Apple-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C14CCED84A4950CB4949D6F /* Pods-FiltersViewModelTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FiltersViewModelTests.debug.xcconfig"; path = "Target Support Files/Pods-FiltersViewModelTests/Pods-FiltersViewModelTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AB08C2E15831077231990689 /* Pods_FiltersViewModelTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FiltersViewModelTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -242,6 +244,7 @@
 			children = (
 				697B5C992ACB4C3100E01711 /* FiltersViewController.swift */,
 				697B5CA42ACB6E4400E01711 /* FilterCell.swift */,
+				699BB2322AD8D3AD0036B80F /* CollectionViewCell.swift */,
 			);
 			path = FiltersView;
 			sourceTree = "<group>";
@@ -759,6 +762,7 @@
 				691E5C022AD6424D00395128 /* Network.swift in Sources */,
 				697B5CA82ACB761200E01711 /* Label.swift in Sources */,
 				697B5CBB2ACBE6BA00E01711 /* Button.swift in Sources */,
+				699BB2332AD8D3AD0036B80F /* CollectionViewCell.swift in Sources */,
 				697B5C832ACAC6CA00E01711 /* URL+Extensions.swift in Sources */,
 				69696B202ACA31FC007DD91F /* StudioViewController.swift in Sources */,
 				691E5C002AD6424D00395128 /* FiltersGetting.swift in Sources */,
