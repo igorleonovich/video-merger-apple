@@ -31,7 +31,7 @@ final class PreviewViewController: BaseViewController {
     
     func setupPlayer(with url: URL) {
         
-        UIView.transition(with: view, duration: 1, options: .transitionCrossDissolve) { [weak self] in
+        UIView.transition(with: view, duration: Constants.defaultAnimationDuration, options: .transitionCrossDissolve) { [weak self] in
             
             guard let self = self else { return }
             

@@ -28,7 +28,7 @@ final class StudioViewController: BaseViewController {
     private var overlayView: UIView!
     private let statusPanelHeight: CGFloat = 50
     private let topOffset: CGFloat = 15
-    private let animationDuration: CGFloat = 0.5
+    private let animationDuration: CGFloat = Constants.defaultAnimationDuration / 2
     private let activeOverlayViewAlpha: CGFloat = 0.75
     
     private var selectedClipIndex = 0 {
@@ -37,7 +37,8 @@ final class StudioViewController: BaseViewController {
                 guard let self = self else { return }
                 clipsManager.selectedClipIndex = selectedClipIndex
                 filtersManager.generateThumbnailsForCurrentVideoAndAllFilters {
-                    UIView.transition(with: self.view, duration: self.animationDuration, options: .transitionCrossDissolve, animations: { [weak self] in
+                    UIView.transition(with: self.view, duration: self.animationDuration,
+                                      options: .transitionCrossDissolve, animations: { [weak self] in
                         self?.filtersViewController.collectionView.reloadData()
                     })
                 }
@@ -56,7 +57,8 @@ final class StudioViewController: BaseViewController {
                 filtersManager.selectedFilterIndex = selectedFilterIndex
                 filtersManager.generateThumbnailsForCurrentFilterAndAllVideos { [weak self] in
                     guard let self = self else { return }
-                    UIView.transition(with: self.view, duration: self.animationDuration, options: .transitionCrossDissolve, animations: { [weak self] in
+                    UIView.transition(with: self.view, duration: self.animationDuration,
+                                      options: .transitionCrossDissolve, animations: { [weak self] in
                         self?.clipsViewController.collectionView.reloadData()
                     })
                 }
@@ -182,7 +184,7 @@ final class StudioViewController: BaseViewController {
     
     private func setupExportButton() {
         
-        let exportButton = UIBarButtonItem(title: "Export".uppercased(), style: .plain, target: self, action: #selector(onExport(_:)))
+        let exportButton = UIBarButtonItem(title: "Export ".uppercased(), style: .plain, target: self, action: #selector(onExport(_:)))
         navigationItem.rightBarButtonItem = exportButton
     }
     

@@ -70,7 +70,10 @@ final class FiltersViewController: CollectionViewController {
                 self.collectionView.reloadData()
                 
                 self.filtersManager.generateThumbnailsForCurrentVideoAndAllFilters {
-                    self.collectionView.reloadData()
+                    UIView.transition(with: self.view, duration: Constants.defaultAnimationDuration,
+                                      options: .transitionCrossDissolve, animations: { [weak self] in
+                        self?.collectionView.reloadData()
+                    })
                 }
             }
         })

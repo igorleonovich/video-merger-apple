@@ -12,6 +12,7 @@ struct Constants {
     // MARK: UI
     
     static let fontMinimumScaleFactor: CGFloat = 0.5
+    static let defaultAnimationDuration: Double = 1
     
     static let backgroundColor: UIColor = .black
     static let foregroundColor: UIColor = .white
