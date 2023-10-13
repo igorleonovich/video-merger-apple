@@ -47,7 +47,9 @@ final class ClipsViewController: CollectionViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        filtersManager.generateThumbnailsForCurrentFilterAndAllVideos()
+        filtersManager.generateThumbnailsForCurrentFilterAndAllVideos {
+            self.collectionView.reloadData()
+        }
     }
 }
 

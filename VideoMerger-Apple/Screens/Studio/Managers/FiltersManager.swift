@@ -41,22 +41,46 @@ final class FiltersManager {
     /* INFO: This solution works prefectly for reasonable count of filters only. In case of huge amount of filters
     it will generate thumbnails for all of them despite of not being visible on collection view */
     
-    func generateThumbnails() {
-        generateThumbnailsForCurrentVideoAndAllFilters()
-        generateThumbnailsForCurrentFilterAndAllVideos()
-    }
-    
-    func generateThumbnailsForCurrentVideoAndAllFilters() {
+    func generateThumbnailsForCurrentVideoAndAllFilters(_ completion: (() -> Void)? = nil) {
         
-        filters.forEach { imageFilter in
-            generateThumbnail(with: clipsManager.inputVideoURLs[clipsManager.selectedClipIndex], imageFilter: imageFilter)
+        DispatchQueue.global().async { [weak self] in
+            
+            guard let self = self else { return }
+            let group = DispatchGroup()
+            
+            filters.forEach { imageFilter in
+                group.enter()
+                self.generateThumbnail(with: self.clipsManager.inputVideoURLs[self.clipsManager.selectedClipIndex],
+                                       imageFilter: imageFilter) { _ in
+                    group.leave()
+                }
+            }
+            
+            group.notify(queue: .main) {
+                
+                completion?()
+            }
         }
     }
     
-    func generateThumbnailsForCurrentFilterAndAllVideos() {
+    func generateThumbnailsForCurrentFilterAndAllVideos(_ completion: (() -> Void)? = nil) {
         
-        clipsManager.inputVideoURLs.forEach { videoURL in
-            generateThumbnail(with: videoURL, imageFilter: filters[selectedFilterIndex])
+        DispatchQueue.global().async { [weak self] in
+            
+            guard let self = self else { return }
+            let group = DispatchGroup()
+            
+            clipsManager.inputVideoURLs.forEach { videoURL in
+                group.enter()
+                self.generateThumbnail(with: videoURL, imageFilter: self.filters[self.selectedFilterIndex]) { _ in
+                    group.leave()
+                }
+            }
+            
+            group.notify(queue: .main) {
+                
+                completion?()
+            }
         }
     }
     

@@ -72,6 +72,7 @@ final class FilterCell: CollectionViewCell {
         stackView.addArrangedSubview(imageView)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.image = UIImage(named: "ImagePlaceholder")
     }
     
     

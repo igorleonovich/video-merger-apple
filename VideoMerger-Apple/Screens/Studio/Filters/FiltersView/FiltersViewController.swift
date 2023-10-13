@@ -67,9 +67,11 @@ final class FiltersViewController: CollectionViewController {
                 self.viewCellModels = allViewCellModels
                 
                 self.filtersManager.filters.append(contentsOf: viewCellModels.map({ $0.imageFilter }))
-                self.filtersManager.generateThumbnailsForCurrentVideoAndAllFilters()
-                
                 self.collectionView.reloadData()
+                
+                self.filtersManager.generateThumbnailsForCurrentVideoAndAllFilters {
+                    self.collectionView.reloadData()
+                }
             }
         })
         .disposed(by: disposeBag)

@@ -35,11 +35,13 @@ final class StudioViewController: BaseViewController {
         didSet {
             UIView.transition(with: view, duration: animationDuration, options: .transitionCrossDissolve, animations: { [weak self] in
                 guard let self = self else { return }
-                updateThumbnail { [weak self] in
-                    self?.filtersViewController.collectionView.reloadData()
-                }
                 clipsManager.selectedClipIndex = selectedClipIndex
-                filtersManager.generateThumbnails()
+                filtersManager.generateThumbnailsForCurrentVideoAndAllFilters {
+                    UIView.transition(with: self.view, duration: self.animationDuration, options: .transitionCrossDissolve, animations: { [weak self] in
+                        self?.filtersViewController.collectionView.reloadData()
+                    })
+                }
+                updateThumbnail()
             })
         }
     }
@@ -52,11 +54,13 @@ final class StudioViewController: BaseViewController {
                     studioState = .ready
                 }
                 filtersManager.selectedFilterIndex = selectedFilterIndex
-                filtersManager.generateThumbnails()
-                
-                updateThumbnail { [weak self] in
-                    self?.clipsViewController.collectionView.reloadData()
+                filtersManager.generateThumbnailsForCurrentFilterAndAllVideos { [weak self] in
+                    guard let self = self else { return }
+                    UIView.transition(with: self.view, duration: self.animationDuration, options: .transitionCrossDissolve, animations: { [weak self] in
+                        self?.clipsViewController.collectionView.reloadData()
+                    })
                 }
+                updateThumbnail()
             })
         }
     }
