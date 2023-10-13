@@ -112,6 +112,7 @@ final class StudioViewController: BaseViewController {
         mergeManager = MergeManager(localFileManager: localFileManager)
         filtersManager = FiltersManager(localFileManager: localFileManager, clipsManager: clipsManager)
         
+        setupBackButton()
         setupStackView()
         
         setupClips()
@@ -152,6 +153,28 @@ final class StudioViewController: BaseViewController {
     
     
     // MARK: Setup
+    
+    private func setupBackButton() {
+        
+        let imageView = UIImageView()
+             imageView.contentMode = .scaleAspectFit
+             imageView.image = UIImage(named: "Back")
+             
+             let button = Button()
+             button.addSubview(imageView)
+             imageView.snp.makeConstraints { make in
+                 make.right.equalToSuperview()
+                 make.centerY.equalToSuperview()
+                 make.height.equalTo(20)
+             }
+             button.addTarget(self, action: #selector(onClose(_:)), for: .touchUpInside)
+
+             // Somehow it's not tappable without this line
+             button.backgroundColor = .black
+
+             let barButtonItem = UIBarButtonItem(customView: button)
+             navigationItem.leftBarButtonItem = barButtonItem
+    }
     
     private func setupExportButton() {
         
@@ -447,6 +470,10 @@ final class StudioViewController: BaseViewController {
         
     }
     
+    @objc private func onClose(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     
     // MARK: Updates
     
@@ -467,7 +494,7 @@ final class StudioViewController: BaseViewController {
 
 extension StudioViewController: ClipsViewControllerDelegate {
     
-    func didSelectVideo(newIndex: Int) {
+    func didSelectClip(newIndex: Int) {
         
         selectedClipIndex = newIndex
     }

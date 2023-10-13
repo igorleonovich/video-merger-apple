@@ -16,13 +16,12 @@ class CollectionViewCell: UICollectionViewCell {
     
     // MARK: Configuration
     
-    func configure(with currentVideoUrl: URL, imageFilter: ImageFilter,
-                   filtersManager: FiltersManager, localFileManager: LocalFileManager) {
+    func configure(with currentVideoUrl: URL, imageFilter: ImageFilter, localFileManager: LocalFileManager) {
         
         if let data = try? Data(contentsOf: localFileManager.thumbnailURL(for: currentVideoUrl, imageFilter: imageFilter)),
             let image = UIImage(data: data) {
             
-            Log.standard("[THUMBNAIL] Loaded thumbnail for filter '\(imageFilter.title)'")
+//            Log.standard("[THUMBNAIL] Loaded thumbnail for filter '\(imageFilter.title)'")
             imageView?.image = image
             
         } else {

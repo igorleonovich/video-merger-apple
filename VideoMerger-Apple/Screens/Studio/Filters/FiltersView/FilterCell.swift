@@ -77,12 +77,10 @@ final class FilterCell: CollectionViewCell {
     
     // MARK: Configuration
     
-    func configure(with viewCellModel: FiltersCollectionViewCellModeling, currentVideoUrl: URL,
-                   filtersManager: FiltersManager, localFileManager: LocalFileManager) {
+    func configure(with viewCellModel: FiltersCollectionViewCellModeling, currentVideoUrl: URL, localFileManager: LocalFileManager) {
         
         titleLabel.text = viewCellModel.imageFilter.title.uppercased()
         
-        configure(with: currentVideoUrl, imageFilter: viewCellModel.imageFilter,
-                  filtersManager: filtersManager, localFileManager: localFileManager)
+        configure(with: currentVideoUrl, imageFilter: viewCellModel.imageFilter, localFileManager: localFileManager)
     }
 }

@@ -16,8 +16,8 @@ final class ClipsViewController: CollectionViewController {
     
     private var selectedIndex = 0 {
         didSet {
+            delegate?.didSelectClip(newIndex: selectedIndex)
             collectionView?.reloadData()
-            delegate?.didSelectVideo(newIndex: selectedIndex)
         }
     }
     
@@ -65,8 +65,7 @@ extension ClipsViewController: UICollectionViewDataSource {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ClipCell", for: indexPath) as? ClipCell {
             cell.configure(with: clipsManager.inputVideoURLs[indexPath.row],
-                           imageFilter: filtersManager.filters[filtersManager.selectedFilterIndex],
-                           filtersManager: filtersManager, localFileManager: localFileManager)
+                           imageFilter: filtersManager.filters[filtersManager.selectedFilterIndex], localFileManager: localFileManager)
             return cell
         }
         return UICollectionViewCell()
@@ -91,5 +90,5 @@ extension ClipsViewController {
 
 protocol ClipsViewControllerDelegate: AnyObject {
     
-    func didSelectVideo(newIndex: Int)
+    func didSelectClip(newIndex: Int)
 }

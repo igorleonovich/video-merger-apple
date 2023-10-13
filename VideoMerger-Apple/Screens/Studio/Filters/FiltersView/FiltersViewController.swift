@@ -103,8 +103,7 @@ extension FiltersViewController: UICollectionViewDataSource {
            Thus cells could be loaded independently from the processing. */
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as? FilterCell {
             cell.configure(with: viewCellModels[indexPath.row],
-                           currentVideoUrl: clipsManager.inputVideoURLs[clipsManager.selectedClipIndex],
-                           filtersManager: filtersManager, localFileManager: localFileManager)
+                           currentVideoUrl: clipsManager.inputVideoURLs[clipsManager.selectedClipIndex], localFileManager: localFileManager)
             return cell
         }
         return UICollectionViewCell()
