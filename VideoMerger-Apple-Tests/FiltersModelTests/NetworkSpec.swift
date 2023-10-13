@@ -5,7 +5,6 @@
 //  Created by Igor Leonovich on 11/10/2023.
 //
 
-import Alamofire
 import Foundation
 import Nimble
 import Quick

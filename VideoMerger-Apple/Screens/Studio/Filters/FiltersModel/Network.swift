@@ -6,8 +6,8 @@
 //
 
 import Alamofire
+import Foundation
 import RxSwift
-import UIKit
 
 public final class Network: Networking {
 
