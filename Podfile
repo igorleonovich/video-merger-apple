@@ -1,11 +1,9 @@
 platform :ios, '15.0'
 
 def shared_pods
-  
   pod 'Alamofire'
   pod 'RxSwift'
   pod 'SwiftyJSON'
-  pod 'Swinject'
 end
 
 def test_pods
@@ -20,16 +18,19 @@ target 'VideoMerger-Apple' do
   shared_pods
   pod 'ProgressHUD'
   pod 'SnapKit'
+  pod 'Swinject'
 end
 
 target 'FiltersModelTests' do
   use_frameworks!
   
+  shared_pods
   test_pods
 end
 
 target 'FiltersViewModelTests' do
   use_frameworks!
   
+  shared_pods
   test_pods
 end
