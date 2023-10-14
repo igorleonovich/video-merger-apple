@@ -163,23 +163,23 @@ final class StudioViewController: BaseViewController {
     private func setupBackButton() {
         
         let imageView = UIImageView()
-             imageView.contentMode = .scaleAspectFit
-             imageView.image = UIImage(named: "Back")
-             
-             let button = Button()
-             button.addSubview(imageView)
-             imageView.snp.makeConstraints { make in
-                 make.right.equalToSuperview()
-                 make.centerY.equalToSuperview()
-                 make.height.equalTo(20)
-             }
-             button.addTarget(self, action: #selector(onClose(_:)), for: .touchUpInside)
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "Back")
 
-             // Somehow it's not tappable without this line
-             button.backgroundColor = .black
+        let button = Button()
+        button.addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+         make.right.equalToSuperview()
+         make.centerY.equalToSuperview()
+         make.height.equalTo(20)
+        }
+        button.addTarget(self, action: #selector(onClose(_:)), for: .touchUpInside)
 
-             let barButtonItem = UIBarButtonItem(customView: button)
-             navigationItem.leftBarButtonItem = barButtonItem
+        // Somehow it's not tappable without this line
+        button.backgroundColor = .black
+
+        let barButtonItem = UIBarButtonItem(customView: button)
+        navigationItem.leftBarButtonItem = barButtonItem
     }
     
     private func setupExportButton() {
