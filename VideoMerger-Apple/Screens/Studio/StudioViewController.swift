@@ -44,7 +44,7 @@ final class StudioViewController: BaseViewController {
                         ProgressHUD.dismiss()
                     })
                 }
-                updateThumbnail()
+                prefilterCurrentVideo()
             })
         }
     }
@@ -63,7 +63,8 @@ final class StudioViewController: BaseViewController {
                 filtersManager.generateThumbnailsForCurrentFilterAndAllVideos { [weak self] in
                     self?.clipsViewController.collectionView.reloadData()
                 }
-                updateThumbnail()
+                prefilterCurrentVideo()
+
             })
         }
     }
@@ -457,16 +458,6 @@ final class StudioViewController: BaseViewController {
     @objc private func onClose(_ sender: Any) {
         
         navigationController?.popViewController(animated: true)
-    }
-    
-    
-    // MARK: Updates
-    
-    private func updateThumbnail() {
-        
-        filtersManager.generateThumbnail(with: clipsManager.inputVideoURLs[selectedClipIndex],
-                                         imageFilter: filtersManager.filters[selectedFilterIndex])
-        prefilterCurrentVideo()
     }
 }
 

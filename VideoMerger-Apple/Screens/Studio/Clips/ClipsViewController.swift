@@ -83,11 +83,6 @@ extension ClipsViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.cellForItem(at: indexPath)?.isSelected = true
         selectedIndex = indexPath.row
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.defaultAnimationDuration * 0.2) {
-            UIView.animate(withDuration: Constants.defaultAnimationDuration) {
-                collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            }
-        }
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
