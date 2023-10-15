@@ -12,6 +12,7 @@ extension UIViewController {
     // MARK: Childs
     
     func add(child: UIViewController, containerView: UIView? = nil) {
+        
         addChild(child)
         if let containerView = containerView {
             containerView.addSubview(child.view)
@@ -25,9 +26,8 @@ extension UIViewController {
     }
 
     func remove() {
-        guard parent != nil else {
-            return
-        }
+        
+        guard parent != nil else { return }
         willMove(toParent: nil)
         view.removeFromSuperview()
         removeFromParent()

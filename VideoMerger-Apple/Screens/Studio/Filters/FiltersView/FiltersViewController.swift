@@ -30,7 +30,11 @@ final class FiltersViewController: CollectionViewController {
     }
     
     public var viewModel: FiltersCollectionViewModeling?
-    private var viewCellModels: [FiltersCollectionViewCellModeling] = []
+    private lazy var viewCellModels: [FiltersCollectionViewCellModeling] = {
+        guard let viewModel = viewModel else { return [] }
+        let noFilterCellModel = FiltersCollectionViewCellModel(network: viewModel.network)
+        return [noFilterCellModel]
+    }()
     private var disposeBag = DisposeBag()
     
     
@@ -59,17 +63,13 @@ final class FiltersViewController: CollectionViewController {
         viewModel?.getFilters().subscribe(onNext: { viewCellModels in
             DispatchQueue.main.async { [weak self] in
                 
-                guard let self = self, let network = self.viewModel?.network else { return }
+                guard let self = self else { return }
                 
-                let noFilterCellModel = FiltersCollectionViewCellModel(network: network)
-                var allViewCellModels = viewCellModels
-                allViewCellModels.insert(noFilterCellModel, at: 0)
-                self.viewCellModels = allViewCellModels
+                self.viewCellModels.append(contentsOf: viewCellModels)
                 
-                self.filtersManager.filters.append(contentsOf: viewCellModels.map({ $0.imageFilter }))
-                self.collectionView.reloadData()
+                filtersManager.filters.append(contentsOf: viewCellModels.map({ $0.imageFilter }))
                 
-                self.filtersManager.generateThumbnailsForCurrentVideoAndAllFilters {
+                filtersManager.generateThumbnailsForCurrentVideoAndAllFilters {
                     UIView.transition(with: self.view, duration: Constants.defaultAnimationDuration,
                                       options: .transitionCrossDissolve, animations: { [weak self] in
                         self?.collectionView.reloadData()
@@ -122,6 +122,7 @@ extension FiltersViewController {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

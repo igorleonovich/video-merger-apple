@@ -85,12 +85,12 @@ final class PickerViewController: BaseViewController {
         itemProvider.loadFileRepresentation(forTypeIdentifier: movie) { [weak self] externalURL, err in
             guard let self = self else { return }
             if let externalURL = externalURL {
-                DispatchQueue.global().sync {
-                    guard let localURL = self.saveFile(externalURL: externalURL) else { return }
+                DispatchQueue.global(qos: .userInteractive).sync { [weak self] in
+                    guard let self = self, let localURL = self.saveFile(externalURL: externalURL) else { return }
                     self.videoURLs.append(localURL)
                 }
             }
-            self.savingLocallyGroup.leave()
+            savingLocallyGroup.leave()
         }
     }
     
@@ -136,9 +136,10 @@ extension PickerViewController: PHPickerViewControllerDelegate {
         
         picker.dismiss(animated: true) { [weak self] in
             
+            // INFO: Dismissing from StudioViewController
             ProgressHUD.show()
             
-            DispatchQueue.global().sync { [weak self] in
+            DispatchQueue.global(qos: .userInteractive).sync { [weak self] in
                 do {
                     try self?.localFileManager.removeAllFiles()
                 } catch {
@@ -146,7 +147,7 @@ extension PickerViewController: PHPickerViewControllerDelegate {
                 }
                 
                 guard let self = self else { return }
-                self.savingLocallyGroup = DispatchGroup()
+                savingLocallyGroup = DispatchGroup()
                 
                 results.forEach { result in
                     let itemProvider = result.itemProvider
@@ -162,12 +163,10 @@ extension PickerViewController: PHPickerViewControllerDelegate {
                 let studioViewController = StudioViewController(videoURLs: self.videoURLs,
                                                                 localFileManager: localFileManager)
                 // OPTIONAL TODO: Ideally it should be handled by router
-                self.navigationController?.pushViewController(studioViewController, animated: true)
+                navigationController?.pushViewController(studioViewController, animated: true)
                 
                 Log.standard("[PICKER] Picker has closed")
                 self.picker = nil
-                
-                ProgressHUD.dismiss()
             }
         }
     }

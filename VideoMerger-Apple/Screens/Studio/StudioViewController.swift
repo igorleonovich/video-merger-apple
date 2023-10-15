@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+import ProgressHUD
 import SnapKit
 import UIKit
 
@@ -33,27 +34,32 @@ final class StudioViewController: BaseViewController {
     
     private var selectedClipIndex = 0 {
         didSet {
-            UIView.transition(with: view, duration: animationDuration, options: .transitionCrossDissolve, animations: { [weak self] in
+            UIView.transition(with: view, duration: animationDuration / 2, options: .transitionCrossDissolve, animations: { [weak self] in
                 guard let self = self else { return }
                 clipsManager.selectedClipIndex = selectedClipIndex
                 filtersManager.generateThumbnailsForCurrentVideoAndAllFilters {
-                    UIView.transition(with: self.view, duration: self.animationDuration,
+                    UIView.transition(with: self.view, duration: self.animationDuration / 2,
                                       options: .transitionCrossDissolve, animations: { [weak self] in
                         self?.filtersViewController.collectionView.reloadData()
+                        // INFO: Dismissing ProgressHUD shown from PickerViewController
+                        ProgressHUD.dismiss()
                     })
                 }
+                updateThumbnail()
             })
-            updateThumbnail()
         }
     }
     private var selectedFilterIndex = 0 {
         didSet {
-            previewViewController.player.removeAllItems()
             UIView.transition(with: view, duration: animationDuration, options: .transitionCrossDissolve, animations: { [weak self] in
                 guard let self = self else { return }
                 if studioState == .exported, oldValue != selectedFilterIndex {
                     studioState = .ready
                 }
+            })
+            
+            UIView.transition(with: view, duration: animationDuration, options: .transitionCrossDissolve, animations: { [weak self] in
+                guard let self = self else { return }
                 filtersManager.selectedFilterIndex = selectedFilterIndex
                 filtersManager.generateThumbnailsForCurrentFilterAndAllVideos { [weak self] in
                     self?.clipsViewController.collectionView.reloadData()
@@ -70,7 +76,9 @@ final class StudioViewController: BaseViewController {
             case .loading:
                 break
             case .ready:
-                overlayView.alpha = 0
+                UIView.transition(with: view, duration: Constants.defaultAnimationDuration, options: .transitionCrossDissolve) { [weak self] in
+                        self?.overlayView.alpha = 0
+                }
                 setupExportButton()
                 if oldValue == .prefiltering {
                     exportAction?()
@@ -122,6 +130,8 @@ final class StudioViewController: BaseViewController {
         setupFilters()
         setupStatus()
         
+        studioState = .loading
+        
         setupOverlay()
         
         previewViewController.setupPlayerView()
@@ -137,19 +147,10 @@ final class StudioViewController: BaseViewController {
         if let url = clipsManager.inputVideoURLs.first {
             previewViewController.isPlayerSetup = true
             DispatchQueue.main.async { [weak self] in
-                self?.previewViewController.setupPlayer(with: url)
                 self?.selectedClipIndex = 0
             }
         } else {
             Log.error("[STUDIO] Can't load initial video into player")
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if studioState == .loading {
-            studioState = .ready
         }
     }
     
@@ -271,6 +272,7 @@ final class StudioViewController: BaseViewController {
         }
         thumbnailView.contentMode = .scaleAspectFill
         thumbnailView.clipsToBounds = true
+        thumbnailView.alpha = 0
     }
     
     private func setupOverlay() {
@@ -290,7 +292,7 @@ final class StudioViewController: BaseViewController {
     
     // MARK: Actions
     
-    // TODO: Move Filtering and Merge functions to managers (currently it's toughly bounded to StudioViewController)
+    // OPTIONAL TODO: Try to move these filtering and merging functions to correspond managers (currently it's toughly bounded to StudioViewController)
     
     private func prefilterCurrentVideo() {
         
@@ -299,8 +301,8 @@ final class StudioViewController: BaseViewController {
             UIView.transition(with: view, duration: animationDuration * 2, options: .transitionCrossDissolve) { [weak self] in
                 self?.thumbnailView.image = nil
             }
-            if self.studioState == .prefiltering {
-                self.studioState = .ready
+            if studioState == .prefiltering {
+                studioState = .ready
             }
         }
     }
@@ -363,7 +365,7 @@ final class StudioViewController: BaseViewController {
                 guard let self = self else { return }
                 let source = request.sourceImage.clampedToExtent()
                 
-                let outputImage = self.filtersManager.apply(selectedImageFilter.filter, for: source)
+                let outputImage = filtersManager.apply(selectedImageFilter.filter, for: source)
                 
                 request.finish(with: outputImage, context: nil)
             }
@@ -386,7 +388,6 @@ final class StudioViewController: BaseViewController {
                 
                 DispatchQueue.main.async { [weak self] in
                     // TODO: Pass item instead of url?
-                    // TODO: Avoid blink from player switching
                     self?.previewViewController.setupPlayer(with: outputURL)
                 }
                 
@@ -471,6 +472,7 @@ final class StudioViewController: BaseViewController {
     }
     
     @objc private func onClose(_ sender: Any) {
+        
         navigationController?.popViewController(animated: true)
     }
     
@@ -481,10 +483,11 @@ final class StudioViewController: BaseViewController {
         
         filtersManager.generateThumbnail(with: clipsManager.inputVideoURLs[selectedClipIndex],
                                          imageFilter: filtersManager.filters[selectedFilterIndex]) { [weak self] image in
-            
-            self?.thumbnailView.image = image
-            self?.prefilterCurrentVideo()
+            guard let self = self else { return }
+            self.thumbnailView.image = image
+            if self.thumbnailView.alpha != 1, self.studioState != .loading { self.thumbnailView.alpha = 1 }
         }
+        prefilterCurrentVideo()
     }
 }
 

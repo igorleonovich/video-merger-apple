@@ -56,8 +56,6 @@ final class StatusViewController: BaseViewController {
         textLabel.textAlignment = .center
         textLabel.font = Font.large.uifont
         textLabel.textColor = Constants.backgroundColor
-        
-        textLabel.text = "Status".uppercased()
     }
     
     private func setupTapGesture() {

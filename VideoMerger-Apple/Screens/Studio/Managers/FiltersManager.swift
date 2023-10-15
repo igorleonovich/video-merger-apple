@@ -43,7 +43,7 @@ final class FiltersManager {
     
     func generateThumbnailsForCurrentVideoAndAllFilters(_ completion: (() -> Void)? = nil) {
         
-        DispatchQueue.global().async { [weak self] in
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             
             guard let self = self else { return }
             let group = DispatchGroup()
@@ -57,7 +57,6 @@ final class FiltersManager {
             }
             
             group.notify(queue: .main) {
-                
                 completion?()
             }
         }
@@ -65,7 +64,7 @@ final class FiltersManager {
     
     func generateThumbnailsForCurrentFilterAndAllVideos(_ completion: (() -> Void)? = nil) {
         
-        DispatchQueue.global().async { [weak self] in
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             
             guard let self = self else { return }
             let group = DispatchGroup()
@@ -78,7 +77,6 @@ final class FiltersManager {
             }
             
             group.notify(queue: .main) {
-                
                 completion?()
             }
         }

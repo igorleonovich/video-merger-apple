@@ -153,10 +153,7 @@ extension MergeManager {
                                                      asset: AVAsset,
                                                      targetSize: CGSize) -> AVMutableVideoCompositionLayerInstruction {
         
-        guard let track = track else {
-            return AVMutableVideoCompositionLayerInstruction()
-        }
-        
+        guard let track = track else { return AVMutableVideoCompositionLayerInstruction() }
         let instruction = AVMutableVideoCompositionLayerInstruction(assetTrack: track)
         let assetTrack = asset.tracks(withMediaType: AVMediaType.video)[0]
 

@@ -19,9 +19,7 @@ final class LocalFileManager {
 
     func removeFileIfExists(fileName: String, fileFormat: String) throws {
         
-        guard isFileExists(fileName: fileName, fileFormat: fileFormat) else {
-            return
-        }
+        guard isFileExists(fileName: fileName, fileFormat: fileFormat) else { return }
         let fileURL = fileURL(fileName: fileName, fileFormat: fileFormat)
         do {
             try FileManager.default.removeItem(at: fileURL)
