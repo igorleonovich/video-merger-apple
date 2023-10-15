@@ -67,7 +67,7 @@ final class FiltersServiceSpec: QuickSpec {
         
         it("returns filters if the network works correctly.") {
             
-            var response: ResponseEntity? = nil
+            var response: FiltersResponse? = nil
             let filtersService = FiltersService(network: SuccessfulStubNetwork())
 
             filtersService.getFilters()

@@ -1,5 +1,5 @@
 //
-//  CollectionViewCell.swift
+//  ThumbnailedCollectionViewCell.swift
 //  VideoMerger-Apple
 //
 //  Created by Igor Leonovich on 13/10/2023.
@@ -7,12 +7,11 @@
 
 import UIKit
 
-// INFO: Currently placed in Filters model due to MVVM implementation only for it
+// INFO: Currently placed in Filters module due to MVVM implementation only for it. Also used in: ClipCell
 
-class CollectionViewCell: UICollectionViewCell {
+class ThumbnailedCollectionViewCell: UICollectionViewCell {
     
     var imageView: UIImageView!
-    
     
     // MARK: Configuration
     

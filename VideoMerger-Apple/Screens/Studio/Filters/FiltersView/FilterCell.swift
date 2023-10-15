@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class FilterCell: CollectionViewCell {
+final class FilterCell: ThumbnailedCollectionViewCell {
     
     private var stackView: UIStackView!
     private var titleLabel: Label!

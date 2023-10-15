@@ -8,7 +8,7 @@
 import AVFoundation
 import UIKit
 
-final class ClipCell: CollectionViewCell {
+final class ClipCell: ThumbnailedCollectionViewCell {
     
     private var overlayView: UIView!
     

@@ -9,5 +9,5 @@ import RxSwift
 
 public protocol FiltersGetting {
     
-    func getFilters() -> Observable<ResponseEntity>
+    func getFilters() -> Observable<FiltersResponse>
 }

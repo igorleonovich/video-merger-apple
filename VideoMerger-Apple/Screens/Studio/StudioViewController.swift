@@ -42,8 +42,8 @@ final class StudioViewController: BaseViewController {
                         self?.filtersViewController.collectionView.reloadData()
                     })
                 }
-                updateThumbnail()
             })
+            updateThumbnail()
         }
     }
     private var selectedFilterIndex = 0 {
@@ -165,14 +165,14 @@ final class StudioViewController: BaseViewController {
         let button = Button()
         button.addSubview(imageView)
         imageView.snp.makeConstraints { make in
-         make.right.equalToSuperview()
-         make.centerY.equalToSuperview()
-         make.height.equalTo(20)
+            make.left.equalToSuperview().offset(-15)
+            make.centerY.equalToSuperview()
+            make.height.equalTo(20)
         }
         button.addTarget(self, action: #selector(onClose(_:)), for: .touchUpInside)
 
         // Somehow it's not tappable without this line
-        button.backgroundColor = .black
+        button.backgroundColor = Constants.backgroundColor
 
         let barButtonItem = UIBarButtonItem(customView: button)
         navigationItem.leftBarButtonItem = barButtonItem
@@ -401,19 +401,17 @@ final class StudioViewController: BaseViewController {
     
     private func mergeAndExportVideo(_ completion: @escaping (URL?) -> Void) {
         
-        let assets = clipsManager.outputVideoURLs.map({ AVAsset(url: $0) })
+        let videoAssets = clipsManager.outputVideoURLs.map({ AVAsset(url: $0) })
         
-        mergeManager.merge(arrayVideos: assets) { [weak self] mergedVideoURL, error in
-            if let error = error {
-                Log.error("[STUDIO] Merge failed:\n\(error)")
-                completion(nil)
-                self?.studioState = .ready
-                
-            } else if let mergedVideoURL = mergedVideoURL {
+        mergeManager.merge(videoAssets: videoAssets) { [weak self] mergedVideoURL, error in
+            if let mergedVideoURL = mergedVideoURL {
                 Log.standard("[STUDIO] Merge done:\n\(mergedVideoURL)")
                 completion(mergedVideoURL)
                 self?.studioState = .exported
-                
+            } else if let error = error {
+                Log.error("[STUDIO] Merge failed:\n\(error)")
+                completion(nil)
+                self?.studioState = .ready
             } else {
                 Log.error("[STUDIO] Merged video url creating failed")
                 completion(nil)
@@ -479,14 +477,13 @@ final class StudioViewController: BaseViewController {
     
     // MARK: Updates
     
-    private func updateThumbnail(_ completion: (() -> Void)? = nil) {
+    private func updateThumbnail() {
         
         filtersManager.generateThumbnail(with: clipsManager.inputVideoURLs[selectedClipIndex],
                                          imageFilter: filtersManager.filters[selectedFilterIndex]) { [weak self] image in
             
             self?.thumbnailView.image = image
             self?.prefilterCurrentVideo()
-            completion?()
         }
     }
 }

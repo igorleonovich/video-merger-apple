@@ -60,12 +60,12 @@ final class ExportViewController: BaseViewController {
         stackView.addArrangedSubview(playerView)
         stackView.setCustomSpacing(playerPadding, after: playerView)
         
-        let avPlayerViewController = AVPlayerViewController()
+        let playerViewController = AVPlayerViewController()
         let player = AVPlayer(url: url)
-        avPlayerViewController.player = player
-        avPlayerViewController.view.backgroundColor = view.backgroundColor
+        playerViewController.player = player
+        playerViewController.view.backgroundColor = view.backgroundColor
         
-        add(child: avPlayerViewController, containerView: playerView)
+        add(child: playerViewController, containerView: playerView)
         
         #if DEBUG
         player.volume = 0
@@ -94,8 +94,8 @@ final class ExportViewController: BaseViewController {
         
         ProgressHUD.show()
         let objectsToShare = [url]
-        let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-        present(activityVC, animated: true) {
+        let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        present(activityViewController, animated: true) {
             ProgressHUD.dismiss()
         }
     }

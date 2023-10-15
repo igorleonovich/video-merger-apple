@@ -8,7 +8,7 @@
 import Foundation
 import SwiftyJSON
 
-public struct ResponseEntity {
+public struct FiltersResponse {
     
     public let filters: [ImageFilterDTO]
 }
@@ -16,9 +16,9 @@ public struct ResponseEntity {
 
 // MARK: Decodable
 
-extension ResponseEntity: Decodable {
+extension FiltersResponse: Decodable {
     
-    public static func decode(_ json: JSON) throws -> ResponseEntity {
+    public static func decode(_ json: JSON) throws -> FiltersResponse {
         
         guard let filtersJson = json["filters"].array else {
             throw NetworkError.IncorrectDataReturned
@@ -29,7 +29,7 @@ extension ResponseEntity: Decodable {
             filters.append(try ImageFilterDTO.decode(json))
         }
 
-        return ResponseEntity(
+        return FiltersResponse(
             filters: filters
         )
     }

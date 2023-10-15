@@ -34,14 +34,14 @@ final class MergeManager {
     
     // MARK: - Actions
     
-    func merge(arrayVideos: [AVAsset], completion: @escaping Completion) -> Void {
+    func merge(videoAssets: [AVAsset], completion: @escaping Completion) -> Void {
         
         var insertTime = CMTime.zero
-        var arrayLayerInstructions: [AVMutableVideoCompositionLayerInstruction] = []
+        var arrayLayerInstructions = [AVMutableVideoCompositionLayerInstruction]()
 
         // Silence sound (in case video has no sound track)
         guard let silenceURL = Bundle.main.url(forResource: "silence", withExtension: "mp3") else {
-            print("Missing resource")
+            Log.error("[MERGE] Missing silence audio resource")
             completion(nil, nil)
             return
         }
@@ -52,12 +52,12 @@ final class MergeManager {
         // Init composition
         let mixComposition = AVMutableComposition()
         
-        for videoAsset in arrayVideos {
+        for videoAsset in videoAssets {
             // Get video track
             guard let videoTrack = videoAsset.tracks(withMediaType: AVMediaType.video).first else { continue }
             
             // Get audio track
-            var audioTrack:AVAssetTrack?
+            var audioTrack: AVAssetTrack?
             if videoAsset.tracks(withMediaType: AVMediaType.audio).count > 0 {
                 audioTrack = videoAsset.tracks(withMediaType: AVMediaType.audio).first
             }
@@ -106,7 +106,7 @@ final class MergeManager {
                 insertTime = CMTimeAdd(insertTime, duration)
             }
             catch {
-                print("Load track error")
+                Log.error("[MERGE] Load track error:\n\(videoAsset)")
             }
         }
         
@@ -219,7 +219,7 @@ extension MergeManager {
         return (assetOrientation, isPortrait)
     }
     
-    private func setOrientation(image:UIImage?, onLayer:CALayer, outputSize:CGSize) -> Void {
+    private func setOrientation(image: UIImage?, onLayer: CALayer, outputSize:CGSize) -> Void {
         
         guard let image = image else { return }
 
@@ -244,10 +244,12 @@ extension MergeManager {
         
         if exporter?.status == AVAssetExportSession.Status.completed {
             mergedURL = videoURL
-            completion(videoURL,nil)
+            completion(videoURL, nil)
         }
         else if exporter?.status == AVAssetExportSession.Status.failed {
-            completion(videoURL,exporter?.error)
+            completion(videoURL, exporter?.error)
+        } else {
+            completion(nil, exporter?.error)
         }
     }
 }

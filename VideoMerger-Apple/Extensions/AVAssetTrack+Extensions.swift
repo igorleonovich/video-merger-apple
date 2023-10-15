@@ -14,15 +14,7 @@
 //
 
 import AVKit
-import UIKit
-
-extension Double {
-    
-    func toCMTime() -> CMTime {
-        
-        return CMTime(seconds: self, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
-    }
-}
+import Foundation
 
 extension AVAssetTrack {
     

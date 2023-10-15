@@ -19,7 +19,7 @@ final class FiltersCollectionViewModelSpec: QuickSpec {
 
     class StubImageSearch: FiltersGetting {
         
-        func getFilters() -> Observable<ResponseEntity> {
+        func getFilters() -> Observable<FiltersResponse> {
             return Observable.create { observer -> Disposable in
                 observer.onNext(dummyResponse)
                 observer.onCompleted()

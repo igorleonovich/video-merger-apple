@@ -10,7 +10,7 @@ import Foundation
 @testable import VideoMerger_Apple
 
 
-let dummyResponse: ResponseEntity = {
+let dummyResponse: FiltersResponse = {
     
     let filter0 = ImageFilterDTO(
         name: "name1",
@@ -18,5 +18,5 @@ let dummyResponse: ResponseEntity = {
     let filter1 = ImageFilterDTO(
         name: "name2",
         title: "title2")
-    return ResponseEntity(filters: [filter0, filter1])
+    return FiltersResponse(filters: [filter0, filter1])
 }()

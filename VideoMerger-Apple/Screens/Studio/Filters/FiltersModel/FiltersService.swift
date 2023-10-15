@@ -16,7 +16,7 @@ public final class FiltersService: FiltersGetting {
         self.network = network
     }
 
-    public func getFilters() -> Observable<ResponseEntity> {
+    public func getFilters() -> Observable<FiltersResponse> {
         
         let url = "\(Constants.baseUrl)/filters"
         return Observable.create { [weak self] observer -> Disposable in
@@ -27,7 +27,7 @@ public final class FiltersService: FiltersGetting {
 
             return network.requestJSON(url: url, parameters: nil)
                 .subscribe(onNext: { json in
-                    if let response = try? ResponseEntity.decode(JSON(json)) {
+                    if let response = try? FiltersResponse.decode(JSON(json)) {
                         observer.onNext(response)
                         return
                     }
