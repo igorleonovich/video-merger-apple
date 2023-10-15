@@ -24,7 +24,6 @@ final class StudioViewController: BaseViewController {
     
     private var stackView: UIStackView!
     private var previewView: UIView!
-    private var thumbnailView: UIImageView!
     private var filtersView: UIView!
     private var overlayView: UIView!
     private let statusPanelHeight: CGFloat = 50
@@ -135,7 +134,6 @@ final class StudioViewController: BaseViewController {
         setupOverlay()
         
         previewViewController.setupPlayerView()
-        setupThumbnail()
     }
     
     override func viewDidLayoutSubviews() {
@@ -263,18 +261,6 @@ final class StudioViewController: BaseViewController {
         statusViewController.view.backgroundColor = Constants.tintColor
     }
     
-    private func setupThumbnail() {
-        
-        thumbnailView = UIImageView()
-        view.addSubview(thumbnailView)
-        thumbnailView.snp.makeConstraints { make in
-            make.edges.equalTo(previewView)
-        }
-        thumbnailView.contentMode = .scaleAspectFill
-        thumbnailView.clipsToBounds = true
-        thumbnailView.alpha = 0
-    }
-    
     private func setupOverlay() {
         
         overlayView = UIView()
@@ -298,9 +284,6 @@ final class StudioViewController: BaseViewController {
         
         filterVideo(inputVideoURLs: [clipsManager.inputVideoURLs[selectedClipIndex]], isPrefiltering: true) { [weak self] in
             guard let self = self else { return }
-            UIView.transition(with: view, duration: animationDuration * 2, options: .transitionCrossDissolve) { [weak self] in
-                self?.thumbnailView.image = nil
-            }
             if studioState == .prefiltering {
                 studioState = .ready
             }
@@ -482,11 +465,7 @@ final class StudioViewController: BaseViewController {
     private func updateThumbnail() {
         
         filtersManager.generateThumbnail(with: clipsManager.inputVideoURLs[selectedClipIndex],
-                                         imageFilter: filtersManager.filters[selectedFilterIndex]) { [weak self] image in
-            guard let self = self else { return }
-            self.thumbnailView.image = image
-            if self.thumbnailView.alpha != 1, self.studioState != .loading { self.thumbnailView.alpha = 1 }
-        }
+                                         imageFilter: filtersManager.filters[selectedFilterIndex])
         prefilterCurrentVideo()
     }
 }
