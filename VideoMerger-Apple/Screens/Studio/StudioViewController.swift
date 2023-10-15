@@ -56,11 +56,7 @@ final class StudioViewController: BaseViewController {
                 }
                 filtersManager.selectedFilterIndex = selectedFilterIndex
                 filtersManager.generateThumbnailsForCurrentFilterAndAllVideos { [weak self] in
-                    guard let self = self else { return }
-                    UIView.transition(with: self.view, duration: self.animationDuration,
-                                      options: .transitionCrossDissolve, animations: { [weak self] in
-                        self?.clipsViewController.collectionView.reloadData()
-                    })
+                    self?.clipsViewController.collectionView.reloadData()
                 }
                 updateThumbnail()
             })
