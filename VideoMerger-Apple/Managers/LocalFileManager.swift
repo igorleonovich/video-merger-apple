@@ -28,7 +28,7 @@ final class LocalFileManager {
         }
     }
     
-    func removeFileIfExists(_ url: URL) -> Void {
+    func removeFileIfExists(_ url: URL) {
         
         if FileManager.default.fileExists(atPath: url.path) {
             do {

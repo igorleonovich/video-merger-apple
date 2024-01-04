@@ -34,7 +34,7 @@ final class MergeManager {
     
     // MARK: - Actions
     
-    func merge(videoAssets: [AVAsset], completion: @escaping Completion) -> Void {
+    func merge(videoAssets: [AVAsset], completion: @escaping Completion) {
         
         var insertTime = CMTime.zero
         var arrayLayerInstructions = [AVMutableVideoCompositionLayerInstruction]()
@@ -216,7 +216,7 @@ extension MergeManager {
         return (assetOrientation, isPortrait)
     }
     
-    private func setOrientation(image: UIImage?, onLayer: CALayer, outputSize:CGSize) -> Void {
+    private func setOrientation(image: UIImage?, onLayer: CALayer, outputSize:CGSize) {
         
         guard let image = image else { return }
 
@@ -237,7 +237,7 @@ extension MergeManager {
         }
     }
     
-    private func exportDidFinish(exporter: AVAssetExportSession?, videoURL: URL, completion: @escaping Completion) -> Void {
+    private func exportDidFinish(exporter: AVAssetExportSession?, videoURL: URL, completion: @escaping Completion) {
         
         if exporter?.status == AVAssetExportSession.Status.completed {
             mergedURL = videoURL
